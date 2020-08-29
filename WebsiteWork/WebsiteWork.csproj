@@ -149,7 +149,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\ViewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2048,6 +2051,10 @@
     <Content Include="Images\Advertise\fpt-telecom-tuyen-nhan-vien-kinh-doanh.jpg" />
     <Content Include="Images\Advertise\topcv-google-for-startups.jpg" />
     <Content Include="Images\Employer\cong-ty-co-phan-vien-thong-fpt-5d5f5980e317c.jpg" />
+    <Content Include="Images\User\32644928_2062295167425734_7686714948314988544_o.jpg" />
+    <Content Include="Images\Work\danh-ba-trung-tam-tu-van-gioi-thieu-viec-lam-khu-vuc-mien-nam-99.jpg" />
+    <Content Include="Images\Work\unnamed.jpg" />
+    <Content Include="Images\Work\VietBeauty-Academy-cam-ket-tuyen-dung-viec-lam.png" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
@@ -2327,6 +2334,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Views\Account\form.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2352,6 +2360,10 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\Menu.cshtml" />
+    <Content Include="Views\View\DetailsView.cshtml" />
+    <Content Include="Views\View\re.cshtml" />
+    <Content Include="Views\Search\ViewSrarch.cshtml" />
+    <Content Include="Views\Account\ViewLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

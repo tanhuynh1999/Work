@@ -1,4 +1,9 @@
-﻿<style>
+﻿@using WebsiteWork.Models
+@{ 
+    User user = (User)Session["user"];
+    String user_idtext = "TW1S";
+}
+<style>
     .menu ul li a {
         color: #151965 !important;
     }
@@ -31,7 +36,7 @@
 <div class="w3l-bootstrap-header fixed-top">
     <nav class="navbar navbar-expand-lg navbar-light p-2">
         <div class="container">
-            <a class="navbar-brand logo" href="index.html"><span class="fas fa-briefcase"></span><b class="all">All</b><b class="work">Work</b><b class="ms">1s</b></a>
+            <a class="navbar-brand logo" href="@Url.Action("")"><span class="fas fa-briefcase"></span><b class="all">All</b><b class="work">Work</b><b class="ms">1s</b></a>
             <!-- if logo is image enable this
             <a class="navbar-brand" href="#index.html">
                 <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
@@ -58,9 +63,44 @@
                     <li class="nav-item">
                         <a class="nav-link text-danger" href="contact.html" style="font-weight: bold">Gốc chia sẻ</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Đăng nhập</a>
-                    </li>
+                    @if (user != null)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link nav-link-icon dropdown-toggle" href="javascript:;" id="navbar-default_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @if (user.user_image == null)
+                                {
+                                    <img src="~/Images/User/822711_user_512x512.png" style="width: 30px; height: 30px" class="rounded-circle" />
+                                }
+                                else
+                                { 
+                                    <img src="~/Images/User/@user.user_image" style="width: 30px; height: 30px" class="rounded-circle" />
+                                }
+                                Chào: @user.user_nicename
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1">
+                                <a class="dropdown-item" href="javascript:;" style="font-size: 15px !important"><b class="text-dark">Mã ứng viên: @user_idtext@user.user_id</b></a>
+                                <a class="dropdown-item" href="javascript:;" style="font-size: 15px !important">Tạo CV xin việc</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:;"><i class="fas fa-user">&nbsp;</i>Thông tin tài khoản</a>
+                                <a class="dropdown-item" href="javascript:;"><i class="fas fa-address-card">&nbsp;</i>Quản lý hồ sơ</a>
+                                <a class="dropdown-item" href="javascript:;"><i class="fas fa-heart">&nbsp;</i>Việc làm đã lưu</a>
+                                <a class="dropdown-item" href="javascript:;"><i class="fas fa-eye">&nbsp;</i>NTD xem hồ sơ</a>
+                                <a class="dropdown-item" href="javascript:;"><i class="fas fa-search">&nbsp;</i>Cài đặt tìm việc</a>
+                                <a class="dropdown-item" href="javascript:;"><i class="fas fa-user-cog">&nbsp;</i>Cài đặt tài khoản</a>
+                                <a class="dropdown-item" href="javascript:;"><i class="fas fa-cog">&nbsp;</i>Tùy chọn</a>
+                                <a class="dropdown-item" href="javascript:;"><i class="fas fa-level-up-alt">&nbsp;</i>Nâng cấp tài khoản</a>
+                                <a class="dropdown-item" href="javascript:;"><i class="fas fa-pager">&nbsp;</i>Quản lý Bài viết</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="@Url.Action("Logout","Account")"><i class="fas fa-sign-out-alt">&nbsp;</i>Đăng xuất</a>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("ViewLogin","Account")">Đăng nhập</a>
+                        </li>
+                    }
                 </ul>
                 <div class="form-inline">
                     <div class="semi-rounded-buttons">

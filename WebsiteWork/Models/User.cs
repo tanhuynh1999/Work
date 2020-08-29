@@ -24,5 +24,6 @@ namespace WebsiteWork.Models
         public Nullable<int> user_role { get; set; }
         public Nullable<System.DateTime> user_datelogin { get; set; }
         public Nullable<bool> user_activate { get; set; }
+        public string user_image { get; set; }
     }
 }
