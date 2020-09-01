@@ -26,10 +26,5 @@ namespace WebsiteWork.Controllers
         {
             return View();
         }
-        //Kiểm tra
-        public PartialViewResult CheckFullName()
-        {
-            return PartialView();
-        }
     }
 }
