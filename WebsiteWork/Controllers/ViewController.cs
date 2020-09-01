@@ -21,5 +21,15 @@ namespace WebsiteWork.Controllers
             List<Work> work = db.Works.ToList();
             return Json(work,JsonRequestBehavior.AllowGet);
         }
+        
+
+
+
+
+
+        public ActionResult TestCode()
+        {
+            return View();
+        }
     }
 }

@@ -150,8 +150,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CVUserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ViewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2045,11 +2047,25 @@
     <Content Include="Content\UI\js\popper.min.js" />
     <Content Include="Content\UI\js\vendor\jquery-1.12.4.min.js" />
     <Content Include="Content\UI\js\vendor\modernizr-3.6.0.min.js" />
+    <Content Include="Content\UI\UIImages\css\bootstrap.css" />
+    <Content Include="Content\UI\UIImages\css\pe-icon-7-stroke.css" />
+    <Content Include="Content\UI\UIImages\css\rotating-card.css" />
+    <Content Include="Content\UI\UIImages\images\rotating_card_profile.png" />
+    <Content Include="Content\UI\UIImages\images\rotating_card_profile2.png" />
+    <Content Include="Content\UI\UIImages\images\rotating_card_profile3.png" />
+    <Content Include="Content\UI\UIImages\images\rotating_card_thumb.jpg" />
+    <Content Include="Content\UI\UIImages\images\rotating_card_thumb.png" />
+    <Content Include="Content\UI\UIImages\images\rotating_card_thumb2.png" />
+    <Content Include="Content\UI\UIImages\images\rotating_card_thumb3.png" />
+    <Content Include="Content\UI\UIImages\images\tim_logo.png" />
+    <Content Include="Content\UI\UIImages\js\bootstrap.min.js" />
+    <Content Include="Content\UI\UIImages\js\jquery-1.10.2.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\Advertise\fpt-telecom-tuyen-nhan-vien-kinh-doanh.jpg" />
     <Content Include="Images\Advertise\topcv-google-for-startups.jpg" />
+    <Content Include="Images\Cv\32644928_2062295167425734_7686714948314988544_o.jpg" />
     <Content Include="Images\Employer\cong-ty-co-phan-vien-thong-fpt-5d5f5980e317c.jpg" />
     <Content Include="Images\User\32644928_2062295167425734_7686714948314988544_o.jpg" />
     <Content Include="Images\Work\danh-ba-trung-tam-tu-van-gioi-thieu-viec-lam-khu-vuc-mien-nam-99.jpg" />
@@ -2343,7 +2359,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
@@ -2364,6 +2379,11 @@
     <Content Include="Views\View\re.cshtml" />
     <Content Include="Views\Search\ViewSrarch.cshtml" />
     <Content Include="Views\Account\ViewLogin.cshtml" />
+    <Content Include="Views\View\TestCode.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\CVUser\ViewCV.cshtml" />
+    <Content Include="Views\CVUser\Cvone.cshtml" />
+    <Content Include="Views\CVUser\CheckFullName.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

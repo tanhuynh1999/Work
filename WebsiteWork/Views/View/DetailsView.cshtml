@@ -5,12 +5,13 @@
 }
 
 <style>
-#mydiv { 
-    position: fixed; 
-} 
-.nav-pills .nav-link {
-    color: black;
-}
+    #mydiv {
+        position: fixed;
+    }
+
+    .nav-pills .nav-link {
+        color: black;
+    }
 </style>
 
 <div class="w3l-index-block1">
@@ -32,11 +33,11 @@
                             <a href="" class="btn btn-white mt-4"><i class="fab fa-rev">&nbsp;</i>Ngày hết hạn nộp hồ sơ: 27/12/1999</a>
                         </div>
                         <div class="col-lg-3">
-                        <button type="button" class="btn btn-primary w-100 mt-1" data-toggle="modal" data-target="#login"><i class="far fa-address-card">&nbsp;</i>Nộp hồ sơ</button>
-                        <button type="button" class="btn btn-danger w-100 mt-1"><i class="fa fa-heart">&nbsp;</i>Yêu thích</button>
-                        <hr />
-                        <button type="button" class="btn btn-dark w-100 mt-1"><i class="fa fa-mail-forward">&nbsp;</i>Liên hệ</button>
-                    </div>
+                            <button type="button" class="btn btn-primary w-100 mt-1" data-toggle="modal" data-target="#login"><i class="far fa-address-card">&nbsp;</i>Nộp hồ sơ</button>
+                            <button type="button" class="btn btn-danger w-100 mt-1"><i class="fa fa-heart">&nbsp;</i>Yêu thích</button>
+                            <hr />
+                            <button type="button" class="btn btn-dark w-100 mt-1"><i class="fa fa-mail-forward">&nbsp;</i>Liên hệ</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -118,7 +119,7 @@
                                                         </div>
                                                     </div> <!-- list-style-one -->
                                                     <hr />
-                                                    <img src="~/Content/UI/assets/img/theme/img-2-1200x1000.jpg" class="w-100" style="height: 500px"/>
+                                                    <img src="~/Content/UI/assets/img/theme/img-2-1200x1000.jpg" class="w-100" style="height: 500px" />
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <ul class="list-group">
@@ -165,7 +166,7 @@
                                         <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
                                             <div class="row">
                                                 <div class="col-lg-8">
-                                                    <img src="~/Content/UI/assets/img/theme/img-2-1200x1000.jpg" class="w-100" style="height: 500px"/>
+                                                    <img src="~/Content/UI/assets/img/theme/img-2-1200x1000.jpg" class="w-100" style="height: 500px" />
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <ul class="list-group">
@@ -267,6 +268,7 @@
     </div>
 </div>
 
+
 <!--Modal-->
 <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm" role="document" style="max-width: 600px;">
@@ -299,7 +301,7 @@
                                 <div class="nav-wrapper">
                                     <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
                                         <li class="nav-item">
-                                            <a class="nav-link mb-sm-3 mb-md-0  active" style="border-bottom: 2px solid white" id="res-tab" data-toggle="tab" href="#loginUser" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="fas fa-sign-in-alt">&nbsp;</i>ĐĂNG NHẬP</a>
+                                            <a class="nav-link mb-sm-3 mb-md-0 @(Session["active"] == null ? "active" : "")" style="border-bottom: 2px solid white" id="res-tab" data-toggle="tab" href="#loginUser" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="fas fa-sign-in-alt">&nbsp;</i>ĐĂNG NHẬP</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" style="border-bottom: 2px solid white" data-toggle="tab" href="#ress" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="fa fa-user">&nbsp;</i>ĐĂNG KÝ</a>
@@ -309,13 +311,38 @@
                                 <div class="card shadow">
                                     <div class="card-body">
                                         <div class="tab-content" id="myTabContent">
-                                            <div class="tab-pane fade show active" id="loginUser" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
-                                                <form role="form" action="@Url.Action("Login","Account")" method="post">
+                                            <div class="tab-pane fade @(Session["active"] == null ? "show active" : "")" id="loginUser" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                                                <script>
+                                                    function validateForm() {
+                                                        // Bước 1: Lấy giá trị của username và password
+                                                        var user_email = document.getElementById('user_email').value;
+                                                        var user_pass = document.getElementById('user_pass').value;
+                                                        // Bước 2: Kiểm tra dữ liệu hợp lệ hay không
+                                                        if (user_email == '' && user_pass == '') {
+                                                            document.getElementById("testlogin").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Bạn chưa nhập email và mật khẩu.</b></div>"
+                                                        }
+                                                        else if (user_pass == '') {
+                                                            document.getElementById("testlogin").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Bạn chưa nhập mật khẩu.</b></div>"
+                                                        }
+                                                        else if (user_email == '') {
+                                                            document.getElementById("testlogin").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Bạn chưa nhập email.</b></div>"
+                                                        }
+                                                        else {
+                                                            return true;
+                                                        }
+                                                        return false;
+                                                    }
+                                                </script>
+                                                <form role="form" action="@Url.Action("Login","Account")" method="post" onsubmit="return validateForm()">
                                                     <div class="row">
                                                         <div class="col-lg-12 col-sm-6 mt-1">
+                                                            <div id="testlogin" class="mt-2">
+
+                                                            </div>
+                                                            @Html.Raw(Session["NotLogin"])
                                                             <div class="form-input mt-55">
                                                                 <div class="input-items active">
-                                                                    <input type="text" placeholder="Email" class="form-control" style="border: 2px solid #151965" name="user_email">
+                                                                    <input type="text" placeholder="Email" class="form-control" style="border: 2px solid #151965" name="user_email" id="user_email">
                                                                     <i class="lni-user" style="color:#151965"></i>
                                                                 </div>
                                                             </div>
@@ -323,7 +350,7 @@
                                                         <div class="col-lg-12 col-sm-6 mt-1">
                                                             <div class="form-input mt-55">
                                                                 <div class="input-items active">
-                                                                    <input type="password" placeholder="Mật khẩu" class="form-control" style="border: 2px solid #151965" name="user_pass">
+                                                                    <input type="password" placeholder="Mật khẩu" class="form-control" style="border: 2px solid #151965" name="user_pass" id="user_pass" )">
                                                                     <i class="lni-key" style="color:#151965"></i>
                                                                 </div>
                                                             </div>
@@ -349,13 +376,49 @@
                                                     </div>
                                                 </form>
                                             </div>
-                                            <div class="tab-pane fade" id="ress" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
-                                                <form role="form">
+                                            <div class="tab-pane fade @(Session["active"] == null ? "" : "show active")" id="ress" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
+                                                <script>
+                                                    function valiRes() {
+                                                        // Bước 1: Lấy giá trị của username và password
+                                                        var user_emailres = document.getElementById('user_emailres').value;
+                                                        var user_nicename = document.getElementById('user_nicename').value;
+                                                        var user_passres = document.getElementById('user_passres').value;
+                                                        var user_rpass = document.getElementById('user_rpass').value;
+                                                        // Bước 2: Kiểm tra dữ liệu hợp lệ hay không
+                                                        if (user_emailres == '' && user_passres == '' && user_nicename == '' && user_rpass == '') {
+                                                            document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Tất cả các trường chưa được nhập, vui lòng nhập đầy đủ thông tin.</b></div>"
+                                                        }
+                                                        else if (user_emailres == '') {
+                                                            document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Vui lòng nhập email.</b></div>"
+                                                        }
+                                                        else if (user_nicename == '') {
+                                                            document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Vui lòng nhập tên hiển thị.</b></div>"
+                                                        }
+                                                        else if (user_passres == '') {
+                                                            document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Bạn chưa nhập mật khẩu.</b></div>"
+                                                        }
+                                                        else if (user_rpass == '') {
+                                                            document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Bạn chưa xác nhận mật khẩu.</b></div>"
+                                                        }
+                                                        else if (user_passres != user_rpass) {
+                                                            document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Xác nhận mật khẩu không đúng.</b></div>"
+                                                        }
+                                                        else {
+                                                            return true;
+                                                        }
+                                                        return false;
+                                                    }
+                                                </script>
+                                                <form role="form" action="@Url.Action("Regist","Account")" method="post" onsubmit="return valiRes()">
                                                     <div class="row">
+                                                        @Html.Raw(Session["user_exist"])
+                                                        <div id="testRes" class="mt-2">
+
+                                                        </div>
                                                         <div class="col-lg-6 col-sm-6 mt-1">
                                                             <div class="form-input mt-55">
                                                                 <div class="input-items active">
-                                                                    <input type="text" placeholder="Email" class="form-control" style="border: 2px solid #151965">
+                                                                    <input type="text" placeholder="Email" class="form-control" style="border: 2px solid #151965" name="user_email" id="user_emailres">
                                                                     <i class="lni-envelope" style="color:#151965"></i>
                                                                 </div>
                                                             </div>
@@ -363,7 +426,7 @@
                                                         <div class="col-lg-6 col-sm-6 mt-1">
                                                             <div class="form-input mt-55">
                                                                 <div class="input-items active">
-                                                                    <input type="text" placeholder="Tên hiển thị" class="form-control" style="border: 2px solid #151965">
+                                                                    <input type="text" placeholder="Tên hiển thị" class="form-control" style="border: 2px solid #151965" name="user_nicename" id="user_nicename">
                                                                     <i class="lni-user" style="color:#151965"></i>
                                                                 </div>
                                                             </div>
@@ -371,7 +434,7 @@
                                                         <div class="col-lg-6 col-sm-6 mt-1">
                                                             <div class="form-input mt-55">
                                                                 <div class="input-items active">
-                                                                    <input type="text" placeholder="Mật khẩu" class="form-control" style="border: 2px solid #151965">
+                                                                    <input type="password" placeholder="Mật khẩu" class="form-control" style="border: 2px solid #151965" id="user_passres" name="user_pass">
                                                                     <i class="lni-key" style="color:#151965"></i>
                                                                 </div>
                                                             </div>
@@ -379,7 +442,7 @@
                                                         <div class="col-lg-6 col-sm-6 mt-1">
                                                             <div class="form-input mt-55">
                                                                 <div class="input-items active">
-                                                                    <input type="text" placeholder="Nhập lại mật khẩu" class="form-control" style="border: 2px solid #151965">
+                                                                    <input type="password" placeholder="Nhập lại mật khẩu" class="form-control" style="border: 2px solid #151965" id="user_rpass">
                                                                     <i class="lni-key" style="color:#151965"></i>
                                                                 </div>
                                                             </div>
@@ -393,7 +456,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-12 col-sm-6 mt-1">
-                                                            <button type="button" class="btn btn-danger w-100 mt-1">Đăng ký</button>
+                                                            <button type="submit" class="btn btn-danger w-100 mt-1">Đăng ký</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -409,3 +472,25 @@
         </div>
     </div>
 </div>
+
+<script src="~/Scripts/jquery-3.5.1.slim.min.js"></script>
+@if (Session["NotLogin"] != null)
+{
+    <script>
+        $(document).ready(function () {
+            $('#login').modal('show');
+        })
+    </script>
+}
+else if (Session["active"] != null)
+{
+    <script>
+        $(document).ready(function () {
+            $('#login').modal('show');
+        })
+    </script>
+}
+else
+{
+
+}
