@@ -150,13 +150,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CvsController.cs" />
     <Compile Include="Controllers\CVUserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ViewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Cv.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Employer.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -177,6 +180,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Theme.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
@@ -2383,6 +2389,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\CVUser\ViewCV.cshtml" />
     <Content Include="Views\CVUser\Cvone.cshtml" />
+    <Content Include="Views\CVUser\EditcVOne.cshtml" />
+    <Content Include="Views\Cvs\Create.cshtml" />
+    <Content Include="Views\Cvs\Delete.cshtml" />
+    <Content Include="Views\Cvs\Details.cshtml" />
+    <Content Include="Views\Cvs\Edit.cshtml" />
+    <Content Include="Views\Cvs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

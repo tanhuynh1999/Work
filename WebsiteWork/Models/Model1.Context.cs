@@ -29,5 +29,7 @@ namespace WebsiteWork.Models
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Work> Works { get; set; }
+        public virtual DbSet<Cv> Cvs { get; set; }
+        public virtual DbSet<Theme> Themes { get; set; }
     }
 }

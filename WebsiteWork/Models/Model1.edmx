@@ -5,6 +5,47 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DataWorkModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cv">
+          <Key>
+            <PropertyRef Name="cv_id" />
+          </Key>
+          <Property Name="cv_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cv_fullname" Type="nvarchar" MaxLength="200" />
+          <Property Name="cv_location" Type="nvarchar" MaxLength="200" />
+          <Property Name="cv_bird" Type="datetime" />
+          <Property Name="cv_sex" Type="int" />
+          <Property Name="cv_phone" Type="varchar" MaxLength="50" />
+          <Property Name="cv_email" Type="nvarchar" MaxLength="200" />
+          <Property Name="cv_address" Type="nvarchar" MaxLength="200" />
+          <Property Name="cv_linkfc" Type="nvarchar" MaxLength="300" />
+          <Property Name="cv_target" Type="nvarchar(max)" />
+          <Property Name="cv_datebegineducation" Type="datetime" />
+          <Property Name="cv_dateendeducation" Type="datetime" />
+          <Property Name="cv_contenteducation" Type="nvarchar(max)" />
+          <Property Name="cv_datebeginexp" Type="datetime" />
+          <Property Name="cv_dateendexp" Type="datetime" />
+          <Property Name="cv_contentexp" Type="nvarchar(max)" />
+          <Property Name="cv_datebeginexptwo" Type="date" />
+          <Property Name="cv_dateendexptwo" Type="date" />
+          <Property Name="cv_contentexptwo" Type="nvarchar(max)" />
+          <Property Name="cv_datebeginactivate" Type="datetime" />
+          <Property Name="cv_dateendactivate" Type="datetime" />
+          <Property Name="cv_contentactivate" Type="nvarchar(max)" />
+          <Property Name="cv_contentcertificate" Type="nvarchar(max)" />
+          <Property Name="cv_contentreward" Type="nvarchar(max)" />
+          <Property Name="cv_english" Type="nvarchar(max)" />
+          <Property Name="cv_IT" Type="nvarchar(max)" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="cv_numbertheme" Type="int" />
+          <Property Name="cv_yearre" Type="nvarchar" MaxLength="50" />
+          <Property Name="cv_yearcerti" Type="nvarchar" MaxLength="50" />
+          <Property Name="cv_schools" Type="nvarchar" MaxLength="200" />
+          <Property Name="cv_industrystory" Type="nvarchar" MaxLength="200" />
+          <Property Name="cv_species" Type="int" />
+          <Property Name="cv_point" Type="varchar" MaxLength="100" />
+          <Property Name="cv_roleexp" Type="nvarchar" MaxLength="100" />
+          <Property Name="cv_roleexptwo" Type="nvarchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="Employer">
           <Key>
             <PropertyRef Name="employer_id" />
@@ -34,6 +75,14 @@
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Theme">
+          <Key>
+            <PropertyRef Name="theme_id" />
+          </Key>
+          <Property Name="theme_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cv_id" Type="int" />
+          <Property Name="theme_datecreate" Type="int" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -78,6 +127,18 @@
           <Property Name="work_imgathree" Type="nvarchar(max)" />
           <Property Name="employer_id" Type="int" />
         </EntityType>
+        <Association Name="FK_Cv_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Cv" Type="Self.Cv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Cv">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Work_Employer">
           <End Role="Employer" Type="Self.Employer" Multiplicity="0..1" />
           <End Role="Work" Type="Self.Work" Multiplicity="*" />
@@ -91,10 +152,16 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DataWorkModelStoreContainer">
+          <EntitySet Name="Cv" EntityType="Self.Cv" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employer" EntityType="Self.Employer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Theme" EntityType="Self.Theme" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Work" EntityType="Self.Work" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Cv_User" Association="Self.FK_Cv_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Cv" EntitySet="Cv" />
+          </AssociationSet>
           <AssociationSet Name="FK_Work_Employer" Association="Self.FK_Work_Employer">
             <End Role="Employer" EntitySet="Employer" />
             <End Role="Work" EntitySet="Work" />
@@ -150,6 +217,7 @@
           <Property Name="user_datelogin" Type="DateTime" Precision="3" />
           <Property Name="user_activate" Type="Boolean" />
           <Property Name="user_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cvs" Relationship="DataWorkModel.FK_Cv_User" FromRole="User" ToRole="Cv" />
         </EntityType>
         <EntityType Name="Work">
           <Key>
@@ -200,7 +268,75 @@
             <End Role="Employer" EntitySet="Employers" />
             <End Role="Work" EntitySet="Works" />
           </AssociationSet>
+          <EntitySet Name="Cvs" EntityType="DataWorkModel.Cv" />
+          <EntitySet Name="Themes" EntityType="DataWorkModel.Theme" />
+          <AssociationSet Name="FK_Cv_User" Association="DataWorkModel.FK_Cv_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Cv" EntitySet="Cvs" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Cv">
+          <Key>
+            <PropertyRef Name="cv_id" />
+          </Key>
+          <Property Name="cv_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cv_fullname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="cv_location" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="cv_bird" Type="DateTime" Precision="3" />
+          <Property Name="cv_sex" Type="Int32" />
+          <Property Name="cv_phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cv_email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="cv_address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="cv_linkfc" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="cv_target" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_datebegineducation" Type="DateTime" Precision="3" />
+          <Property Name="cv_dateendeducation" Type="DateTime" Precision="3" />
+          <Property Name="cv_contenteducation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_datebeginexp" Type="DateTime" Precision="3" />
+          <Property Name="cv_dateendexp" Type="DateTime" Precision="3" />
+          <Property Name="cv_contentexp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_datebeginexptwo" Type="DateTime" Precision="0" />
+          <Property Name="cv_dateendexptwo" Type="DateTime" Precision="0" />
+          <Property Name="cv_contentexptwo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_datebeginactivate" Type="DateTime" Precision="3" />
+          <Property Name="cv_dateendactivate" Type="DateTime" Precision="3" />
+          <Property Name="cv_contentactivate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_contentcertificate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_contentreward" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_english" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_IT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="user_id" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="DataWorkModel.FK_Cv_User" FromRole="Cv" ToRole="User" />
+          <Property Name="cv_numbertheme" Type="Int32" />
+          <Property Name="cv_yearre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cv_yearcerti" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cv_schools" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="cv_industrystory" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="cv_species" Type="Int32" />
+          <Property Name="cv_point" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cv_roleexp" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="cv_roleexptwo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Theme">
+          <Key>
+            <PropertyRef Name="theme_id" />
+          </Key>
+          <Property Name="theme_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cv_id" Type="Int32" />
+          <Property Name="theme_datecreate" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_Cv_User">
+          <End Type="DataWorkModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DataWorkModel.Cv" Role="Cv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Cv">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -281,6 +417,57 @@
                 <ScalarProperty Name="work_imagetwo" ColumnName="work_imagetwo" />
                 <ScalarProperty Name="work_imgathree" ColumnName="work_imgathree" />
                 <ScalarProperty Name="employer_id" ColumnName="employer_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cvs">
+            <EntityTypeMapping TypeName="DataWorkModel.Cv">
+              <MappingFragment StoreEntitySet="Cv">
+                <ScalarProperty Name="cv_roleexptwo" ColumnName="cv_roleexptwo" />
+                <ScalarProperty Name="cv_roleexp" ColumnName="cv_roleexp" />
+                <ScalarProperty Name="cv_point" ColumnName="cv_point" />
+                <ScalarProperty Name="cv_species" ColumnName="cv_species" />
+                <ScalarProperty Name="cv_industrystory" ColumnName="cv_industrystory" />
+                <ScalarProperty Name="cv_schools" ColumnName="cv_schools" />
+                <ScalarProperty Name="cv_yearcerti" ColumnName="cv_yearcerti" />
+                <ScalarProperty Name="cv_yearre" ColumnName="cv_yearre" />
+                <ScalarProperty Name="cv_numbertheme" ColumnName="cv_numbertheme" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="cv_IT" ColumnName="cv_IT" />
+                <ScalarProperty Name="cv_english" ColumnName="cv_english" />
+                <ScalarProperty Name="cv_contentreward" ColumnName="cv_contentreward" />
+                <ScalarProperty Name="cv_contentcertificate" ColumnName="cv_contentcertificate" />
+                <ScalarProperty Name="cv_contentactivate" ColumnName="cv_contentactivate" />
+                <ScalarProperty Name="cv_dateendactivate" ColumnName="cv_dateendactivate" />
+                <ScalarProperty Name="cv_datebeginactivate" ColumnName="cv_datebeginactivate" />
+                <ScalarProperty Name="cv_contentexptwo" ColumnName="cv_contentexptwo" />
+                <ScalarProperty Name="cv_dateendexptwo" ColumnName="cv_dateendexptwo" />
+                <ScalarProperty Name="cv_datebeginexptwo" ColumnName="cv_datebeginexptwo" />
+                <ScalarProperty Name="cv_contentexp" ColumnName="cv_contentexp" />
+                <ScalarProperty Name="cv_dateendexp" ColumnName="cv_dateendexp" />
+                <ScalarProperty Name="cv_datebeginexp" ColumnName="cv_datebeginexp" />
+                <ScalarProperty Name="cv_contenteducation" ColumnName="cv_contenteducation" />
+                <ScalarProperty Name="cv_dateendeducation" ColumnName="cv_dateendeducation" />
+                <ScalarProperty Name="cv_datebegineducation" ColumnName="cv_datebegineducation" />
+                <ScalarProperty Name="cv_target" ColumnName="cv_target" />
+                <ScalarProperty Name="cv_linkfc" ColumnName="cv_linkfc" />
+                <ScalarProperty Name="cv_address" ColumnName="cv_address" />
+                <ScalarProperty Name="cv_email" ColumnName="cv_email" />
+                <ScalarProperty Name="cv_phone" ColumnName="cv_phone" />
+                <ScalarProperty Name="cv_sex" ColumnName="cv_sex" />
+                <ScalarProperty Name="cv_bird" ColumnName="cv_bird" />
+                <ScalarProperty Name="cv_location" ColumnName="cv_location" />
+                <ScalarProperty Name="cv_fullname" ColumnName="cv_fullname" />
+                <ScalarProperty Name="cv_id" ColumnName="cv_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Themes">
+            <EntityTypeMapping TypeName="DataWorkModel.Theme">
+              <MappingFragment StoreEntitySet="Theme">
+                <ScalarProperty Name="theme_datecreate" ColumnName="theme_datecreate" />
+                <ScalarProperty Name="cv_id" ColumnName="cv_id" />
+                <ScalarProperty Name="theme_id" ColumnName="theme_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1,4 +1,5 @@
 ﻿@using WebsiteWork.Models;
+@model List<Cv>
 @{
     ViewBag.Title = "ViewCV";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -62,18 +63,19 @@
                         <div class="col-lg-8">
                             <!-- Tabs with icons -->
                             <div class="nav-wrapper alert alert-primary text-dark mt-2">
-                                Bạn đã tạo 10 hồ sơ xin việc và không được tạo thêm
+                                Bạn đã tạo @Model.Where(n => n.cv_numbertheme == 1 && n.user_id == user.user_id).ToList().Count hồ sơ xin việc và không được tạo thêm
                             </div>
                             <div class="card shadow">
                                 <div class="card-body">
                                     <div class="row">
-                                        @for (int i = 0; i < 8; i++)
+                                        <!--Hồ sơ 1 : cơ bản-->
+                                        @foreach (var item in Model.Where(n => n.cv_numbertheme == 1 && n.user_id == user.user_id).ToList())
                                         {
                                             <div class="col-md-4 col-sm-6">
                                                 <div class="card-container">
                                                     <div class="card">
                                                         <div class="front">
-                                                            <img class="img-circle w-100" style="height: 300px" src="~/Content/UI/UIImages/images/mau-cv-default.jpg"/>
+                                                            <img class="img-circle w-100" style="height: 300px" src="~/Content/UI/UIImages/images/mau-cv-default.jpg" />
                                                             <div class="content">
                                                                 <div class="footer bg-primary text-white">
                                                                     <div style="height: 30px">
@@ -116,7 +118,64 @@
                                                             </div>
                                                             <div class="footer">
                                                                 <div class="social-links text-center btn btn-danger">
-                                                                    Dùng ngay
+                                                                    <a class="text-white" href="@Url.Action("EditcVOne","CVUser",new { id=item.cv_id })">SỬA</a>
+                                                                </div>
+                                                            </div>
+                                                        </div> <!-- end back panel -->
+                                                    </div> <!-- end card -->
+                                                </div> <!-- end card-container -->
+                                            </div> <!-- end col sm 3 -->
+                                        }
+                                        @if (Model.Where(n => n.cv_numbertheme == 1 && n.user_id == user.user_id).ToList().Count < 1)
+                                        {
+                                            <div class="col-md-4 col-sm-6">
+                                                <div class="card-container">
+                                                    <div class="card">
+                                                        <div class="front">
+                                                            <img class="img-circle w-100" style="height: 300px" src="~/Content/UI/UIImages/images/mau-cv-default.jpg" />
+                                                            <div class="content">
+                                                                <div class="footer bg-primary text-white">
+                                                                    <div style="height: 30px">
+                                                                        Miển phí (<i class="fa fa-plus"></i>)
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> <!-- end front panel -->
+                                                        <div class="back">
+                                                            <div class="header">
+                                                                <h5 class="motto">"Mẫu CV trắng, dễ sử dụng"</h5>
+                                                            </div>
+                                                            <div class="content">
+                                                                <div class="main">
+                                                                    <h4 class="text-center">Mẫu CV cơ bản</h4>
+                                                                    <p class="text-center">Phù hợp với tất cả nghành nghề</p>
+
+                                                                    <div class="stats-container">
+                                                                        <div class="stats">
+                                                                            <h4>0</h4>
+                                                                            <p>
+                                                                                Người dùng
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="stats">
+                                                                            <h4>0</h4>
+                                                                            <p>
+                                                                                0 kiểm duyệt
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="stats">
+                                                                            <h4>35</h4>
+                                                                            <p>
+                                                                                Hướng dẫn
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="footer">
+                                                                <div class="social-links text-center btn btn-danger">
+                                                                    <a class="text-white" href="@Url.Action("Cvone","CVUser")">THÊM</a>
                                                                 </div>
                                                             </div>
                                                         </div> <!-- end back panel -->

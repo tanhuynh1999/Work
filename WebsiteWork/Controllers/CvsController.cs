@@ -10,107 +10,112 @@ using WebsiteWork.Models;
 
 namespace WebsiteWork.Controllers
 {
-    public class UsersController : Controller
+    public class CvsController : Controller
     {
         private DataWorkEntities db = new DataWorkEntities();
 
-        // GET: Users
+        // GET: Cvs
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            var cvs = db.Cvs.Include(c => c.User);
+            return View(cvs.ToList());
         }
 
-        // GET: Users/Details/5
+        // GET: Cvs/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            Cv cv = db.Cvs.Find(id);
+            if (cv == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(cv);
         }
 
-        // GET: Users/Create
+        // GET: Cvs/Create
         public ActionResult Create()
         {
+            ViewBag.user_id = new SelectList(db.Users, "user_id", "user_login");
             return View();
         }
 
-        // POST: Users/Create
+        // POST: Cvs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "user_id,user_login,user_pass,user_nicename,user_email,user_datecreated,user_token,user_role,user_datelogin,user_activate,user_image")] User user)
+        public ActionResult Create([Bind(Include = "cv_id,cv_fullname,cv_location,cv_bird,cv_sex,cv_phone,cv_email,cv_address,cv_linkfc,cv_target,cv_datebegineducation,cv_dateendeducation,cv_contenteducation,cv_datebeginexp,cv_dateendexp,cv_contentexp,cv_datebeginexptwo,cv_dateendexptwo,cv_contentexptwo,cv_datebeginactivate,cv_dateendactivate,cv_contentactivate,cv_contentcertificate,cv_contentreward,cv_english,cv_IT,user_id,cv_numbertheme,cv_yearre,cv_yearcerti,cv_schools,cv_industrystory,cv_species,cv_point,cv_roleexp,cv_roleexptwo")] Cv cv)
         {
             if (ModelState.IsValid)
             {
-                db.Users.Add(user);
+                db.Cvs.Add(cv);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(user);
+            ViewBag.user_id = new SelectList(db.Users, "user_id", "user_login", cv.user_id);
+            return View(cv);
         }
 
-        // GET: Users/Edit/5
+        // GET: Cvs/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            Cv cv = db.Cvs.Find(id);
+            if (cv == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            ViewBag.user_id = new SelectList(db.Users, "user_id", "user_login", cv.user_id);
+            return View(cv);
         }
 
-        // POST: Users/Edit/5
+        // POST: Cvs/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "user_id,user_login,user_pass,user_nicename,user_email,user_datecreated,user_token,user_role,user_datelogin,user_activate,user_image")] User user)
+        public ActionResult Edit([Bind(Include = "cv_id,cv_fullname,cv_location,cv_bird,cv_sex,cv_phone,cv_email,cv_address,cv_linkfc,cv_target,cv_datebegineducation,cv_dateendeducation,cv_contenteducation,cv_datebeginexp,cv_dateendexp,cv_contentexp,cv_datebeginexptwo,cv_dateendexptwo,cv_contentexptwo,cv_datebeginactivate,cv_dateendactivate,cv_contentactivate,cv_contentcertificate,cv_contentreward,cv_english,cv_IT,user_id,cv_numbertheme,cv_yearre,cv_yearcerti,cv_schools,cv_industrystory,cv_species,cv_point,cv_roleexp,cv_roleexptwo")] Cv cv)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
+                db.Entry(cv).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(user);
+            ViewBag.user_id = new SelectList(db.Users, "user_id", "user_login", cv.user_id);
+            return View(cv);
         }
 
-        // GET: Users/Delete/5
+        // GET: Cvs/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            Cv cv = db.Cvs.Find(id);
+            if (cv == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(cv);
         }
 
-        // POST: Users/Delete/5
+        // POST: Cvs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
+            Cv cv = db.Cvs.Find(id);
+            db.Cvs.Remove(cv);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

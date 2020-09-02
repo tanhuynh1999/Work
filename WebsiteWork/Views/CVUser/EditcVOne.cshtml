@@ -1,0 +1,338 @@
+﻿@using WebsiteWork.Models
+@model Cv
+@{
+    ViewBag.Title = "Cvone";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="w3l-index-block1" ng-app="">
+    <div class="py-5">
+        <div class="container">
+            <div class="row align-items-center py-md-5 py-3">
+                <nav class="sticky-top bg-white w-100" style="z-index: 100000 !important; height: 70px;">
+                    <div class="">
+                        <div class="" id="main_nav">
+                            <div class="row">
+                                <div class="col-lg-2 col-sm-6">
+                                    <b class="text-primary" style="margin-left: 30px">Ngôn ngữ</b>
+                                    <center class="ml-4">
+                                        <img alt="Image placeholder" src="~/Content/UI/UIImages/images/vn.jpg" style="width: 40px;float: left" class="border border-success">
+                                        <img alt="Image placeholder" src="~/Content/UI/UIImages/images/my.jpg" style="width: 40px;float: left; margin-left: 5px">
+                                    </center>
+                                </div>
+                                <div class="col-lg-2 col-sm-6">
+                                    <b class="text-primary">Font chữ</b>
+                                    <select class="form-control" style="height: 30px; font-size: 12px;">
+                                        <option>Arial</option>
+                                        <option>Arial</option>
+                                        <option>Arial</option>
+                                    </select>
+                                </div>
+                                <style>
+                                    .nav-pills-circle .nav-link {
+                                        line-height: 35px;
+                                    }
+                                </style>
+                                <div class="col-lg-2 col-sm-6">
+                                    <b class="text-primary">Kích thước chữ</b>
+                                    <ul class="nav nav-pills nav-pills-circle" id="tabs_2" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link rounded-circle active" id="home-tab" data-toggle="tab" href="#tabs_2_1" role="tab" aria-controls="home" aria-selected="true" style="width: 35px; height: 35px;font-size: 8px;">
+                                                A
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link rounded-circle active" id="home-tab" data-toggle="tab" href="#tabs_2_1" role="tab" aria-controls="home" aria-selected="true" style="width: 35px; height: 35px; font-size: 12px;">
+                                                A
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link rounded-circle active" id="home-tab" data-toggle="tab" href="#tabs_2_1" role="tab" aria-controls="home" aria-selected="true" style="width: 35px; height: 35px; font-size: 15px;">
+                                                A
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-2 col-sm-6">
+                                    <b class="text-primary">Cách dòng</b>
+                                    <ul class="nav nav-pills nav-pills-circle" id="tabs_2" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link rounded-circle active" id="home-tab" data-toggle="tab" href="#tabs_2_1" role="tab" aria-controls="home" aria-selected="true" style="width: 35px; height: 35px;font-size: 8px;">
+                                                <i class="fas fa-arrows-alt-v"></i>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link rounded-circle active" id="home-tab" data-toggle="tab" href="#tabs_2_1" role="tab" aria-controls="home" aria-selected="true" style="width: 35px; height: 35px; font-size: 12px;">
+                                                <i class="fas fa-arrows-alt-v"></i>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link rounded-circle active" id="home-tab" data-toggle="tab" href="#tabs_2_1" role="tab" aria-controls="home" aria-selected="true" style="width: 35px; height: 35px; font-size: 15px;">
+                                                <i class="fas fa-arrows-alt-v"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <b class="text-primary">Giới thiệu</b>
+                                    <div><b>Tên cv:</b> Mẫu CV cơ bản</div>
+                                    <div><b>Số người đã sử dụng:</b> 0</div>
+                                </div>
+                            </div>
+                        </div> <!-- navbar-collapse.// -->
+                    </div><!-- container //  -->
+                </nav>
+
+                <section class="section-content py-5">
+                    @using (Html.BeginForm("EditcV", "CVUser", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.cv_id)
+                        <input type="hidden" value="@Model.user_id" name="user_id" />
+                        <input type="hidden" value="@Model.cv_numbertheme" name="cv_numbertheme" />
+                        <form onsubmit="">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="card shadow">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <img src="~/Images/Cv/32644928_2062295167425734_7686714948314988544_o.jpg" class="container" style="height: 200px" />
+                                                </div>
+                                                <div class="col-lg-8 w-100" ng-click="fullname = '1.Ghi rõ ràng họ tên (Viết hoa chữ cái đầu).';jobposition = '2.Vị trí công việc ứng tuyển như kế toán,lập trình, backend,.vvv';dateofbirth = '3.Ghi rõ ngày,tháng, năm sinh đúng. Nếu không muốn thì để trống.';phone = '4.Bắt buộc phải có SĐT. Nhà tuyển dụng sẽ thông qua số này để liên hệ bạn.';email = '5.Bắt buộc phải có Email. Nhà tuyển dụng sẽ thông qua email này để liên hệ bạn.';address = '6.Ghi rõ địa chỉ, nơi ở của bạn để NTD hiểu rõ về nơi bạn sinh sống.';fc = '7.Nên ghi trang cá nhân facebook, copy đường link dẫn đến trang fb chính của mình, NTD có thể xem thông tin về bạn.'; info = 'Thông tin cá nhân';sex = '8.Chọn rõ giới tính của bạn để NTD có thể nhìn rõ về bạn.'">
+                                                    <h2><input type="text" value="@Model.cv_fullname" style="border: 0px solid black" name="cv_fullname"></h2>
+                                                    <p><input placeholder="Vị trí ứng tuyển" style="border: 0px solid black" value="@Model.cv_location" name="cv_location" /></p>
+                                                    <ul>
+                                                        <li><b>Ngày sinh:</b><input type="date" style="border: 0px solid black" name="cv_bird" value="@Model.cv_bird.Value.Year-@(Model.cv_bird.Value.Month < 10 ? "0" + Model.cv_bird.Value.Month.ToString() : Model.cv_bird.Value.Month.ToString())-@(Model.cv_bird.Value.Day < 10 ? "0" + Model.cv_bird.Value.Day.ToString() : Model.cv_bird.Value.Day.ToString())"/></li>
+                                                        <li>
+                                                            <b>Giới tính:</b>
+                                                            <select style="border: 0px solid black" name="cv_sex">
+                                                                <option value="1" @(Model.cv_sex == 1 ? "selected" : "")>Nam</option>
+                                                                <option value="2" @(Model.cv_sex == 2 ? "selected" : "")>Nữ</option>
+                                                                <option value="3" @(Model.cv_sex == 3 ? "selected" : "")>Khác</option>
+                                                            </select>
+                                                        </li>
+                                                        <li><b>Điện thoại:</b> <input type="text" placeholder="Số điện thoại (*bắt buộc)" value="@Model.cv_phone" style="border: 1px dashed red" name="cv_phone" /></li>
+                                                        <li class="mt-1"><b>Email:</b> <input type="text" placeholder="Email (*bắt buộc)" value="@Model.cv_email" style="border: 1px dashed red; width: 300px !important" name="cv_email" /></li>
+                                                        <li><b>Địa chỉ:</b> <input type="text" style="border: 0px solid black; width: 400px" value="@Model.cv_address" placeholder="Địa chỉ" name="cv_address" /></li>
+                                                        <li><b>Link facebook: </b><input style="border: 0px solid black;" class="text-primary w-100" value="@Model.cv_linkfc" placeholder="Link cá nhân facebook" name="cv_linkfc" /></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div ng-click="fullname = '';jobposition = '';dateofbirth = '';phone = '';email = '';address = '';fc = '';sex = ''; info = 'Mục tiêu nghề nghiệp';contentyes = 'Nên';yes = '1.Nêu vị trí mong muốn ứng tuyển.'; yes2 = '2.Nên ghi mục tiêu công việc cần đạt, lên 1 vị trí mong muốn.';yes3 = '3.Thể hiện kỹ năng,kiến thức, trình độ của trong công việc.';contentno = 'Không nên';no = '1.Không ghi chung chung mún làm việc trong môi trường năng động.';no2='2.Lời văn quá nhiều nhưng không hiểu vấn đề.'">
+                                                        <h4 style="border-bottom: 1px solid #172b4d" class="mt-3">Mục tiêu nghề nghiệp</h4>
+                                                        <p class="mt-3">
+                                                            <textarea name="cv_target" class="w-100" style="border: 0px solid black; height: 100px" placeholder="Mục tiêu nghề nghiệp">@Model.cv_target</textarea>
+                                                        </p>
+                                                        <br />
+                                                    </div>
+                                                    <div ng-click="fullname = '';jobposition = '';dateofbirth = '';phone = '';email = '';address = '';fc = '';sex = ''; info = 'Học vấn';contentyes = 'Nên';yes = '1.Chuyên nghành liên quan đến công việc.'; yes2 = '2.Tốt nhất là trường đại học, nếu không thì hãy ghi những trường mình học tốt nhất.';yes3 = '3.Điểm nên trung thực cùng với bằng loại.';contentno = 'Không nên';no = '1.Không nêu các trình độ từ cấp 2,1.';no1='2.Không tự chế điểm, loại và trường học.'">
+                                                        <h4 style="border-bottom: 1px solid #172b4d" class="mt-3">Học vấn</h4>
+                                                        <p class="mt-3">
+                                                            <div class="row">
+                                                                <div class="col-lg-3">
+                                                                    <input type="date" style="border: 0px solid black" name="cv_datebegineducation" value="@Model.cv_datebegineducation.Value.Year-@(Model.cv_datebegineducation.Value.Month < 10 ? "0" + Model.cv_datebegineducation.Value.Month.ToString() : Model.cv_datebegineducation.Value.Month.ToString())-@(Model.cv_datebegineducation.Value.Day < 10 ? "0" + Model.cv_datebegineducation.Value.Day.ToString() : Model.cv_datebegineducation.Value.Day.ToString())"/>
+                                                                    <br />
+                                                                    <input type="date" style="border: 0px solid black" name="cv_dateendeducation" value="@Model.cv_dateendeducation.Value.Year-@(Model.cv_dateendeducation.Value.Month < 10 ? "0" + Model.cv_dateendeducation.Value.Month.ToString() : Model.cv_dateendeducation.Value.Month.ToString())-@(Model.cv_dateendeducation.Value.Day < 10 ? "0" + Model.cv_dateendeducation.Value.Day.ToString() : Model.cv_dateendeducation.Value.Day.ToString())"/>
+                                                                </div>
+                                                                <div class="col-lg-9">
+                                                                    <b><input type="text" value="@Model.cv_schools" name="cv_schools" placeholder="Tên trường học" style="border: 0px solid black; font-weight: bold" class="w-100" /></b>
+                                                                    <div>Chuyên nghành: <input type="text" name="cv_industrystory" value="@Model.cv_industrystory" placeholder="Chuyên nghành" style="border: 0px solid black;" /></div>
+                                                                    <div>
+                                                                        Tốt nghiệp loại <select style="border: 0px solid black;" class="text-danger" name="cv_species">
+                                                                            <option value="1" @(Model.cv_sex == 1 ? "selected" : "")>Trung bình</option>
+                                                                            <option value="2" @(Model.cv_sex == 2 ? "selected" : "")>Khá</option>
+                                                                            <option value="3" @(Model.cv_sex == 3 ? "selected" : "")>Giỏi</option>
+                                                                        </select> - Điểm trung bình <input value="@Model.cv_point" placeholder="Điểm" name="cv_point" style="border: 0px solid black; width: 50px" class="text-danger" />
+                                                                    </div>
+                                                                    <textarea name="cv_contenteducation" class="w-100" style="border: 0px solid black; height: 100px" placeholder="Nội dung học vấn">@Model.cv_contenteducation</textarea>
+                                                                </div>
+                                                            </div>
+                                                        </p>
+                                                        <br />
+                                                    </div>
+                                                    <div ng-click="fullname = '';jobposition = '';dateofbirth = '';phone = '';email = '';address = '';fc = '';sex = ''; info = 'Kinh nghiệm việc làm';contentyes = 'Nên';yes = '1.Nêu đúng thời gian vào và ra ở 1 công ty tâm đắc nhất.'; yes2 = '2.Nêu vai trò đã làm tại công ty,nếu là sinh viên, part time thì ghi rõ ra là parttime,thực tập sinh.';yes3 = '3.Phần mô tả nêu đầy đủ các quá trình mình đã làm cho công ty, công việc làm tốt nhất.';yes4 = '4.Nếu chưa có kinh nghiệm bạn hãy ghi ra các phần như làm tình nguyện viên, những điều mà bạn có thể học hỏi.';contentno = 'Không nên';no = '1.Các công việc nhỏ hơn 6 tháng. Trừ thực tập sinh';no1='2.Mô tả dài dòng, nêu các công việc nhỏ nhặt như in giấy,....'">
+                                                        <h4 style="border-bottom: 1px solid #172b4d" class="mt-3">Kinh nghiệm việc làm</h4>
+                                                        <p class="mt-3">
+                                                            <div class="row">
+                                                                <div class="col-lg-3">
+                                                                    <input type="date" style="border: 0px solid black" name="cv_datebeginexptwo" value="@Model.cv_datebeginexp.Value.Year-@(Model.cv_datebeginexp.Value.Month < 10 ? "0" + Model.cv_datebeginexp.Value.Month.ToString() : Model.cv_datebeginexp.Value.Month.ToString())-@(Model.cv_datebeginexp.Value.Day < 10 ? "0" + Model.cv_datebeginexp.Value.Day.ToString() : Model.cv_datebeginexp.Value.Day.ToString())"/>
+                                                                    <br />
+                                                                    <input type="date" style="border: 0px solid black" name="cv_dateendexptwo" value="@Model.cv_dateendexp.Value.Year-@(Model.cv_dateendexp.Value.Month < 10 ? "0" + Model.cv_dateendexp.Value.Month.ToString() : Model.cv_dateendexp.Value.Month.ToString())-@(Model.cv_dateendexp.Value.Day < 10 ? "0" + Model.cv_dateendexp.Value.Day.ToString() : Model.cv_dateendexp.Value.Day.ToString())"/>
+                                                                </div>
+                                                                <div class="col-lg-9">
+                                                                    <b><input type="text" value="Công ty AllWork1s" placeholder="Tên công ty" style="border: 0px solid black; font-weight: bold" class="w-100" /></b>
+                                                                    <div><input type="text" name="cv_roleexp" value="@Model.cv_roleexp" placeholder="Vai trò" style="border: 0px solid black;" /></div>
+                                                                    <div>
+                                                                        <textarea name="cv_contentexp" class="w-100" style="border: 0px solid black; height: 100px" placeholder="Mục tiêu nghề nghiệp">@Model.cv_contentexp
+                                                                </textarea>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-3">
+                                                                    <input type="date" style="border: 0px solid black" name="cv_datebeginexp" value="@Model.cv_datebeginexp.Value.Year-@(Model.cv_datebeginexp.Value.Month < 10 ? "0" + Model.cv_datebeginexp.Value.Month.ToString() : Model.cv_datebeginexptwo.Value.Month.ToString())-@(Model.cv_datebeginexptwo.Value.Day < 10 ? "0" + Model.cv_datebeginexptwo.Value.Day.ToString() : Model.cv_datebeginexptwo.Value.Day.ToString())" />
+                                                                    <br />
+                                                                    <input type="date" style="border: 0px solid black" name="cv_dateendexp" value="@Model.cv_dateendexptwo.Value.Year-@(Model.cv_dateendexptwo.Value.Month < 10 ? "0" + Model.cv_dateendexptwo.Value.Month.ToString() : Model.cv_dateendexptwo.Value.Month.ToString())-@(Model.cv_dateendexptwo.Value.Day < 10 ? "0" + Model.cv_dateendexptwo.Value.Day.ToString() : Model.cv_dateendexptwo.Value.Day.ToString())" />
+                                                                </div>
+                                                                <div class="col-lg-9">
+                                                                    <b><input type="text" value="Công ty AllWork1s" placeholder="Tên công ty" style="border: 0px solid black; font-weight: bold" class="w-100" /></b>
+                                                                    <div><input type="text" name="cv_roleexptwo" value="@Model.cv_roleexptwo" placeholder="Vai trò" style="border: 0px solid black;" /></div>
+                                                                    <div>
+                                                                        <textarea name="cv_contentexptwo" class="w-100" style="border: 0px solid black; height: 100px" placeholder="Mô tả công việc">@Model.cv_contentexptwo
+                                                                </textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </p>
+                                                        <br />
+                                                    </div>
+                                                    <h4 style="border-bottom: 1px solid #172b4d" class="mt-3">Hoạt động</h4>
+                                                    <div class="row mt-3" ng-click="fullname = '';jobposition = '';dateofbirth = '';phone = '';email = '';address = '';fc = '';sex = ''; info = 'Hoạt động';contentyes = 'Nên';yes = '1.Liệt kêt các họat động nếu có.'; yes2 = '2.Nếu không có, có thể bỏ trống nhưng nếu có cơ hội nhận hồ sơ rất cao.';yes3 = '3.Nên là các hoạt động tình nguyện viên.';yes4 = '4.Nêu rõ đã làm được gì khi đi hoạt động.';contentno = 'Không nên';no = '1.Chế quá nhiều hoạt động.';no1='2.Mô tả dài dòng'">
+                                                        <div class="col-lg-3">
+                                                            <input type="date" style="border: 0px solid black" name="cv_datebeginactivate" value="@Model.cv_datebeginactivate.Value.Year-@(Model.cv_datebeginactivate.Value.Month < 10 ? "0" + Model.cv_datebeginactivate.Value.Month.ToString() : Model.cv_datebeginactivate.Value.Month.ToString())-@(Model.cv_datebeginactivate.Value.Day < 10 ? "0" + Model.cv_datebeginactivate.Value.Day.ToString() : Model.cv_datebeginactivate.Value.Day.ToString())"/>
+                                                            <br />
+                                                            <input type="date" style="border: 0px solid black" name="cv_dateendactivate" value="@Model.cv_dateendactivate.Value.Year-@(Model.cv_dateendactivate.Value.Month < 10 ? "0" + Model.cv_dateendactivate.Value.Month.ToString() : Model.cv_dateendactivate.Value.Month.ToString())-@(Model.cv_dateendactivate.Value.Day < 10 ? "0" + Model.cv_dateendactivate.Value.Day.ToString() : Model.cv_dateendactivate.Value.Day.ToString())"/>
+                                                        </div>
+                                                        <div class="col-lg-9">
+                                                            <b><input type="text" value="Làm tình nguyện viên" placeholder="Tên hoạt động" style="border: 0px solid black; font-weight: bold" class="w-100" /></b>
+                                                            <div>
+                                                                <textarea name="cv_contentactivate" class="w-100" style="border: 0px solid black; height: 100px" placeholder="Mô tả hoạt động">@Model.cv_contentactivate
+                                                        </textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-3">
+                                                            <input type="date" style="border: 0px solid black" />
+                                                            <br />
+                                                            <input type="date" style="border: 0px solid black" />
+                                                        </div>
+                                                        <div class="col-lg-9">
+                                                            <b><input type="text" value="Làm tình nguyện viên" placeholder="Tên hoạt động" style="border: 0px solid black; font-weight: bold" class="w-100" /></b>
+                                                            <div>
+                                                                <textarea class="w-100" style="border: 0px solid black; height: 100px" placeholder="Mô tả hoạt động">-Tập hợp các món quà và phân phát tới người vô gia cư.- Chia sẻ, động viên họ vượt qua giai đoạn khó khăn, giúp họ có những suy nghĩ lạc quan.
+                                                        </textarea>
+                                                            </div>
+                                                        </div>
+                                                        <br />
+                                                    </div>
+                                                    <div ng-click="fullname = '';jobposition = '';dateofbirth = '';phone = '';email = '';address = '';fc = '';sex = ''; info = 'Chứng chỉ';contentyes = 'Nên';yes = '1.Nêu rõ các chứng chỉ đã có và năm có..'; yes2 = '2.Nên là các chứng chỉ tin học, anh văn.';yes3 = '3.Nên là các chứng chỉ có giấy tờ xác minh.';yes4 = '4.Nếu không có, bỏ trống.';contentno = 'Không nên';no = '1.Nêu không đúng sự thật.';no1='2.Mô tả dài dòng, khó hiểu'">
+                                                        <h4 style="border-bottom: 1px solid #172b4d" class="mt-3">Chứng chỉ</h4>
+                                                        <div class="row mt-3">
+                                                            <div class="col-lg-3">
+                                                                <select style="border: 0px solid black;" class="text-danger" name="cv_yearcerti">
+                                                                    @for (var i = 2020; i >= 1960; i--)
+                                                                    {
+                                                                        <option value="@i" @(Model.cv_yearcerti == i.ToString() ? "selected" : "")>@i</option>
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-lg-9">
+                                                                <div>
+                                                                    <textarea name="cv_contentcertificate" class="w-100" style="border: 0px solid black; height: 30px" placeholder="Chứng chỉ">@Model.cv_contentcertificate
+                                                        </textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <br />
+                                                    </div>
+                                                    <div ng-click="fullname = '';jobposition = '';dateofbirth = '';phone = '';email = '';address = '';fc = '';sex = ''; info = 'Giải thưởng';contentyes = 'Nên';yes = '1.Các giải thưởng đạt được trong học tập, công tác.'; yes2 = '2.Ví dụ: Học bổng, danh hiệu,v.v..';yes3 = '';yes4 = '';contentno = 'Không nên';no = '1.Nêu không đúng sự thật.';no1='2.Mô tả dài dòng, khó hiểu'">
+                                                        <h4 style="border-bottom: 1px solid #172b4d" class="mt-3">Giải thưởng</h4>
+                                                        <div class="row mt-3">
+                                                            <div class="col-lg-3">
+                                                                <select style="border: 0px solid black;" class="text-danger" name="cv_yearre">
+                                                                    @for (var j = 2020; j >= 1960; j--)
+                                                                    {
+                                                                        <option value="@j" @(Model.cv_yearre == j.ToString() ? "selected" : "")>@j</option>
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-lg-9">
+                                                                <div>
+                                                                    <textarea name="cv_contentreward" class="w-100" style="border: 0px solid black; height: 30px" placeholder="Giải thưởng">@Model.cv_contentreward
+                                                        </textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <br />
+                                                    </div>
+                                                    <div ng-click="fullname = '';jobposition = '';dateofbirth = '';phone = '';email = '';address = '';fc = '';sex = ''; info = 'Các kỹ năng';contentyes = 'Nên';yes = '1.Nêu các kỹ năng giúp ích cho vị trí ứng tuyển.'; yes2 = '2.Có thể đưa minh chứng ngắn gọn những kỹ năng đạt được qua công việc gì, hoạt động gì…';yes3 = '';yes4 = '';contentno = 'Không nên';no = '1.Đưa định nghĩa, quan điểm cá nhân.';no1=''">
+                                                        <h4 style="border-bottom: 1px solid #172b4d" class="mt-3">Các kỹ năng</h4>
+                                                        <div class="row mt-3">
+                                                            <div class="col-lg-3">
+                                                                <b>Tin học</b>
+                                                            </div>
+                                                            <div class="col-lg-9">
+                                                                <div>
+                                                                    <textarea name="cv_IT" class="w-100" style="border: 0px solid black; height: 30px" placeholder="Nội dung">@Model.cv_IT
+                                                        </textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                <b>Anh văn</b>
+                                                            </div>
+                                                            <div class="col-lg-9">
+                                                                <div>
+                                                                    <textarea name="cv_english" class="w-100" style="border: 0px solid black; height: 30px" placeholder="Nội dung">@Model.cv_english
+                                                                </textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 bg-white">
+                                    <nav class="sticky-top bg-white w-100" style="z-index: 100000 !important; height: 70px;">
+                                        <div class="bg-white">
+                                            <div class="bg-white" id="main_nav">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <button type="submit" class="btn btn-danger" style="width: 100%; height: 70px"><i class="fa fa-save">&nbsp;</i>LƯU HỒ SƠ</button>
+                                                        <button type="submit" class="btn btn-primary mt-2" style="width: 100%;"><i class="fa fa-edit">&nbsp;</i>Chấm hồ sơ</button>
+                                                    </div>
+                                                    <div class="col-lg-12 mt-2">
+                                                        <div class="list-style mt-50">
+                                                            <hr />
+                                                            <div class="alert alert-danger text-dark">Trình chấm điểm hệ thống, nếu ghi sai hệ thống sẽ nhắc bạn. Vui lòng bấm vào <b class="text-danger">Chấm hồ sơ</b> để kiểm tra quá trình</div>
+                                                            <h4 class="list-title text-primary">Hướng dẫn<br /><span style="font-size: 12px; color: black">Chọn và ghi để hệ thống hướng dẫn chi tiết</span></h4>
+                                                            <div class="list-style mt-50">
+                                                                <h4 class="list-title">{{info}}</h4>
+                                                                <div class="e" style="font-size: 15px">
+                                                                    <ul>
+                                                                        <li>{{fullname}}</li>
+                                                                        <li>{{jobposition}}</li>
+                                                                        <li>{{dateofbirth}}</li>
+                                                                        <li>{{sex}}</li>
+                                                                        <li>{{phone}}</li>
+                                                                        <li>{{sex}}</li>
+                                                                        <li>{{email}}</li>
+                                                                        <li>{{address}}</li>
+                                                                        <li><b>{{contentyes}}</b></li>
+                                                                        <li>{{yes}}</li>
+                                                                        <li>{{yes1}}</li>
+                                                                        <li>{{yes2}}</li>
+                                                                        <li>{{yes3}}</li>
+                                                                        <li>{{yes4}}</li>
+                                                                        <li><b>{{contentno}}</b></li>
+                                                                        <li>{{no}}</li>
+                                                                        <li>{{no1}}</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> <!-- navbar-collapse.// -->
+                                        </div><!-- container //  -->
+                                    </nav>
+                                </div>
+                            </div>
+                        </form>
+                    }
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

@@ -10,6 +10,9 @@
         <EntityTypeShape EntityType="DataWorkModel.User" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DataWorkModel.Work" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="DataWorkModel.FK_Work_Employer" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DataWorkModel.Cv" Width="1.5" PointX="8.375" PointY="2" />
+        <EntityTypeShape EntityType="DataWorkModel.Theme" Width="1.5" PointX="0.75" PointY="7.75" />
+        <AssociationConnector Association="DataWorkModel.FK_Cv_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
