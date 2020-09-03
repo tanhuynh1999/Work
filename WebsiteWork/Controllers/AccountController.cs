@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using WebsiteWork.Models;
@@ -19,7 +20,7 @@ namespace WebsiteWork.Controllers
             {
                 return Redirect(viewcv);
             }
-            return View();
+            return View(db.Cvs.ToList());
         }
         [HttpPost]
         public ActionResult Login(FormCollection f)
@@ -65,6 +66,49 @@ namespace WebsiteWork.Controllers
                 Session["user"] = user;
                 return Redirect(Request.UrlReferrer.ToString());
             }
+        }
+        //Quản lý cá nhân
+        public ActionResult ManageUser()
+        {
+            User user = (User)Session["user"];
+            if (user == null)
+            {
+                return Redirect(home);
+            }
+            List<Cv> cv = db.Cvs.Where(n => n.user_id == user.user_id).ToList();
+            Session["count_cv"] = cv.Count;
+            Session["user"] = user;
+            return View();
+        }
+        // Doi mat khau
+        [HttpPost]
+        public ActionResult EditInfo(FormCollection f)
+        {
+            String user_industryloving = f["user_industryloving"];
+            String user_skill = f["user_skill"];
+            String user_interests = f["user_interests"];
+            User user = (User)Session["user"];
+            User usershow = db.Users.SingleOrDefault(n => n.user_id == user.user_id);
+            db.Users.Find(user.user_id).user_industryloving = user_industryloving;
+            db.Users.Find(user.user_id).user_skill = user_skill;
+            db.Users.Find(user.user_id).user_interests = user_interests;
+            db.SaveChanges();
+            Session["testpass"] = "<div class='alert alert-danger w-100'><b class='text-danger'><i class='fas fa-check-circle' style = 'color: green'>&nbsp;</i><span style = 'color: green'>Thông tin cập nhật thành công.</span></b></div>";
+            Session["user"] = usershow;
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+        // Thay doi thong tin cá nhân
+        [HttpPost]
+        public ActionResult ChangePassword(FormCollection f)
+        {
+            String sPass = f["user_pass"];
+            User user = (User)Session["user"];
+            db.Users.Find(user.user_id).user_pass = sPass;
+            db.Users.Find(user.user_id).user_token = Guid.NewGuid().ToString();
+            db.SaveChanges();
+            Session["testpass"] = "<div class='alert alert-danger w-100'><b class='text-danger'><i class='fas fa-check-circle' style = 'color: green'>&nbsp;</i><span style = 'color: green'>Đổi mật khẩu thành công.</span></b></div>";
+            Session["user"] = user;
+            return Redirect(Request.UrlReferrer.ToString());
         }
         // Log-out
         public ActionResult Logout()

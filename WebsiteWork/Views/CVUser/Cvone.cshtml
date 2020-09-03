@@ -3,6 +3,7 @@
     User user = (User)Session["user"];
     ViewBag.Title = "Cvone";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    String haha = "@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)";
 }
 <div class="w3l-index-block1" ng-app="">
     <div class="py-5">
@@ -89,18 +90,79 @@
                             // Bước 1: Lấy giá trị của username và password
                             var cv_fullname = document.getElementById('cv_fullname').value;
                             var cv_linkfc = document.getElementById('cv_linkfc').value;
+                            var cv_phone = document.getElementById('cv_phone').value;
+                            var cv_email = document.getElementById('cv_email').value;
+                            var cv_fullname = document.getElementById('cv_fullname').value;
+                            var cv_location = document.getElementById('cv_location').value;
+                            //Chuoi null
                             //Bieu thuc chinh qui
-                            var linkfc = /https?:\/\/(?:[-\w]+\.)?([-\w]+)\.\w+(?:\.\w+)?\/?.*/i;
+                            var linkfc = /(?:http:\/\/)?(?:www\.)?facebook\.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*([\w\-]*)/;
+                            var phone = /^(0|\+84)(\s|\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\d)(\s|\.)?(\d{3})(\s|\.)?(\d{3})$/i;
+                            var email = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@haha+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i;
+                            var fullname = /^[a-zA-Z][0-9a-zA-Z .,'-]*$/;
+                            var location = /^[^0-9()]+$/;
                             // Bước 2: Kiểm tra dữ liệu hợp lệ hay không
-                            if (cv_fullname == '') {
-                                document.getElementById("testfullname").innerHTML = '<b class="text-danger" style="font-size: 12px;"><i class="fa fa-window-close">&nbsp;</i>Họ và tên không để trống.</b>';
-                            }
-                            else if (cv_linkfc != null && cv_linkfc != '') {
-                                if (linkfc.test(cv_linkfc) == false) {
-                                    document.getElementById("testlinkfc").innerHTML = '<b class="text-danger" style="font-size: 12px;"><i class="fa fa-window-close">&nbsp;</i>Link facebook của bạn không hợp lệ.Có thể bỏ trống</b>';
+
+                            if(fullname.test(cv_fullname) == false) {
+                                if (cv_fullname != '') {
+                                    document.getElementById("testfullname").innerHTML = '<b class="text-danger" style="font-size: 12px;"><i class="fas fa-exclamation-circle">&nbsp;</i>Tên nên viết hoa chữ cái đầu của tên lót,tên chính. Tên không có số và ký tự (vd: Huỳnh Minh Tấn)</b>';
+                                    document.getElementById("testphone").innerHTML = '';
+                                    document.getElementById("testemail").innerHTML = '';
+                                    document.getElementById("testlocation").innerHTML = '';
                                 }
                                 else {
-                                    return true;
+                                    document.getElementById("testfullname").innerHTML = '<b class="text-danger" style="font-size: 12px;"><i class="fa fa-window-close">&nbsp;</i>Tên là bắt buộc. Tên là thành phần quan trọng để cho hồ sơ bạn hoàn hảo hơn.</b>';
+                                    document.getElementById("testphone").innerHTML = '';
+                                    document.getElementById("testemail").innerHTML = '';
+                                    document.getElementById("testlocation").innerHTML = '';
+                                }
+                            }
+                            else if (location.test(cv_location) == false) {
+                                if (cv_location != '') {
+                                    document.getElementById("testlocation").innerHTML = '<b class="text-danger" style="font-size: 12px;"><i class="fas fa-exclamation-circle">&nbsp;</i>Vị trí ứng tuyển không thể có số. Nên ghi rõ ra vị trí mình cần làm ở công việc đó. (vd: Fontend website,backend website,...)</b>';
+                                    document.getElementById("testphone").innerHTML = '';
+                                    document.getElementById("testemail").innerHTML = '';
+                                    document.getElementById("testfullname").innerHTML = '';
+;
+                                }
+                                else {
+                                    document.getElementById("testlocation").innerHTML = '<b class="text-danger" style="font-size: 12px;"><i class="fas fa-exclamation-circle">&nbsp;</i>Vị trí không để trống, vị trí là vai trò quan trọng mà NTD muốn bạn đang muốn làm gì.</b>';
+                                    document.getElementById("testphone").innerHTML = '';
+                                    document.getElementById("testemail").innerHTML = '';
+                                    document.getElementById("testfullname").innerHTML = '';
+                                }
+                            }
+                            else if (linkfc.test(cv_linkfc) == false) {
+                                if (cv_linkfc != '') {
+                                    document.getElementById("testlinkfc").innerHTML = '<b class="text-danger" style="font-size: 12px;"><i class="fas fa-exclamation-circle">&nbsp</i>Link facebook của bạn không hợp lệ.Có thể bỏ trống</b>';
+                                }
+                            }
+                            else if (phone.test(cv_phone) == false) {
+                                if (cv_phone != '') {
+                                    document.getElementById("testphone").innerHTML = '<b class="text-danger" style="font-size: 12px;"><i class="fas fa-exclamation-circle">&nbsp;</i>Số điện thoại bạn nhập không hợp lệ.Số điện thoại phải đúng (vd: 0924404019,+84924404019)</b>';
+                                    document.getElementById("testemail").innerHTML = '';
+                                    document.getElementById("testfullname").innerHTML = '';
+                                    document.getElementById("testlocation").innerHTML = '';
+                                }
+                                else {
+                                    document.getElementById("testphone").innerHTML = '<b class="text-danger" style="font-size: 12px;"><i class="fa fa-window-close">&nbsp;</i>Số điện thoại là bắt buộc. NTD dựa vào số điện thoại của bạn để liên hệ, nên khai báo đúng.</b>';
+                                    document.getElementById("testemail").innerHTML = '';
+                                    document.getElementById("testfullname").innerHTML = '';
+                                    document.getElementById("testlocation").innerHTML = '';
+                                }
+                            }
+                            else if (email.test(cv_email) == false) {
+                                if (cv_email != '') {
+                                    document.getElementById("testemail").innerHTML = '<b class="text-danger" style="font-size: 12px;"><i class="fas fa-exclamation-circle">&nbsp;</i>Email bạn nhập không hợp lệ. Email nên chứa tên bạn (vd: huynhminhtan4019@gmail.com)</b>';
+                                    document.getElementById("testphone").innerHTML = '';
+                                    document.getElementById("testfullname").innerHTML = '';
+                                    document.getElementById("testlocation").innerHTML = '';
+                                }
+                                else {
+                                    document.getElementById("testemail").innerHTML = '<b class="text-danger" style="font-size: 12px;"><i class="fa fa-window-close">&nbsp;</i>Email là bắt buộc. NTD dựa vào Email của bạn để liên hệ, nên khai báo đúng (Tốt nhất là email có họ và tên).</b>';
+                                    document.getElementById("testphone").innerHTML = '';
+                                    document.getElementById("testfullname").innerHTML = '';
+                                    document.getElementById("testlocation").innerHTML = '';
                                 }
                             }
                             else {
@@ -109,6 +171,7 @@
                             return false;
                         }
                     </script>
+                    <script src="~/Views/Account/form.js"></script>
                     <form action="@Url.Action("CreateCv","CVUser")" method="post" onsubmit="return valicv()">
                         <input type="hidden" value="1" name="cv_numbertheme" />
                         <input type="hidden" value="@user.user_id" name="user_id" />
@@ -121,9 +184,9 @@
                                                 <img src="~/Images/Cv/32644928_2062295167425734_7686714948314988544_o.jpg" class="container" style="height: 200px" />
                                             </div>
                                             <div class="col-lg-8 w-100" ng-click="fullname = '1.Ghi rõ ràng họ tên (Viết hoa chữ cái đầu).';jobposition = '2.Vị trí công việc ứng tuyển như kế toán,lập trình, backend,.vvv';dateofbirth = '3.Ghi rõ ngày,tháng, năm sinh đúng. Nếu không muốn thì để trống.';phone = '4.Bắt buộc phải có SĐT. Nhà tuyển dụng sẽ thông qua số này để liên hệ bạn.';email = '5.Bắt buộc phải có Email. Nhà tuyển dụng sẽ thông qua email này để liên hệ bạn.';address = '6.Ghi rõ địa chỉ, nơi ở của bạn để NTD hiểu rõ về nơi bạn sinh sống.';fc = '7.Nên ghi trang cá nhân facebook, copy đường link dẫn đến trang fb chính của mình, NTD có thể xem thông tin về bạn.'; info = 'Thông tin cá nhân';sex = '8.Chọn rõ giới tính của bạn để NTD có thể nhìn rõ về bạn.'">
-                                                <h2><input type="text" placeholder="Họ và tên" value="Huỳnh Minh A" style="border: 0px solid black" name="cv_fullname" id="cv_fullname"></h2>
+                                                <h2><input type="text" placeholder="Họ và tên" value="Huỳnh Minh A" style="border: 0px solid black" name="cv_fullname" id="cv_fullname"></h2><div id="testfullname"></div>
                                                 <div id="testfullname"></div>
-                                                <p><input placeholder="Vị trí ứng tuyển" style="border: 0px solid black" name="cv_location" /></p>
+                                                <p><input placeholder="Vị trí ứng tuyển" style="border: 0px solid black" name="cv_location" id="cv_location" /><div id="testlocation"></div></p>
                                                 <ul>
                                                     <li><b>Ngày sinh:</b><input type="date" style="border: 0px solid black" name="cv_bird" /></li>
                                                     <li>
@@ -134,10 +197,10 @@
                                                             <option value="0">Khác</option>
                                                         </select>
                                                     </li>
-                                                    <li><b>Điện thoại:</b> <input type="text" placeholder="Số điện thoại (*bắt buộc)" style="border: 1px dashed red" name="cv_phone" /></li>
-                                                    <li class="mt-1"><b>Email:</b> <input type="text" placeholder="Email (*bắt buộc)" style="border: 1px dashed red" name="cv_email" id="cv_email"/></li>
+                                                    <li><b>Điện thoại:</b> <input type="text" placeholder="Số điện thoại (*bắt buộc)" style="border: 1px dashed red" name="cv_phone" id="cv_phone" maxlength="15" /><div id="testphone"></div></li>
+                                                    <li class="mt-1"><b>Email:</b> <input type="text" value="@user.user_email" placeholder="Email (*bắt buộc)" style="border: 1px dashed red; width: 300px" name="cv_email" id="cv_email" maxlength="60" /><div id="testemail"></div></li>
                                                     <li><b>Địa chỉ:</b> <input type="text" style="border: 0px solid black" value="25/5 phường Hiệp An" placeholder="Địa chỉ" name="cv_address" /></li>
-                                                    <li><b>Link facebook: </b><input style="border: 0px solid black;" class="text-primary w-100" value="https://www.facebook.com/profile.php?id=10000935812525" placeholder="Link cá nhân facebook" name="cv_linkfc" id="cv_linkfc"/><div><div id="testlinkfc"></div></div></li>
+                                                    <li><b>Link facebook: </b><input style="border: 0px solid black;" class="text-primary w-100" value="https://www.facebook.com/profile.php?id=10000935812525" placeholder="Link cá nhân facebook" name="cv_linkfc" id="cv_linkfc" /><div><div id="testlinkfc"></div></div></li>
                                                 </ul>
                                             </div>
                                             <div class="col-lg-12">
@@ -302,8 +365,8 @@
                             </div>
                             <div class="col-lg-4 bg-white">
                                 <nav class="sticky-top bg-white w-100" style="z-index: 100000 !important; height: 70px;">
-                                    <div class="bg-white">
-                                        <div class="bg-white" id="main_nav">
+                                    <div class="bg-white card shadow">
+                                        <div class="bg-white card-body" id="main_nav">
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <button type="submit" class="btn btn-danger" style="width: 100%; height: 70px"><i class="fa fa-save">&nbsp;</i>LƯU HỒ SƠ</button>
@@ -349,6 +412,25 @@
                     </form>
                 </section>
             </div>
+        </div>
+    </div>
+</div>
+<div class="section-content bg-dark w-100 fixed-bottom" style="height: 55px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row mt-2">
+                    <div class="col-lg-6 col-sm-6">
+                        <button type="button" class="btn btn-warning w-100"><i class="fa fa-file-pdf">&nbsp;</i>Tải file PDF (Giới hạn: 10)</button>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <button type="button" class="btn btn-warning w-100"><i class="fa fa-newspaper">&nbsp;</i>Sử dụng hồ sơ khác</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 bg-white">
+
         </div>
     </div>
 </div>

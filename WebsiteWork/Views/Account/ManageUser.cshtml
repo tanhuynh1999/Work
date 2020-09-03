@@ -1,9 +1,9 @@
-﻿@using WebsiteWork.Models;
-@model List<Cv>
+﻿@using WebsiteWork.Models
 @{
-    ViewBag.Title = "ViewCV";
-    Layout = "~/Views/Shared/_Layout.cshtml";
     User user = (User)Session["user"];
+    ViewBag.Title = "Cvone";
+    String user_idtext = "TW1S";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Content/UI/UIImages/css/pe-icon-7-stroke.css" rel="stylesheet" />
 <link href="~/Content/UI/UIImages/css/rotating-card.css" rel="stylesheet" />
@@ -14,7 +14,7 @@
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded">
                         <div class="container">
-                            <a class="navbar-brand" href="javascript:;">Chào: @user.user_nicename đã quay trở lại AllWork1s</a>
+                            <a class="navbar-brand" href="javascript:;">Chào: Tấn đã quay trở lại AllWork1s</a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-inner-primary" aria-controls="nav-inner-primary" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
@@ -62,127 +62,60 @@
                     <div class="row">
                         <div class="col-lg-8">
                             <!-- Tabs with icons -->
-                            <div class="nav-wrapper alert alert-primary text-dark mt-2">
-                                Bạn đã tạo @Model.Where(n => n.cv_numbertheme == 1 && n.user_id == user.user_id).ToList().Count hồ sơ xin việc và không được tạo thêm
+                            <div class="nav-wrapper alert alert-primary text-dark mt-3">
+                                <i class="fa fa-bell">&nbsp;</i>Chào tấn: Bạn có 1 lời mời từ nhà tuyển dụng
                             </div>
                             <div class="card shadow">
                                 <div class="card-body">
                                     <div class="row">
                                         <!--Hồ sơ 1 : cơ bản-->
-                                        @foreach (var item in Model.Where(n => n.cv_numbertheme == 1 && n.user_id == user.user_id).ToList())
-                                        {
-                                            <div class="col-md-4 col-sm-6">
-                                                <div class="card-container">
-                                                    <div class="card">
-                                                        <div class="front">
-                                                            <img class="img-circle w-100" style="height: 300px" src="~/Content/UI/UIImages/images/mau-cv-default.jpg" />
-                                                            <div class="content">
-                                                                <div class="footer bg-primary text-white">
-                                                                    <div style="height: 30px">
-                                                                        Miển phí (<i class="fa fa-plus"></i>)
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div> <!-- end front panel -->
-                                                        <div class="back">
-                                                            <div class="header">
-                                                                <h5 class="motto">"Mẫu CV trắng, dễ sử dụng"</h5>
-                                                            </div>
-                                                            <div class="content">
-                                                                <div class="main">
-                                                                    <h4 class="text-center">Mẫu CV cơ bản</h4>
-                                                                    <p class="text-center">Phù hợp với tất cả nghành nghề</p>
-
-                                                                    <div class="stats-container">
-                                                                        <div class="stats">
-                                                                            <h4>@Model.Where(n=>n.cv_numbertheme == 1).Count()</h4>
-                                                                            <p>
-                                                                                Người dùng
-                                                                            </p>
-                                                                        </div>
-                                                                        <div class="stats">
-                                                                            <h4>0</h4>
-                                                                            <p>
-                                                                                0 kiểm duyệt
-                                                                            </p>
-                                                                        </div>
-                                                                        <div class="stats">
-                                                                            <h4>35</h4>
-                                                                            <p>
-                                                                                Hướng dẫn
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-                                                            <div class="footer">
-                                                                <div class="social-links text-center btn btn-danger">
-                                                                    <a class="text-white" href="@Url.Action("EditcVOne","CVUser",new { id=item.cv_id })">SỬA</a>
-                                                                </div>
-                                                            </div>
-                                                        </div> <!-- end back panel -->
-                                                    </div> <!-- end card -->
-                                                </div> <!-- end card-container -->
-                                            </div> <!-- end col sm 3 -->
-                                        }
-                                        @if (Model.Where(n => n.cv_numbertheme == 1 && n.user_id == user.user_id).ToList().Count < 1)
-                                        {
-                                            <div class="col-md-4 col-sm-6">
-                                                <div class="card-container">
-                                                    <div class="card">
-                                                        <div class="front">
-                                                            <img class="img-circle w-100" style="height: 300px" src="~/Content/UI/UIImages/images/mau-cv-default.jpg" />
-                                                            <div class="content">
-                                                                <div class="footer bg-primary text-white">
-                                                                    <div style="height: 30px">
-                                                                        Miển phí (<i class="fa fa-plus"></i>)
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div> <!-- end front panel -->
-                                                        <div class="back">
-                                                            <div class="header">
-                                                                <h5 class="motto">"Mẫu CV trắng, dễ sử dụng"</h5>
-                                                            </div>
-                                                            <div class="content">
-                                                                <div class="main">
-                                                                    <h4 class="text-center">Mẫu CV cơ bản</h4>
-                                                                    <p class="text-center">Phù hợp với tất cả nghành nghề</p>
-
-                                                                    <div class="stats-container">
-                                                                        <div class="stats">
-                                                                            <h4>0</h4>
-                                                                            <p>
-                                                                                Người dùng
-                                                                            </p>
-                                                                        </div>
-                                                                        <div class="stats">
-                                                                            <h4>0</h4>
-                                                                            <p>
-                                                                                0 kiểm duyệt
-                                                                            </p>
-                                                                        </div>
-                                                                        <div class="stats">
-                                                                            <h4>35</h4>
-                                                                            <p>
-                                                                                Hướng dẫn
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-                                                            <div class="footer">
-                                                                <div class="social-links text-center btn btn-danger">
-                                                                    <a class="text-white" href="@Url.Action("Cvone","CVUser")">THÊM</a>
-                                                                </div>
-                                                            </div>
-                                                        </div> <!-- end back panel -->
-                                                    </div> <!-- end card -->
-                                                </div> <!-- end card-container -->
-                                            </div> <!-- end col sm 3 -->
-                                        }
+                                        <div class="col-lg-3" style="background-image: url('../../Images/User/mau-background-don-gian-01-1024x640.jpg'); background-repeat: no-repeat; background-size: 100% 100%;">
+                                            <img src="~/Images/User/822711_user_512x512.png" style="width: 100%; height: 150px" class="img-fluid rounded-circle shadow" />
+                                            <center class="mt-2">
+                                                <div><button class="btn btn-danger">Tắt hiển thị</button></div>
+                                            </center>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <ul style="font-size:17px">
+                                                <li>@Html.Raw(Session["testpass"])</li>
+                                                <li class="font-weight-bold text-danger"><i class="fa fa-user">&nbsp;</i>Thông tin chính</li>
+                                                <li><b>Mã ứng viên: </b>#@user_idtext@user.user_id</li>
+                                                <li><b>Email:</b> @user.user_email</li>
+                                                <hr />
+                                                <li class="font-weight-bold text-danger"><i class="fa fa-sign-in-alt">&nbsp;</i>Thông tin tài khoản</li>
+                                                <li><b>Lần đăng nhập gần đây: </b>@user.user_datelogin.Value.Day-@user.user_datelogin.Value.Month-@user.user_datelogin.Value.Year lúc @user.user_datelogin.Value.Hour:@user.user_datelogin.Value.Minute:@user.user_datelogin.Value.Second</li>
+                                                <li><b>Tài khoản đã tạo: </b>@user.user_datecreated.Value.Day-@user.user_datecreated.Value.Month-@user.user_datecreated.Value.Year lúc @user.user_datecreated.Value.Hour:@user.user_datecreated.Value.Minute:@user.user_datecreated.Value.Second</li>
+                                                <li><b>Số lần bị cấm:</b> 0</li>
+                                                <li><b>Tài khoản:</b> @(user.user_role == 1 ? "Free" : "Cao cấp") <a href="#" class="text-primary">@(user.user_role == 1 ? "(Nâng cấp tài khoản)" : "Xem tính năng cao cấp")</a></li>
+                                                <hr />
+                                                <li class="font-weight-bold text-danger"><i class="fa fa-newspaper">&nbsp;</i>Hồ sơ và yêu thích</li>
+                                                <li><b>Hồ sơ hiện có:</b> @Session["count_cv"] (@(user.user_role == 1 ? "Tài khoản free: 3 hồ sơ)" : "Tài khoản cao cấp: 10 hồ sơ)")</li>
+                                                <li><b>Đã lưu yêu thích:</b> 0</li>
+                                                <li><b>Đã lưu công ty:</b> 0</li>
+                                                <li><b>Đã bình luận công ty:</b> 0</li>
+                                                <hr />
+                                                <li class="font-weight-bold text-danger"><i class="fas fa-pager">&nbsp;</i>Bài viết cá nhân</li>
+                                                <li><b>Bài viết đã đăng:</b> 0</li>
+                                                <li><b>Lượt xem bài viết:</b> 0</li>
+                                                <li><b>Đã bình luận:</b> 0</li>
+                                                <li><b>Đã trả lời:</b> 0</li>
+                                                <hr />
+                                                <li class="font-weight-bold text-danger"><i class="fa fa-eye">&nbsp;</i>Lượt xem và chọn</li>
+                                                <li><b>Lượt xem hồ sơ:</b> 0</li>
+                                                <li><b>Nhà tuyển dụng chọn:</b> 1</li>
+                                                <hr />
+                                                <li class="font-weight-bold text-danger"><i class="fas fa-chalkboard-teacher">&nbsp;</i>Cá nhân</li>
+                                                <li><b>Yêu thích nghành:</b> <div>@user.user_industryloving</div></li>
+                                                <li><b>Kỹ năng yêu thích của nghành:</b> <div>@user.user_skill</div></li>
+                                                <li><b>Sở thích:</b> <div>@user.user_interests</div></li>
+                                                <hr />
+                                                <li>
+                                                    <button type="button" class="btn btn-sm btn-primary btn-tooltip" data-toggle="modal" data-target="#EditInfo" data-placement="top" title="Tooltip on top" data-container="body" data-animation="true"><i class="fas fa-user-cog">&nbsp;</i>Đổi thông tin cá nhân</button>
+                                                    <button type="button" class="btn btn-sm btn-info btn-tooltip" data-placement="top" title="Tooltip on top" data-container="body" data-animation="true" data-toggle="modal" data-target="#ChangePassword"><i class="fa fa-key">&nbsp;</i>Đổi mật khẩu</button>
+                                                    <button type="button" class="btn btn-sm btn-success btn-tooltip" data-placement="top" title="Tooltip on top" data-container="body" data-animation="true"><i class="fas fa-cog">&nbsp;</i>Cài đặt hệ thống</button>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -205,18 +138,9 @@
                                         <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
                                             <div class="row">
                                                 <div class="col-md-5 col-sm-6">
-                                                    @if (user.user_image == null)
-                                                    {
-                                                        <img src="~/Images/User/822711_user_512x512.png" style="width: 100px; height: 100px" class="img-fluid rounded-circle shadow" />
-                                                    }
-                                                    else
-                                                    {
-                                                        <img src="~/Images/User/@user.user_image" style="width: 100px; height: 100px" class="img-fluid rounded-circle shadow" />
-                                                        <div class="clearfix"></div>
-                                                        <a href="#" style="font-size: 10px;">Cập nhật ảnh đại diện</a>
-                                                    }
+                                                    <img src="~/Images/User/822711_user_512x512.png" style="width: 100px; height: 100px" class="img-fluid rounded-circle shadow" />
                                                 </div>
-                                                <div class="col-md-7 col-sm-6" ng-init="ten = '@user.user_nicename'">
+                                                <div class="col-md-7 col-sm-6">
                                                     Chào bạn: <b class="font-weight-bold">{{ten | uppercase}}</b>
                                                     <ul>
                                                         <li class="text-danger font-weight-bold">Tài khoản miễn phí</li>
@@ -334,6 +258,127 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section-content bg-white w-100 fixed-bottom" style="height: 55px; ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row mt-2">
+                    <div class="col-lg-4 col-sm-6">
+
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <button type="button" class="btn btn-danger w-100"><i class="fas fa-laugh-beam">&nbsp;</i>Phiên bản cao cấp chỉ 200.000 vnđ / 12 tháng</button>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 bg-white">
+
+        </div>
+    </div>
+</div>
+<!--Modal-->
+<div class="modal fade" id="ChangePassword" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+    <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="modal-title-default">Đổi mật khẩu</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="text-danger"><i class="fa fa-bell">&nbsp;</i>Nhập chính xác mật khẩu cũ và mật khẩu mới để thay đổi.</div>
+                <script>
+                    function valichangerpass() {
+                        var user_passold = document.getElementById("user_passold").value;
+                        var user_pass = document.getElementById("user_pass").value;
+                        var user_passres = document.getElementById("user_passres").value;
+                        if (user_passold == '') {
+                            document.getElementById("testpassold").innerHTML = '<b class="text-danger" style="font-size: 12px;"><i class="fas fa-exclamation-circle">&nbsp</i>Vui lòng nhập mật khẩu cũ.</b>';
+                        }
+                        else if (user_pass == '') {
+                             document.getElementById("testpassold").innerHTML = '<b class="text-danger" style="font-size: 12px;"><i class="fas fa-exclamation-circle">&nbsp</i>Vui lòng nhập mật khẩu mới.</b>';
+                        }
+                        else if (user_passres == '') {
+                             document.getElementById("testpassold").innerHTML = '<b class="text-danger" style="font-size: 12px;"><i class="fas fa-exclamation-circle">&nbsp</i>Vui lòng xác nhân mật khẩu.</b>';
+                        }
+                        else if (user_pass != user_passres) {
+                             document.getElementById("testpassold").innerHTML = '<b class="text-danger" style="font-size: 12px;"><i class="fas fa-exclamation-circle">&nbsp</i>Mật khẩu xác nhân không khớp.</b>';
+                        }
+                        else if (@user.user_pass != user_passold) {
+                            document.getElementById("testpassold").innerHTML = '<b class="text-danger" style="font-size: 12px;"><i class="fas fa-exclamation-circle">&nbsp</i>Mật khẩu cũ không đúng.</b>';
+                        }
+                        else {
+                            return true;
+                        }
+                        return false;
+                    }
+                </script>
+                <form action="@Url.Action("ChangePassword","Account")" method="post" class="mt-2" onsubmit="return valichangerpass()">
+                    <div class="form-group">
+                        <div class="input-group mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-key"></i></span>
+                            </div>
+                            <input class="form-control" placeholder="Mật khẩu cũ" type="password" id="user_passold">
+                        </div>
+                        <div class="input-group mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-key"></i></span>
+                            </div>
+                            <input class="form-control" placeholder="Mật khẩu mới" type="password" name="user_pass" id="user_pass">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-key"></i></span>
+                            </div>
+                            <input class="form-control" placeholder="Xác nhận mật khẩu" type="password" id="user_passres">
+                        </div>
+                    </div>
+                    <div id="testpassold"></div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Lưu mật khẩu</button>
+                        <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Hủy</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Thong tin ca nhan-->
+<div class="modal fade" id="EditInfo" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+    <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="modal-title-default">Thông tin cá nhân</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="@Url.Action("EditInfo","Account")" method="post" class="mt-2">
+                    <div class="form-group">
+                        <div class="input-group mb-4">
+                            <b>Chuyên nghành yêu thích:</b><br />
+                            <textarea name="user_industryloving" class="w-100" placeholder="Nêu chuyển nghành yêu thích (vd: Công nghệ thông tin,Quản trị kinh doanh,...)" style="border: 0px solid black;height: 100px">@user.user_industryloving</textarea>
+                            <b>Kỹ năng yêu thích:</b><br />
+                            <textarea name="user_skill" class="w-100" placeholder="Code C#,code website,đánh work,..." style="border: 0px solid black;height: 100px">@user.user_skill</textarea>
+                            <b>Sở thích:</b><br />
+                            <textarea name="user_interests" class="w-100" placeholder="Nêu chuyển nghành yêu thích (vd: Công nghệ thông tin,Quản trị kinh doanh,...)" style="border: 0px solid black;height: 100px">@user.user_interests</textarea>
+                        </div>
+                    </div>
+                    <div id="testpassold"></div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                        <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Hủy</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

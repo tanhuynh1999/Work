@@ -31,6 +31,9 @@ namespace WebsiteWork.Models
         public Nullable<System.DateTime> user_datelogin { get; set; }
         public Nullable<bool> user_activate { get; set; }
         public string user_image { get; set; }
+        public string user_industryloving { get; set; }
+        public string user_skill { get; set; }
+        public string user_interests { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cv> Cvs { get; set; }

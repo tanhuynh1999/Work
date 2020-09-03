@@ -99,6 +99,9 @@
           <Property Name="user_datelogin" Type="datetime" />
           <Property Name="user_activate" Type="bit" />
           <Property Name="user_image" Type="nvarchar(max)" />
+          <Property Name="user_industryloving" Type="nvarchar(max)" />
+          <Property Name="user_skill" Type="nvarchar(max)" />
+          <Property Name="user_interests" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Work">
           <Key>
@@ -218,6 +221,9 @@
           <Property Name="user_activate" Type="Boolean" />
           <Property Name="user_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Cvs" Relationship="DataWorkModel.FK_Cv_User" FromRole="User" ToRole="Cv" />
+          <Property Name="user_industryloving" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="user_skill" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="user_interests" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Work">
           <Key>
@@ -378,6 +384,9 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="DataWorkModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="user_interests" ColumnName="user_interests" />
+                <ScalarProperty Name="user_skill" ColumnName="user_skill" />
+                <ScalarProperty Name="user_industryloving" ColumnName="user_industryloving" />
                 <ScalarProperty Name="user_image" ColumnName="user_image" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="user_login" ColumnName="user_login" />
