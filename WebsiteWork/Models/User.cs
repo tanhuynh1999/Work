@@ -34,6 +34,7 @@ namespace WebsiteWork.Models
         public string user_industryloving { get; set; }
         public string user_skill { get; set; }
         public string user_interests { get; set; }
+        public Nullable<bool> user_view { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cv> Cvs { get; set; }

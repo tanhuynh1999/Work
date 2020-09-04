@@ -70,7 +70,7 @@ namespace WebsiteWork.Controllers
             {
                 db.Entry(cv).State = EntityState.Modified;
                 db.SaveChanges();
-                return Redirect(Request.UrlReferrer.ToString());
+                return RedirectToAction("Index");
             }
             ViewBag.user_id = new SelectList(db.Users, "user_id", "user_login", cv.user_id);
             return View(cv);

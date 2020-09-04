@@ -116,5 +116,7 @@ namespace WebsiteWork.Controllers
             Session["user"] = null;
             return Redirect(Request.UrlReferrer.ToString());
         }
+
+        //Ajax
     }
 }

@@ -58,7 +58,8 @@
                         </div>
                     </nav>
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-12 page">
+                    <div id="loading"></div>
                     <div class="row">
                         <div class="col-lg-8">
                             <!-- Tabs with icons -->
@@ -70,10 +71,24 @@
                                     <div class="row">
                                         <!--Hồ sơ 1 : cơ bản-->
                                         <div class="col-lg-3" style="background-image: url('../../Images/User/mau-background-don-gian-01-1024x640.jpg'); background-repeat: no-repeat; background-size: 100% 100%;">
-                                            <img src="~/Images/User/822711_user_512x512.png" style="width: 100%; height: 150px" class="img-fluid rounded-circle shadow" />
-                                            <center class="mt-2">
-                                                <div><button class="btn btn-danger">Tắt hiển thị</button></div>
-                                            </center>
+                                            <script>
+                                                var loadFile = function (event) {
+                                                    var output = document.getElementById('output');
+                                                    output.src = URL.createObjectURL(event.target.files[0]);
+                                                    output.onload = function () {
+                                                        URL.revokeObjectURL(output.src) // free memory
+                                                    }
+                                                };
+                                            </script>
+                                            <form runat="sever ">
+                                                <img src="~/Images/User/822711_user_512x512.png" id="output" style="width: 100%; height: 150px" class="img-fluid rounded-circle shadow" />
+                                                <center class="mt-2">
+                                                    <button type="button" class="btn btn-sm btn-primary btn-tooltip" data-toggle="modal" data-target="#EditInfo" data-placement="top" style="font-size: 12px" title="Tooltip on top" data-container="body" data-animation="true"><i class="fa fa-images">&nbsp;</i>Thay ảnh đại diện</button>
+                                                </center>
+                                                <center class="mt-2">
+                                                    <div><a href="#" class="btn btn-danger btn-active" data-id="@user.user_id">@(user.user_view == true ? "Mở hiển thị" : "Tắt hiển thị")</a></div>
+                                                </center>
+                                            </form>
                                         </div>
                                         <div class="col-lg-9">
                                             <ul style="font-size:17px">
@@ -110,9 +125,9 @@
                                                 <li><b>Sở thích:</b> <div>@user.user_interests</div></li>
                                                 <hr />
                                                 <li>
-                                                    <button type="button" class="btn btn-sm btn-primary btn-tooltip" data-toggle="modal" data-target="#EditInfo" data-placement="top" title="Tooltip on top" data-container="body" data-animation="true"><i class="fas fa-user-cog">&nbsp;</i>Đổi thông tin cá nhân</button>
-                                                    <button type="button" class="btn btn-sm btn-info btn-tooltip" data-placement="top" title="Tooltip on top" data-container="body" data-animation="true" data-toggle="modal" data-target="#ChangePassword"><i class="fa fa-key">&nbsp;</i>Đổi mật khẩu</button>
-                                                    <button type="button" class="btn btn-sm btn-success btn-tooltip" data-placement="top" title="Tooltip on top" data-container="body" data-animation="true"><i class="fas fa-cog">&nbsp;</i>Cài đặt hệ thống</button>
+                                                    <button type="button" class="btn btn-sm btn-primary btn-tooltip mt-1" data-toggle="modal" data-target="#EditInfo" data-placement="top" title="Tooltip on top" data-container="body" data-animation="true"><i class="fas fa-user-cog">&nbsp;</i>Đổi thông tin cá nhân</button>
+                                                    <button type="button" class="btn btn-sm btn-info btn-tooltip  mt-1" data-placement="top" title="Tooltip on top" data-container="body" data-animation="true" data-toggle="modal" data-target="#ChangePassword"><i class="fa fa-key">&nbsp;</i>Đổi mật khẩu</button>
+                                                    <button type="button" class="btn btn-sm btn-success btn-tooltip mt-1" data-placement="top" title="Tooltip on top" data-container="body" data-animation="true" data-toggle="modal" data-target="#SettingWebsite"><i class="fas fa-cog">&nbsp;</i>Cài đặt</button>
                                                 </li>
                                             </ul>
                                         </div>
@@ -353,6 +368,38 @@
 </div>
 <!--Thong tin ca nhan-->
 <div class="modal fade" id="EditInfo" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+    <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="modal-title-default">Thông tin cá nhân</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="@Url.Action("EditInfo","Account")" method="post" class="mt-2">
+                    <div class="form-group">
+                        <div class="input-group mb-4">
+                            <b>Chuyên nghành yêu thích:</b><br />
+                            <textarea name="user_industryloving" class="w-100" placeholder="Nêu chuyển nghành yêu thích (vd: Công nghệ thông tin,Quản trị kinh doanh,...)" style="border: 0px solid black;height: 100px">@user.user_industryloving</textarea>
+                            <b>Kỹ năng yêu thích:</b><br />
+                            <textarea name="user_skill" class="w-100" placeholder="Code C#,code website,đánh work,..." style="border: 0px solid black;height: 100px">@user.user_skill</textarea>
+                            <b>Sở thích:</b><br />
+                            <textarea name="user_interests" class="w-100" placeholder="Nêu chuyển nghành yêu thích (vd: Công nghệ thông tin,Quản trị kinh doanh,...)" style="border: 0px solid black;height: 100px">@user.user_interests</textarea>
+                        </div>
+                    </div>
+                    <div id="testpassold"></div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                        <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Hủy</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Cai dat-->
+<div class="modal fade" id="SettingWebsite" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
     <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
         <div class="modal-content">
             <div class="modal-header">

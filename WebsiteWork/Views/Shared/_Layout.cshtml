@@ -28,8 +28,22 @@ Author URL: http://w3layouts.com
     <link rel="stylesheet" href="~/Content/Layout/css/style-starter.css">
     <link href="~/Content/fontawesome-free-5.14.0-web/css/all.css" rel="stylesheet" />
 
-
     <script src="~/Scripts/angular.min.js"></script>
+    <!--Load-->
+    <style>
+        #loading {
+            display: block;
+            position: absolute;
+            z-index: 100;
+            width: 100%;
+            height: 100%;
+            top: 10px;
+            background-color: white;
+            background-image: url('../../Content/Load/images/loader-64x/Preloader_2.gif');
+            background-repeat: no-repeat;
+            background-position: top;
+        }
+    </style>
 </head>
 <body>
     @Html.Action("Menu", "Home")
@@ -238,6 +252,26 @@ Author URL: http://w3layouts.com
                 removalDelay: 300,
                 mainClass: 'my-mfp-slide-bottom'
             });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jquery")
+    <script>
+        function onReady(callback) {
+            var intervalId = window.setInterval(function () {
+                if (document.getElementsByTagName('body')[0] !== undefined) {
+                    window.clearInterval(intervalId);
+                    callback.call(this);
+                }
+            }, 1000);
+        }
+
+        function setVisible(selector, visible) {
+            document.querySelector(selector).style.display = visible ? 'block' : 'none';
+        }
+
+        onReady(function () {
+            setVisible('.page', true);
+            setVisible('#loading', false);
         });
     </script>
 </body>

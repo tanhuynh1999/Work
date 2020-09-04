@@ -102,6 +102,7 @@
           <Property Name="user_industryloving" Type="nvarchar(max)" />
           <Property Name="user_skill" Type="nvarchar(max)" />
           <Property Name="user_interests" Type="nvarchar(max)" />
+          <Property Name="user_view" Type="bit" />
         </EntityType>
         <EntityType Name="Work">
           <Key>
@@ -224,6 +225,7 @@
           <Property Name="user_industryloving" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="user_skill" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="user_interests" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="user_view" Type="Boolean" />
         </EntityType>
         <EntityType Name="Work">
           <Key>
@@ -384,6 +386,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="DataWorkModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="user_view" ColumnName="user_view" />
                 <ScalarProperty Name="user_interests" ColumnName="user_interests" />
                 <ScalarProperty Name="user_skill" ColumnName="user_skill" />
                 <ScalarProperty Name="user_industryloving" ColumnName="user_industryloving" />
