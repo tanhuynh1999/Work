@@ -1,0 +1,77 @@
+﻿
+<style>
+    .menu ul li a {
+        color: #151965 !important;
+    }
+
+    .logo {
+        font-size: 30px !important;
+    }
+
+    .all {
+        font-family: 'Adobe Caslon Pro';
+        color: #151965;
+    }
+
+    .ms {
+        font-family: 'Adobe Caslon Pro';
+        color: #151965;
+    }
+
+    .work {
+        color: var(--secondary-color);
+    }
+
+    .semi-rounded-buttons .semi-rounded-two:hover {
+        color: #151965;
+        background-color: transparent;
+    }
+
+    .semi-rounded-buttons .semi-rounded-two {
+        color: #fff;
+        background-color: #151965;
+        border-color: #151965;
+    }
+</style>
+<div class="w3l-bootstrap-header fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light p-2">
+        <div class="container">
+            <a class="navbar-brand logo" href="@Url.Action("IntroduceEmployer","HomeEmployer")"><span class="fas fa-briefcase"></span><b class="all">All</b><b class="work">Work</b><b class="ms">1s</b><b style="font-size: 10px">Nhà tuyển dụng</b></a>
+            <!-- if logo is image enable this
+            <a class="navbar-brand" href="#index.html">
+                <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
+            </a> -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse menu" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Giới thiệu hệ thống</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">Dịch vụ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">Giá</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Liên hệ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="contact.html" style="font-weight: bold">Cuộc sống IT</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="@Url.Action("LoginEmployer","Account")" style="font-weight: bold">Đăng nhập</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="@Url.Action("ResEmployer","Account")" style="font-weight: bold">Đăng ký</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+

@@ -65,6 +65,22 @@
           <Property Name="employer_datecreated" Type="datetime" />
           <Property Name="employer_activate" Type="bit" />
           <Property Name="employer_status" Type="bit" />
+          <Property Name="employer_logo" Type="nvarchar(max)" />
+          <Property Name="employer_specialized" Type="nvarchar" MaxLength="200" />
+          <Property Name="employer_version" Type="int" />
+          <Property Name="employer_option" Type="bit" />
+          <Property Name="employer_personalpage" Type="bit" />
+          <Property Name="employer_name" Type="nvarchar" MaxLength="200" />
+          <Property Name="employer_introduce" Type="nvarchar(max)" />
+          <Property Name="employer_favourite" Type="nvarchar(max)" />
+          <Property Name="employer_linkfc" Type="nvarchar" MaxLength="300" />
+          <Property Name="employer_recruitment" Type="nvarchar" MaxLength="500" />
+          <Property Name="employer_addressmain" Type="nvarchar" MaxLength="200" />
+          <Property Name="employer_ifamemapmain" Type="nvarchar(max)" />
+          <Property Name="employer_addresstwo" Type="nvarchar" MaxLength="200" />
+          <Property Name="employer_ifamemaptwo" Type="nvarchar(max)" />
+          <Property Name="employer_addressthree" Type="nvarchar" MaxLength="200" />
+          <Property Name="employer_ifamemapthree" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -195,6 +211,22 @@
           <Property Name="employer_activate" Type="Boolean" />
           <Property Name="employer_status" Type="Boolean" />
           <NavigationProperty Name="Works" Relationship="Self.FK_Work_Employer" FromRole="Employer" ToRole="Work" />
+          <Property Name="employer_logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_specialized" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="employer_version" Type="Int32" />
+          <Property Name="employer_option" Type="Boolean" />
+          <Property Name="employer_personalpage" Type="Boolean" />
+          <Property Name="employer_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="employer_introduce" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_favourite" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_linkfc" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="employer_recruitment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="employer_addressmain" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="employer_ifamemapmain" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_addresstwo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="employer_ifamemaptwo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_addressthree" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="employer_ifamemapthree" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -354,6 +386,22 @@
           <EntitySetMapping Name="Employers">
             <EntityTypeMapping TypeName="DataWorkModel.Employer">
               <MappingFragment StoreEntitySet="Employer">
+                <ScalarProperty Name="employer_ifamemapthree" ColumnName="employer_ifamemapthree" />
+                <ScalarProperty Name="employer_addressthree" ColumnName="employer_addressthree" />
+                <ScalarProperty Name="employer_ifamemaptwo" ColumnName="employer_ifamemaptwo" />
+                <ScalarProperty Name="employer_addresstwo" ColumnName="employer_addresstwo" />
+                <ScalarProperty Name="employer_ifamemapmain" ColumnName="employer_ifamemapmain" />
+                <ScalarProperty Name="employer_addressmain" ColumnName="employer_addressmain" />
+                <ScalarProperty Name="employer_recruitment" ColumnName="employer_recruitment" />
+                <ScalarProperty Name="employer_linkfc" ColumnName="employer_linkfc" />
+                <ScalarProperty Name="employer_favourite" ColumnName="employer_favourite" />
+                <ScalarProperty Name="employer_introduce" ColumnName="employer_introduce" />
+                <ScalarProperty Name="employer_name" ColumnName="employer_name" />
+                <ScalarProperty Name="employer_personalpage" ColumnName="employer_personalpage" />
+                <ScalarProperty Name="employer_option" ColumnName="employer_option" />
+                <ScalarProperty Name="employer_version" ColumnName="employer_version" />
+                <ScalarProperty Name="employer_specialized" ColumnName="employer_specialized" />
+                <ScalarProperty Name="employer_logo" ColumnName="employer_logo" />
                 <ScalarProperty Name="employer_id" ColumnName="employer_id" />
                 <ScalarProperty Name="employer_email" ColumnName="employer_email" />
                 <ScalarProperty Name="employer_pass" ColumnName="employer_pass" />

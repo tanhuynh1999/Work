@@ -35,6 +35,22 @@ namespace WebsiteWork.Models
         public Nullable<System.DateTime> employer_datecreated { get; set; }
         public Nullable<bool> employer_activate { get; set; }
         public Nullable<bool> employer_status { get; set; }
+        public string employer_logo { get; set; }
+        public string employer_specialized { get; set; }
+        public Nullable<int> employer_version { get; set; }
+        public Nullable<bool> employer_option { get; set; }
+        public Nullable<bool> employer_personalpage { get; set; }
+        public string employer_name { get; set; }
+        public string employer_introduce { get; set; }
+        public string employer_favourite { get; set; }
+        public string employer_linkfc { get; set; }
+        public string employer_recruitment { get; set; }
+        public string employer_addressmain { get; set; }
+        public string employer_ifamemapmain { get; set; }
+        public string employer_addresstwo { get; set; }
+        public string employer_ifamemaptwo { get; set; }
+        public string employer_addressthree { get; set; }
+        public string employer_ifamemapthree { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Work> Works { get; set; }

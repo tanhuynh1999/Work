@@ -12,6 +12,7 @@ namespace WebsiteWork.Controllers
         // LINK
         String home = "/";
         String viewcv = "/CVUser/ViewCV";
+        String homeemployer = "/HomeEmployer/Index";
         // GET: Account
         public ActionResult ViewLogin()
         {
@@ -25,9 +26,9 @@ namespace WebsiteWork.Controllers
         [HttpPost]
         public ActionResult Login(FormCollection f)
         {
+            //User
             String sEmail = f["user_email"].ToString();
             String sPass = f["user_pass"].ToString();
-
             User user = db.Users.Where(n => n.user_activate == true && n.user_role == 1).SingleOrDefault(n => n.user_email == sEmail && n.user_pass == sPass);
             if (user != null)
             {
@@ -40,6 +41,24 @@ namespace WebsiteWork.Controllers
             else
             {
                 Session["NotLogin"] = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Email hoặc mật khẩu đã sai, vui lòng kiểm tra lại.</b></div>";
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+        }
+        [HttpPost]
+        public ActionResult LoginEmployer(FormCollection f)
+        {
+            //User
+            String sEmail = f["employer_email"].ToString();
+            String sPass = f["employer_pass"].ToString();
+            Employer employer = db.Employers.Where(n => n.employer_activate == true).SingleOrDefault(n => n.employer_email == sEmail && n.employer_pass == sPass);
+            if (employer != null)
+            {
+                Session["employer"] = employer;
+                return Redirect(homeemployer);
+            }
+            else
+            {
+                Session["NotLoginEmployer"] = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Email hoặc mật khẩu đã sai, vui lòng kiểm tra lại.</b></div>";
                 return Redirect(Request.UrlReferrer.ToString());
             }
         }
@@ -114,9 +133,33 @@ namespace WebsiteWork.Controllers
         public ActionResult Logout()
         {
             Session["user"] = null;
+            Session["employer"] = null;
             return Redirect(Request.UrlReferrer.ToString());
         }
 
         //Ajax
+
+        //---------------------------------------------------------------------------------------------------------------
+        //Nhà tuyển dụng
+        public ActionResult LoginEmployer()
+        {
+            return View();
+        }
+        public PartialViewResult ResEmployer()
+        {
+            return PartialView();
+        }
+        [HttpPost]
+        public ActionResult CreateEmployer([Bind(Include = "employer_id,employer_email,employer_pass,employer_fullname,employer_sex,employer_company,employer_position,employer_address,employer_phone,employer_vacancies,employer_token,employer_datelogin,employer_datecreated,employer_activate,employer_status,employer_name")] Employer employer)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Employers.Add(employer);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(employer);
+        }
     }
 }

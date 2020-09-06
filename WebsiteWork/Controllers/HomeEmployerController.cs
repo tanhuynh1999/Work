@@ -17,5 +17,9 @@ namespace WebsiteWork.Controllers
         {
             return View();
         }
+        public PartialViewResult Menu()
+        {
+            return PartialView();
+        }
     }
 }

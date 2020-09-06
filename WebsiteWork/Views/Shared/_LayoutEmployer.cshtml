@@ -1,4 +1,14 @@
-﻿
+﻿@using WebsiteWork.Models;
+@{ 
+    Employer employer_free = (Employer)Session["employer_free"];
+    Employer employer_basic = (Employer)Session["employer_basic"];
+    Employer employer_pro = (Employer)Session["employer_pro"];
+    Employer employer = (Employer)Session["employer"];
+    if(employer == null)
+    {
+        Response.Redirect("/Account/LoginEmployer");
+    }
+}
 <!doctype html>
 <html lang="en">
 <head>
@@ -22,9 +32,13 @@
     <link href="~/Content/LayoutEmployer/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet" />
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
+
+    <link href="~/Content/UI/BK/css/style.css" rel="stylesheet" />
     <link href="~/Content/LayoutEmployer/css/demo.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome-free-5.14.0-web/css/all.css" rel="stylesheet" />
 
 
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
@@ -34,6 +48,8 @@
             background-color: #151965;
         }
     </style>
+
+    <script src="~/Content/ckeditor5-build-classic/ckeditor.js"></script>
 </head>
 <body>
 
@@ -56,9 +72,9 @@
 
                 <ul class="nav">
                     <li class="active">
-                        <a href="dashboard.html">
+                        <a href="@Url.Action("Index","HomeEmployer")">
                             <i class="pe-7s-graph"></i>
-                            <p>Dashboard</p>
+                            <p>Trang chủ</p>
                         </a>
                     </li>
                     <li>
@@ -116,7 +132,28 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#" style="color:#151965; font-weight: bold">Nhà tuyển dụng</a>
+                        <a class="navbar-brand" href="#" style="color:#151965; font-weight: bold">
+                            Phiên bản :
+                            @if (employer != null)
+                            {
+                                if (employer.employer_version == 1)
+                                {
+                                    <span>Free (Miễn phí) - Nâng cấp tài khoản</span>
+                                }
+                                else if (employer.employer_version == 2)
+                                {
+                                    <span>Basic (Cơ bản) - Nâng cấp tài khoản</span>
+                                }
+                                else if (employer.employer_version == 3)
+                                {
+                                    <span>Pro (Chuyên nghiệp) - Chất lượng</span>
+                                }
+                                else
+                                {
+
+                                }
+                            }
+                        </a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-left">
@@ -152,15 +189,18 @@
                         </ul>
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <a href="">
-                                    <p>Account</p>
-                                </a>
-                            </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <p>
-                                        Dropdown
+                                        <img src="~/Images/Employer/cong-ty-co-phan-vien-thong-fpt-5d5f5980e317c.jpg" style="width: 30px; height: 30px;border-radius: 50%" class="rounded-circle" />
+                                        @if (employer != null)
+                                        {
+                                            <span style="color: black">Chào: @employer.employer_name</span>
+                                        }
+                                        else
+                                        {
+
+                                        }
                                         <b class="caret"></b>
                                     </p>
 
@@ -172,13 +212,8 @@
                                     <li><a href="#">Another action</a></li>
                                     <li><a href="#">Something</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
+                                    <li><a href="@Url.Action("Logout","Account")">Đăng xuất</a></li>
                                 </ul>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <p>Log out</p>
-                                </a>
                             </li>
                             <li class="separator hidden-lg"></li>
                         </ul>
@@ -253,14 +288,14 @@
 
         demo.initChartist();
 
-        $.notify({
-            icon: 'pe-7s-gift',
-            message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
+        //$.notify({
+        //    icon: 'pe-7s-gift',
+        //    message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
 
-        }, {
-            type: 'info',
-            timer: 4000
-        });
+        //}, {
+        //    type: 'info',
+        //    timer: 4000
+        //});
 
     });
 </script>

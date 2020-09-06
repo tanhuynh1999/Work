@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+@Html.Action("Menu", "Home")
 <style>
     .form-input .input-items.active input, .form-input .input-items.active textarea {
         border-color: #151965;
@@ -385,9 +386,9 @@
     </div>
 </div>
 <script>
-        $(document).ready(function () {
-            $('#exampleModalLong').modal('show');
-        })
+    $(document).ready(function () {
+        $('#exampleModalLong').modal('show');
+    })
 </script>
 <div id="idname" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -411,9 +412,9 @@
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script type="text/javascript">
-        $(document).ready(function () {
-            $("#exampleModal").modal('show');
-        });
+    $(document).ready(function () {
+        $("#exampleModal").modal('show');
+    });
 </script>
 <div class="section" style="background-image: url('~/Content/UI/assets/img/ill/1.svg');">
     <div class="container py-md">

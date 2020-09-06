@@ -2,47 +2,100 @@
 @{
     ViewBag.Title = "IntroduceEmployer";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-    <div class="w3l-index-block1">
-        <div class="content py-5">
-            <section class="section section-lg section-shaped">
-                <div class="shape shape-style-1 shape-default">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <div class="container py-md">
-                    <div class="row row-grid justify-content-between align-items-center">
-                        <div class="col-lg-6">
-                            <h5 class="display-3 text-white" style="font-size: 40px">Đăng tin và tìm kiếm ứng viên siêu nhanh. Nhờ hệ thống quản lý chi tiết, dễ sử dụng.</h5>
-                            <p class="lead text-white">Hệ thống tìm ứng viên thông mình và đăng việc làm. Trình quản lý chi tiết, dễ sử dụng.</p>
-                            <div class="btn-wrapper">
-                                <a href="./examples/login.html" class="btn btn-success">Tìm ứng viên</a>
-                                <a href="./examples/register.html" class="btn btn-primary">Đăng việc làm</a>
-                            </div>
+}   
+@Html.Action("Menu", "HomeEmployer")
+<div class="w3l-index-block1">
+    <div class="content py-5">
+        <section class="section section-lg section-shaped">
+            <div class="shape shape-style-1 shape-default" style="background-image: url('../../Images/Employer/cover_trang_chu.jpg'); background-repeat: no-repeat; background-size: 100% 100%;">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="container py-md">
+                <div class="row row-grid justify-content-between align-items-center" style="background-color: black; opacity: 0.8; height: 100%">
+                    <div class="col-lg-6">
+                        <br />
+                        <br />
+                        <h5 class="display-3 text-white" style="font-size: 40px">Đăng tin và tìm kiếm ứng viên siêu nhanh. Nhờ hệ thống quản lý chi tiết, dễ sử dụng.</h5>
+                        <p class="lead text-white">Hệ thống tìm ứng viên thông mình và đăng việc làm. Trình quản lý chi tiết, dễ sử dụng. Sở hữu hơn 0 hồ sơ tìm việc tại AllWork1s</p>
+                        <div class="btn-wrapper">
+                            <a href="./examples/login.html" class="btn btn-success">Tìm ứng viên</a>
+                            <a href="./examples/register.html" class="btn btn-primary">Đăng việc làm</a>
+                            <br />
+                            <br />
                         </div>
-                        <div class="col-lg-5 mb-lg-auto">
-                            <div class="transform-perspective-right">
-                                <div class="card bg-secondary shadow border-0">
-                                    <img src="~/Content/Layout/images/business.png" />
-                                </div>
+                    </div>
+                    <div class="col-lg-5 mb-lg-auto">
+                        <div class="transform-perspective-right">
+                            <div class="card bg-secondary shadow border-0">
+                                <img src="~/Content/Layout/images/business.png" />
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- SVG separator -->
-                <div class="separator separator-bottom separator-skew">
-                    <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                        <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
-                    </svg>
+            </div>
+            <!-- SVG separator -->
+            <div class="separator separator-bottom separator-skew">
+                <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
+                </svg>
+            </div>
+        </section>
+    </div>
+</div>
+<section class="section section-lg">
+    <div class="container">
+        <div class="row row-grid justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h4 class="display-3" style="font-size: 40px">Đăng ký ngay để đăng việc,tìm hồ sơ hoàn toàn miển phí.</h4>
+                <p class="lead">Đã có hơn 0 hồ sơ giao dịch thành công thông qua AllWork1s.</p>
+                <div class="btn-wrapper">
+                    <a href="https://www.creative-tim.com/product/argon-design-system" class="btn btn-primary mb-3 mb-sm-0">Đăng ký</a>
+                    <a href="https://www.creative-tim.com/product/argon-design-system" class="btn btn-danger">Đăng nhập</a>
                 </div>
-            </section>
+                <div class="text-center">
+                    <h4 class="display-4 mb-5 mt-5">Các nhà tuyển dụng nổi bậc đã dùng AllWork1s</h4>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-2 col-4">
+                            <a href="https://www.creative-tim.com/product/argon-design-system" target="_blank" data-toggle="tooltip" data-original-title="Bootstrap 4 - Most popular front-end component library">
+                                <img src="https://s3.amazonaws.com/creativetim_bucket/tim_static_images/presentation-page/bootstrap.jpg" class="img-fluid">
+                            </a>
+                        </div>
+                        <div class="col-lg-2 col-4">
+                            <a href=" https://www.creative-tim.com/product/vue-argon-design-system" target="_blank" data-toggle="tooltip" data-original-title="Vue.js - The progressive javascript framework">
+                                <img src="https://s3.amazonaws.com/creativetim_bucket/tim_static_images/presentation-page/vue.jpg" class="img-fluid">
+                            </a>
+                        </div>
+                        <div class="col-lg-2 col-4">
+                            <a href=" https://www.creative-tim.com/product/argon-design-system-angular" target="_blank" data-toggle="tooltip" data-original-title="Angular - One framework. Mobile &amp; desktop">
+                                <img src="https://s3.amazonaws.com/creativetim_bucket/tim_static_images/presentation-page/angular.jpg" class="img-fluid">
+                            </a>
+                        </div>
+                        <div class="col-lg-2 col-4">
+                            <a href=" https://www.creative-tim.com/product/argon-design-system-react" target="_blank" data-toggle="tooltip" data-original-title="React - A JavaScript library for building user interfaces">
+                                <img src="https://s3.amazonaws.com/creativetim_bucket/tim_static_images/presentation-page/react.jpg" class="img-fluid">
+                            </a>
+                        </div>
+                        <div class="col-lg-2 col-4">
+                            <a href=" https://www.creative-tim.com/product/argon-design-system" target="_blank" data-toggle="tooltip" data-original-title="Sketch - Digital design toolkit">
+                                <img src="https://s3.amazonaws.com/creativetim_bucket/tim_static_images/presentation-page/sketch.jpg" class="img-fluid">
+                            </a>
+                        </div>
+                        <div class="col-lg-2 col-4">
+                            <a href=" https://www.creative-tim.com/product/argon-design-system" target="_blank" data-toggle="tooltip" data-original-title="Adobe Photoshop - Software for digital images manipulation">
+                                <img src="https://s3.amazonaws.com/creativetim_bucket/tim_static_images/presentation-page/ps.jpg" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</section>
 

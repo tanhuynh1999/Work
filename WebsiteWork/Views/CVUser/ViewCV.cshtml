@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     User user = (User)Session["user"];
 }
+@Html.Action("Menu", "Home")
 <link href="~/Content/UI/UIImages/css/pe-icon-7-stroke.css" rel="stylesheet" />
 <link href="~/Content/UI/UIImages/css/rotating-card.css" rel="stylesheet" />
 <div class="w3l-index-block1">
@@ -95,7 +96,7 @@
 
                                                                     <div class="stats-container">
                                                                         <div class="stats">
-                                                                            <h4>@Model.Where(n=>n.cv_numbertheme == 1).Count()</h4>
+                                                                            <h4>@Model.Where(n => n.cv_numbertheme == 1).Count()</h4>
                                                                             <p>
                                                                                 Người dùng
                                                                             </p>
