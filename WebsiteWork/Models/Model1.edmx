@@ -81,6 +81,11 @@
           <Property Name="employer_ifamemaptwo" Type="nvarchar(max)" />
           <Property Name="employer_addressthree" Type="nvarchar" MaxLength="200" />
           <Property Name="employer_ifamemapthree" Type="nvarchar(max)" />
+          <Property Name="employer_province" Type="nvarchar" MaxLength="200" />
+          <Property Name="employer_pricemin" Type="int" />
+          <Property Name="employer_pricemax" Type="int" />
+          <Property Name="employer_symbol" Type="nvarchar" MaxLength="50" />
+          <Property Name="employer_recrequirement" Type="nvarchar" MaxLength="2000" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -146,6 +151,13 @@
           <Property Name="work_imagetwo" Type="nvarchar(max)" />
           <Property Name="work_imgathree" Type="nvarchar(max)" />
           <Property Name="employer_id" Type="int" />
+          <Property Name="work_pricemin" Type="int" />
+          <Property Name="work_pricemax" Type="int" />
+          <Property Name="work_symbol" Type="nvarchar" MaxLength="20" />
+          <Property Name="work_sex" Type="int" />
+          <Property Name="work_format" Type="bit" />
+          <Property Name="work_yearsofexp" Type="int" />
+          <Property Name="work_province" Type="int" />
         </EntityType>
         <Association Name="FK_Cv_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
@@ -227,6 +239,11 @@
           <Property Name="employer_ifamemaptwo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="employer_addressthree" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="employer_ifamemapthree" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_province" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="employer_pricemin" Type="Int32" />
+          <Property Name="employer_pricemax" Type="Int32" />
+          <Property Name="employer_symbol" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="employer_recrequirement" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -286,6 +303,13 @@
           <Property Name="work_imgathree" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="employer_id" Type="Int32" />
           <NavigationProperty Name="Employer" Relationship="Self.FK_Work_Employer" FromRole="Work" ToRole="Employer" />
+          <Property Name="work_pricemin" Type="Int32" />
+          <Property Name="work_pricemax" Type="Int32" />
+          <Property Name="work_symbol" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="work_sex" Type="Int32" />
+          <Property Name="work_format" Type="Boolean" />
+          <Property Name="work_yearsofexp" Type="Int32" />
+          <Property Name="work_province" Type="Int32" />
         </EntityType>
         <Association Name="FK_Work_Employer">
           <End Role="Employer" Type="Self.Employer" Multiplicity="0..1" />
@@ -386,6 +410,11 @@
           <EntitySetMapping Name="Employers">
             <EntityTypeMapping TypeName="DataWorkModel.Employer">
               <MappingFragment StoreEntitySet="Employer">
+                <ScalarProperty Name="employer_recrequirement" ColumnName="employer_recrequirement" />
+                <ScalarProperty Name="employer_symbol" ColumnName="employer_symbol" />
+                <ScalarProperty Name="employer_pricemax" ColumnName="employer_pricemax" />
+                <ScalarProperty Name="employer_pricemin" ColumnName="employer_pricemin" />
+                <ScalarProperty Name="employer_province" ColumnName="employer_province" />
                 <ScalarProperty Name="employer_ifamemapthree" ColumnName="employer_ifamemapthree" />
                 <ScalarProperty Name="employer_addressthree" ColumnName="employer_addressthree" />
                 <ScalarProperty Name="employer_ifamemaptwo" ColumnName="employer_ifamemaptwo" />
@@ -455,6 +484,13 @@
           <EntitySetMapping Name="Works">
             <EntityTypeMapping TypeName="DataWorkModel.Work">
               <MappingFragment StoreEntitySet="Work">
+                <ScalarProperty Name="work_province" ColumnName="work_province" />
+                <ScalarProperty Name="work_yearsofexp" ColumnName="work_yearsofexp" />
+                <ScalarProperty Name="work_format" ColumnName="work_format" />
+                <ScalarProperty Name="work_sex" ColumnName="work_sex" />
+                <ScalarProperty Name="work_symbol" ColumnName="work_symbol" />
+                <ScalarProperty Name="work_pricemax" ColumnName="work_pricemax" />
+                <ScalarProperty Name="work_pricemin" ColumnName="work_pricemin" />
                 <ScalarProperty Name="work_id" ColumnName="work_id" />
                 <ScalarProperty Name="work_name" ColumnName="work_name" />
                 <ScalarProperty Name="work_image" ColumnName="work_image" />

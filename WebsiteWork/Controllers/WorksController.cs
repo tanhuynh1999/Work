@@ -10,107 +10,112 @@ using WebsiteWork.Models;
 
 namespace WebsiteWork.Controllers
 {
-    public class EmployersController : Controller
+    public class WorksController : Controller
     {
         private DataWorkEntities db = new DataWorkEntities();
 
-        // GET: Employers
+        // GET: Works
         public ActionResult Index()
         {
-            return View(db.Employers.ToList());
+            var works = db.Works.Include(w => w.Employer);
+            return View(works.ToList());
         }
 
-        // GET: Employers/Details/5
+        // GET: Works/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employer employer = db.Employers.Find(id);
-            if (employer == null)
+            Work work = db.Works.Find(id);
+            if (work == null)
             {
                 return HttpNotFound();
             }
-            return View(employer);
+            return View(work);
         }
 
-        // GET: Employers/Create
+        // GET: Works/Create
         public ActionResult Create()
         {
+            ViewBag.employer_id = new SelectList(db.Employers, "employer_id", "employer_email");
             return View();
         }
 
-        // POST: Employers/Create
+        // POST: Works/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "employer_id,employer_email,employer_pass,employer_fullname,employer_sex,employer_company,employer_position,employer_address,employer_phone,employer_vacancies,employer_token,employer_datelogin,employer_datecreated,employer_activate,employer_status,employer_logo,employer_specialized,employer_version,employer_option,employer_personalpage,employer_name,employer_introduce,employer_favourite,employer_linkfc,employer_recruitment,employer_addressmain,employer_ifamemapmain,employer_addresstwo,employer_ifamemaptwo,employer_addressthree,employer_ifamemapthree")] Employer employer)
+        public ActionResult Create([Bind(Include = "work_id,work_name,work_image,work_deadline,work_description,work_request,work_benefit,work_address,work_moneyf,work_moneye,work_amount,work_activate,work_option,work_view,work_love,work_map,work_datecreated,work_dateexpired,work_datesend,work_imagetwo,work_imgathree,employer_id,work_pricemin,work_pricemax,work_symbol,work_sex,work_format,work_yearsofexp,work_province")] Work work)
         {
             if (ModelState.IsValid)
             {
-                db.Employers.Add(employer);
+                db.Works.Add(work);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(employer);
+            ViewBag.employer_id = new SelectList(db.Employers, "employer_id", "employer_email", work.employer_id);
+            return View(work);
         }
 
-        // GET: Employers/Edit/5
+        // GET: Works/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employer employer = db.Employers.Find(id);
-            if (employer == null)
+            Work work = db.Works.Find(id);
+            if (work == null)
             {
                 return HttpNotFound();
             }
-            return View(employer);
+            ViewBag.employer_id = new SelectList(db.Employers, "employer_id", "employer_email", work.employer_id);
+            return View(work);
         }
 
-        // POST: Employers/Edit/5
+        // POST: Works/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "employer_id,employer_email,employer_pass,employer_fullname,employer_sex,employer_company,employer_position,employer_address,employer_phone,employer_vacancies,employer_token,employer_datelogin,employer_datecreated,employer_activate,employer_status,employer_logo,employer_specialized,employer_version,employer_option,employer_personalpage,employer_name,employer_introduce,employer_favourite,employer_linkfc,employer_recruitment,employer_addressmain,employer_ifamemapmain,employer_addresstwo,employer_ifamemaptwo,employer_addressthree,employer_ifamemapthree")] Employer employer)
+        public ActionResult Edit([Bind(Include = "work_id,work_name,work_image,work_deadline,work_description,work_request,work_benefit,work_address,work_moneyf,work_moneye,work_amount,work_activate,work_option,work_view,work_love,work_map,work_datecreated,work_dateexpired,work_datesend,work_imagetwo,work_imgathree,employer_id,work_pricemin,work_pricemax,work_symbol,work_sex,work_format,work_yearsofexp,work_province")] Work work)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(employer).State = EntityState.Modified;
+                db.Entry(work).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(employer);
+            ViewBag.employer_id = new SelectList(db.Employers, "employer_id", "employer_email", work.employer_id);
+            return View(work);
         }
 
-        // GET: Employers/Delete/5
+        // GET: Works/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employer employer = db.Employers.Find(id);
-            if (employer == null)
+            Work work = db.Works.Find(id);
+            if (work == null)
             {
                 return HttpNotFound();
             }
-            return View(employer);
+            return View(work);
         }
 
-        // POST: Employers/Delete/5
+        // POST: Works/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Employer employer = db.Employers.Find(id);
-            db.Employers.Remove(employer);
+            Work work = db.Works.Find(id);
+            db.Works.Remove(work);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

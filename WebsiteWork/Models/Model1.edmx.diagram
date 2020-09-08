@@ -5,13 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="088e338d25bd4f098b3a9495c7d6f68c" Name="Diagram1">
-        <EntityTypeShape EntityType="DataWorkModel.Employer" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWorkModel.Employer" Width="1.5" PointX="0.5" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DataWorkModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DataWorkModel.User" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DataWorkModel.Work" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="DataWorkModel.FK_Work_Employer" ManuallyRouted="false" />
         <EntityTypeShape EntityType="DataWorkModel.Cv" Width="1.5" PointX="8.375" PointY="2" />
-        <EntityTypeShape EntityType="DataWorkModel.Theme" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="DataWorkModel.Theme" Width="1.5" PointX="3" PointY="6.875" />
         <AssociationConnector Association="DataWorkModel.FK_Cv_User" />
       </Diagram>
     </edmx:Diagrams>

@@ -150,13 +150,16 @@ namespace WebsiteWork.Controllers
             return PartialView();
         }
         [HttpPost]
-        public ActionResult CreateEmployer([Bind(Include = "employer_id,employer_email,employer_pass,employer_fullname,employer_sex,employer_company,employer_position,employer_address,employer_phone,employer_vacancies,employer_token,employer_datelogin,employer_datecreated,employer_activate,employer_status,employer_name")] Employer employer)
+        public ActionResult CreateEmployer([Bind(Include = "employer_id,employer_email,employer_pass,employer_fullname,employer_sex,employer_company,employer_position,employer_address,employer_phone,employer_vacancies,employer_token,employer_datelogin,employer_datecreated,employer_activate,employer_status,employer_logo,employer_specialized,employer_version,employer_option,employer_personalpage,employer_name,employer_introduce,employer_favourite,employer_linkfc,employer_recruitment,employer_addressmain,employer_ifamemapmain,employer_addresstwo,employer_ifamemaptwo,employer_addressthree,employer_ifamemapthree")] Employer employer)
         {
             if (ModelState.IsValid)
             {
                 db.Employers.Add(employer);
+                employer.employer_version = 1;
+                employer.employer_activate = true;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                Session["employer"] = employer;
+                return Redirect(homeemployer);
             }
 
             return View(employer);

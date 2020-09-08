@@ -152,12 +152,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CVUserController.cs" />
     <Compile Include="Controllers\EmployerController.cs" />
-    <Compile Include="Controllers\EmployersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomeEmployerController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ViewController.cs" />
+    <Compile Include="Controllers\WorksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2607,11 +2607,12 @@
     <Content Include="Views\Account\ResEmployer.cshtml" />
     <Content Include="Views\Employer\ViewPageEmployer.cshtml" />
     <Content Include="Views\Employer\CreatePage.cshtml" />
-    <Content Include="Views\Employers\Create.cshtml" />
-    <Content Include="Views\Employers\Delete.cshtml" />
-    <Content Include="Views\Employers\Details.cshtml" />
-    <Content Include="Views\Employers\Edit.cshtml" />
-    <Content Include="Views\Employers\Index.cshtml" />
+    <Content Include="Views\Works\Create.cshtml" />
+    <Content Include="Views\Works\Delete.cshtml" />
+    <Content Include="Views\Works\Details.cshtml" />
+    <Content Include="Views\Works\Edit.cshtml" />
+    <Content Include="Views\Works\Index.cshtml" />
+    <Content Include="Views\Employer\CreateWork.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

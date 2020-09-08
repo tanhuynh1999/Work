@@ -51,6 +51,11 @@ namespace WebsiteWork.Models
         public string employer_ifamemaptwo { get; set; }
         public string employer_addressthree { get; set; }
         public string employer_ifamemapthree { get; set; }
+        public string employer_province { get; set; }
+        public Nullable<int> employer_pricemin { get; set; }
+        public Nullable<int> employer_pricemax { get; set; }
+        public string employer_symbol { get; set; }
+        public string employer_recrequirement { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Work> Works { get; set; }

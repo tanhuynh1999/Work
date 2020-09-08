@@ -36,6 +36,13 @@ namespace WebsiteWork.Models
         public string work_imagetwo { get; set; }
         public string work_imgathree { get; set; }
         public Nullable<int> employer_id { get; set; }
+        public Nullable<int> work_pricemin { get; set; }
+        public Nullable<int> work_pricemax { get; set; }
+        public string work_symbol { get; set; }
+        public Nullable<int> work_sex { get; set; }
+        public Nullable<bool> work_format { get; set; }
+        public Nullable<int> work_yearsofexp { get; set; }
+        public Nullable<int> work_province { get; set; }
     
         public virtual Employer Employer { get; set; }
     }

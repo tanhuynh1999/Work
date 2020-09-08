@@ -75,7 +75,7 @@
                     <h4 class="title">Công cụ chức năng</h4>
                 </div>
                 <div class="content">
-                    <div class="row">
+                    <div class="row" style="font-size: 12px">
                         @if (employer != null)
                         {
                             if (employer.employer_personalpage == true)
@@ -85,7 +85,9 @@
                                     <button type="button" class=" btn-l btn-7" style="height: 100px; margin-top: 5px; width: 100%"><i class="fas fa-building">&nbsp;</i>Trang cá nhân</button>
                                 </div>
                                 <div class="col-md-4">
-                                    <button type="button" class=" btn-l btn-7" style="height: 100px; margin-top: 5px; width: 100%"><i class="fas fa-pager">&nbsp;</i>Đăng bài tuyển</button>
+                                    <a href="@Url.Action("CreateWork","Employer")">
+                                        <button type="button" class=" btn-l btn-7" style="height: 100px; margin-top: 5px; width: 100%"><i class="fas fa-pager">&nbsp;</i>Đăng bài tuyển</button>
+                                    </a>
                                 </div>
                                 <div class="col-md-4">
                                     <button type="button" class=" btn-l btn-7" style="height: 100px; margin-top: 5px;width: 100%"><i class="fa fa-user"></i>&nbsp;Hồ sơ ứng viên</button>
@@ -107,14 +109,14 @@
                                     <div class="alert alert-danger"><i class="fa fa-bell"></i>Vui lòng tạo trang cá nhân để dăng việc làm và tìm kiếm hồ sơ.</div>
                                 </div>
                                 <div class="col-md-4">
-                                    <a href="@Url.Action("CreatePage","Employer")"><button class=" btn-l btn-7" style="height: 100px; margin-top: 5px; width: 100%"><i class="fas fa-building">&nbsp;</i>Trang cá nhân</button></a>
+                                    <a href="@Url.Action("CreatePage","Employer", new {id = employer.employer_id })"><button class=" btn-l btn-7" style="height: 100px; margin-top: 5px; width: 100%"><i class="fas fa-building">&nbsp;</i>Trang cá nhân</button></a>
                                     
                                 </div>
                                 <div class="col-md-4">
                                     <button type="button" class=" btn-l btn-13" style="height: 100px; margin-top: 5px; width: 100%"><i class="fas fa-pager">&nbsp;</i>Đăng bài tuyển</button>
                                 </div>
                                 <div class="col-md-4">
-                                    <button type="button" class=" btn-l btn-13" style="height: 100px; margin-top: 5px;width: 100%"><i class="fa fa-user"></i>&nbsp;Hồ sơ ứng viên</button>
+                                    <a href=""><button type="button" class=" btn-l btn-13" style="height: 100px; margin-top: 5px;width: 100%"><i class="fa fa-user"></i>&nbsp;Hồ sơ ứng viên</button></a>
                                 </div>
                                 <div class="col-md-4">
                                     <button type="button" class=" btn-l btn-13" style="height: 100px; margin-top: 5px;width: 100%"><i class="fas fa-ad">&nbsp;</i>Quảng cáo</button>
