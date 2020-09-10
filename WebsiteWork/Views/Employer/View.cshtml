@@ -1,0 +1,34 @@
+﻿@model IEnumerable<WebsiteWork.Models.Work>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.work_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.work_love)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.work_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.work_love)
+        </td>
+        <td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.work_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.work_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.work_id })
+        </td>
+    </tr>
+}
+
+</table>

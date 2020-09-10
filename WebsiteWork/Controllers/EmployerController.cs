@@ -15,6 +15,7 @@ namespace WebsiteWork.Controllers
         String home = "/";
         String LoginEmployer = "/Account/LoginEmployer";
         String HomeEmployer = "/HomeEmployer/Index";
+        String managerwork = "/Employer/ManagerWork";
         DataWorkEntities db = new DataWorkEntities();
         // GET: Employer
         public ActionResult ViewPageEmployer()
@@ -66,19 +67,89 @@ namespace WebsiteWork.Controllers
         }
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult CreateWork([Bind(Include = "work_id,work_name,work_image,work_deadline,work_description,work_request,work_benefit,work_address,work_moneyf,work_moneye,work_amount,work_activate,work_option,work_view,work_love,work_map,work_datecreated,work_dateexpired,work_datesend,work_imagetwo,work_imgathree,employer_id,work_pricemin,work_pricemax,work_symbol,work_sex,work_format,work_yearsofexp,work_province")] Work work)
+        public ActionResult CreateWork([Bind(Include = "work_id,work_name,work_image,work_deadline,work_description,work_request,work_benefit,work_address,work_moneyf,work_moneye,work_amount,work_activate,work_option,work_view,work_love,work_map,work_datecreated,work_dateexpired,work_datesend,work_imagetwo,work_imgathree,employer_id,work_pricemin,work_pricemax,work_symbol,work_sex,work_format,work_yearsofexp,work_province,work_delete")] Work work)
         {
             Employer employer = (Employer)Session["employer"];
-            if (ModelState.IsValid)
+            db.Works.Add(work);
+            work.employer_id = employer.employer_id;
+            work.work_activate = false;
+            work.work_datecreated = DateTime.Now;
+            work.work_view = 1;
+            work.work_love = 1;
+            work.work_delete = false;
+            work.work_option = true;
+            db.SaveChanges();
+            return RedirectToAction("ManagerWork");
+        }
+        //Quản lý bài tuyển
+        public ActionResult Manager()
+        {
+            return View();
+        }
+        public ActionResult ManagerWork()
+        {
+            Employer employer = (Employer)Session["employer"];
+            if(employer == null)
             {
-                db.Works.Add(work);
-                work.employer_id = employer.employer_id;
-                work.work_activate = false;
-                work.work_option = true;
-                db.SaveChanges();
-                return RedirectToAction(HomeEmployer);
+                return Redirect(LoginEmployer);
             }
+            List<Work> work = db.Works.Where(n=>n.employer_id == employer.employer_id && n.work_delete == true).OrderByDescending(n => n.work_datecreated).ToList();
             return View(work);
+        }
+        //Ajax work
+        public PartialViewResult AllWork()
+        {
+            Employer employer = (Employer)Session["employer"];
+            List<Work> work = db.Works.Where(n => n.employer_id == employer.employer_id && n.work_delete == false).OrderByDescending(n => n.work_datecreated).ToList();
+            return PartialView("_Work", work);
+        }
+        public PartialViewResult TopLoveWork()
+        {
+            Employer employer = (Employer)Session["employer"];
+            List<Work> work = db.Works.Where(n => n.employer_id == employer.employer_id && n.work_delete == false).OrderByDescending(n=>n.work_love).ToList();
+            return PartialView("_Work", work);
+        }
+        public PartialViewResult WorkAc()
+        {
+            Employer employer = (Employer)Session["employer"];
+            List<Work> work = db.Works.Where(n => n.employer_id == employer.employer_id && n.work_activate == true && n.work_delete == false).OrderByDescending(n => n.work_datecreated).ToList();
+            return PartialView("_Work", work);
+        }
+        public PartialViewResult WorkNotAc()
+        {
+            Employer employer = (Employer)Session["employer"];
+            List<Work> work = db.Works.Where(n => n.employer_id == employer.employer_id && n.work_activate == false && n.work_delete == false).OrderByDescending(n => n.work_datecreated).ToList();
+            return PartialView("_Work", work);
+        }
+        public PartialViewResult WorkTrash()
+        {
+            Employer employer = (Employer)Session["employer"];
+            List<Work> work = db.Works.Where(n => n.employer_id == employer.employer_id && n.work_delete == true).OrderByDescending(n => n.work_datecreated).ToList();
+            return PartialView("_Work", work);
+        }
+        public PartialViewResult WorkOld()
+        {
+            Employer employer = (Employer)Session["employer"];
+            List<Work> work = db.Works.Where(n => n.employer_id == employer.employer_id && n.work_delete == false).OrderBy(n => n.work_datecreated).ToList();
+            return PartialView("_Work", work);
+        }
+        public PartialViewResult WorkAZ()
+        {
+            Employer employer = (Employer)Session["employer"];
+            List<Work> work = db.Works.Where(n => n.employer_id == employer.employer_id && n.work_delete == false).OrderBy(n => n.work_name).ToList();
+            return PartialView("_Work", work);
+        }
+        public PartialViewResult WorkSpam()
+        {
+            Employer employer = (Employer)Session["employer"];
+            List<Work> work = db.Works.Where(n => n.employer_id == employer.employer_id && n.work_delete == false && n.work_spam == true).OrderByDescending(n => n.work_datecreated).ToList();
+            return PartialView("_Work", work);
+        }
+        public PartialViewResult WorkView()
+        {
+            Employer employer = (Employer)Session["employer"];
+            List<Work> work = db.Works.Where(n => n.employer_id == employer.employer_id && n.work_delete == false).OrderByDescending(n => n.work_view).ToList();
+            return PartialView("_Work", work);
         }
     }
 }

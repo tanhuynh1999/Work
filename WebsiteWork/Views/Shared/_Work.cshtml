@@ -1,0 +1,86 @@
+﻿@model IEnumerable<WebsiteWork.Models.Work>
+<b>Co tổng cộng: @Model.Count() bài tuyển</b>
+<br />
+<table class="table table-striped">
+    <tr>
+        <th>
+            <b><i class="fas fa-briefcase">&nbsp;</i>Tên công việc</b>
+        </th>
+        <th>
+            <b><i class="far fa-clock">&nbsp;</i>Hạn nộp</b>
+        </th>
+        <th>
+            <b><i class="fa fa-users">&nbsp;</i>SL tuyển</b>
+        </th>
+        <th>
+            <b><i class="fa fa-eye">&nbsp;</i>Lượt xem</b>
+        </th>
+        <th>
+            <b><i class="fa fa-heart">&nbsp;</i>Lượt thích</b>
+        </th>
+        <th>
+            <b><i class="fa fa-calendar-alt">&nbsp;</i>Ngày tạo</b>
+        </th>
+        <th>
+            <b><i class="fas fa-genderless">&nbsp;</i>Giới tính</b>
+        </th>
+        <th>
+            <b><i class="fas fa-chart-line">&nbsp;</i>Hoạt động</b>
+        </th>
+        <th>
+            <b><i class="fas fa-prescription-bottle-alt">&nbsp;</i>Bật/Tắt</b>
+        </th>
+        <th>
+            <b><i class="fa fa-magic">&nbsp;</i>Tùy chọn</b>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.work_name)
+            </td>
+            <td>
+                @item.work_deadline.Value.Day/@item.work_deadline.Value.Month/@item.work_deadline.Value.Year
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.work_amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.work_view)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.work_love)
+            </td>
+            <td>
+                @item.work_datecreated.Value.Day/@item.work_datecreated.Value.Month/@item.work_datecreated.Value.Year
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.work_sex)
+            </td>
+            <td>
+                <div class="tog-1">
+                    <div class="switch tog-2 tog-4" style="height: 30px">
+                        <input type="checkbox" @(item.work_activate == true ? "checked" : "")>
+                        <label><i></i></label>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="tog-1">
+                    <div class="switch tog-2 tog-4" style="height: 30px">
+                        <input type="checkbox" @(item.work_option == true ? "checked" : "")>
+                        <label><i></i></label>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <i class="fa fa-eye"></i>
+                <i class="fa fa-edit"></i>
+                <i class="fa fa-trash"></i>
+            </td>
+        </tr>
+    }
+
+</table>

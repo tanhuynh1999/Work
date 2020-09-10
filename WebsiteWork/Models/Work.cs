@@ -43,6 +43,10 @@ namespace WebsiteWork.Models
         public Nullable<bool> work_format { get; set; }
         public Nullable<int> work_yearsofexp { get; set; }
         public Nullable<int> work_province { get; set; }
+        public string work_ifamemap { get; set; }
+        public string work_note { get; set; }
+        public Nullable<bool> work_delete { get; set; }
+        public Nullable<bool> work_spam { get; set; }
     
         public virtual Employer Employer { get; set; }
     }

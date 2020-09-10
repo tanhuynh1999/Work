@@ -158,6 +158,10 @@
           <Property Name="work_format" Type="bit" />
           <Property Name="work_yearsofexp" Type="int" />
           <Property Name="work_province" Type="int" />
+          <Property Name="work_ifamemap" Type="nvarchar(max)" />
+          <Property Name="work_note" Type="nvarchar(max)" />
+          <Property Name="work_delete" Type="bit" />
+          <Property Name="work_spam" Type="bit" />
         </EntityType>
         <Association Name="FK_Cv_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
@@ -310,6 +314,10 @@
           <Property Name="work_format" Type="Boolean" />
           <Property Name="work_yearsofexp" Type="Int32" />
           <Property Name="work_province" Type="Int32" />
+          <Property Name="work_ifamemap" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="work_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="work_delete" Type="Boolean" />
+          <Property Name="work_spam" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Work_Employer">
           <End Role="Employer" Type="Self.Employer" Multiplicity="0..1" />
@@ -484,6 +492,10 @@
           <EntitySetMapping Name="Works">
             <EntityTypeMapping TypeName="DataWorkModel.Work">
               <MappingFragment StoreEntitySet="Work">
+                <ScalarProperty Name="work_spam" ColumnName="work_spam" />
+                <ScalarProperty Name="work_delete" ColumnName="work_delete" />
+                <ScalarProperty Name="work_note" ColumnName="work_note" />
+                <ScalarProperty Name="work_ifamemap" ColumnName="work_ifamemap" />
                 <ScalarProperty Name="work_province" ColumnName="work_province" />
                 <ScalarProperty Name="work_yearsofexp" ColumnName="work_yearsofexp" />
                 <ScalarProperty Name="work_format" ColumnName="work_format" />
