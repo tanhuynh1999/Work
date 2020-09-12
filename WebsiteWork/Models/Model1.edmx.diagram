@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="088e338d25bd4f098b3a9495c7d6f68c" Name="Diagram1">
+      <Diagram DiagramId="088e338d25bd4f098b3a9495c7d6f68c" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="DataWorkModel.Employer" Width="1.5" PointX="0.5" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DataWorkModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DataWorkModel.User" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
@@ -13,6 +13,14 @@
         <EntityTypeShape EntityType="DataWorkModel.Cv" Width="1.5" PointX="8.375" PointY="2" />
         <EntityTypeShape EntityType="DataWorkModel.Theme" Width="1.5" PointX="3" PointY="6.875" />
         <AssociationConnector Association="DataWorkModel.FK_Cv_User" />
+        <EntityTypeShape EntityType="DataWorkModel.Form" Width="1.5" PointX="0.75" PointY="11.5" />
+        <EntityTypeShape EntityType="DataWorkModel.Province" Width="1.5" PointX="5.375" PointY="8.875" />
+        <AssociationConnector Association="DataWorkModel.FK_Work_Form" />
+        <AssociationConnector Association="DataWorkModel.FK_Work_Province" />
+        <AssociationConnector Association="DataWorkModel.FK_Employer_Province" />
+        <EntityTypeShape EntityType="DataWorkModel.Career" Width="1.5" PointX="10.375" PointY="0.875" />
+        <AssociationConnector Association="DataWorkModel.FK_Employer_Career" />
+        <AssociationConnector Association="DataWorkModel.FK_Work_Career" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

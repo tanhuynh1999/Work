@@ -11,9 +11,15 @@ namespace WebsiteWork.Controllers
     {
         DataWorkEntities db = new DataWorkEntities();
         // GET: View
-        public ActionResult DetailsView()
+        public ActionResult DetailsView(int ? id)
         {
-            return View();
+            Work work = db.Works.SingleOrDefault(n => n.work_id == id);
+            if(work == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            return View(work);
         }
         [HttpPost]
         public JsonResult AjaxMethod(string name)
@@ -21,12 +27,6 @@ namespace WebsiteWork.Controllers
             List<Work> work = db.Works.ToList();
             return Json(work,JsonRequestBehavior.AllowGet);
         }
-        
-
-
-
-
-
         public ActionResult TestCode()
         {
             return View();

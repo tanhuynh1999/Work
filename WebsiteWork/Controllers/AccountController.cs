@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using WebsiteWork.Models;
 
@@ -45,6 +47,27 @@ namespace WebsiteWork.Controllers
             }
         }
         [HttpPost]
+        public ActionResult LoginModal(FormCollection f)
+        {
+            //User
+            String sEmail = f["user_email"].ToString();
+            String sPass = f["user_pass"].ToString();
+            User user = db.Users.Where(n => n.user_activate == true && n.user_role == 1).SingleOrDefault(n => n.user_email == sEmail && n.user_pass == sPass);
+            if (user != null)
+            {
+                Session["user"] = user;
+                db.Users.Find(user.user_id).user_datelogin = DateTime.Now;
+                db.Users.Find(user.user_id).user_token = Guid.NewGuid().ToString();
+                db.SaveChanges();
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+            else
+            {
+                Session["NotLogin"] = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Email hoặc mật khẩu đã sai, vui lòng kiểm tra lại.</b></div>";
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+        }
+        [HttpPost]
         public ActionResult LoginEmployer(FormCollection f)
         {
             //User
@@ -54,6 +77,7 @@ namespace WebsiteWork.Controllers
             if (employer != null)
             {
                 Session["employer"] = employer;
+                db.Employers.Find(employer.employer_id).employer_datelogin = DateTime.Now;
                 return Redirect(homeemployer);
             }
             else
@@ -147,22 +171,33 @@ namespace WebsiteWork.Controllers
         }
         public PartialViewResult ResEmployer()
         {
+            ViewBag.career_id = new SelectList(db.Careers, "career_id", "career_name");
             return PartialView();
         }
         [HttpPost]
-        public ActionResult CreateEmployer([Bind(Include = "employer_id,employer_email,employer_pass,employer_fullname,employer_sex,employer_company,employer_position,employer_address,employer_phone,employer_vacancies,employer_token,employer_datelogin,employer_datecreated,employer_activate,employer_status,employer_logo,employer_specialized,employer_version,employer_option,employer_personalpage,employer_name,employer_introduce,employer_favourite,employer_linkfc,employer_recruitment,employer_addressmain,employer_ifamemapmain,employer_addresstwo,employer_ifamemaptwo,employer_addressthree,employer_ifamemapthree")] Employer employer)
+        public ActionResult CreateEmployer([Bind(Include = "employer_id,employer_email,employer_pass,employer_fullname,employer_sex,employer_company,employer_position,employer_address,employer_phone,employer_vacancies,employer_token,employer_datelogin,employer_datecreated,employer_activate,employer_status,employer_logo,employer_specialized,employer_version,employer_option,employer_personalpage,employer_name,employer_introduce,employer_favourite,employer_linkfc,employer_recruitment,employer_addressmain,employer_ifamemapmain,employer_addresstwo,employer_ifamemaptwo,employer_addressthree,employer_ifamemapthree,career_id")] Employer employer,HttpPostedFileBase imglogo)
         {
-            if (ModelState.IsValid)
+            var fileimg = Path.GetFileName(imglogo.FileName);
+            var pa = Path.Combine(Server.MapPath("~/Images/Employer/"), fileimg);
+            if (System.IO.File.Exists(pa))
+            {
+                Session["img"] = "Ảnh trùng, vui lòng chọn tên khác hoặc ảnh khác";
+                return View(Request.UrlReferrer.ToString());
+            }
+            else
             {
                 db.Employers.Add(employer);
                 employer.employer_version = 1;
                 employer.employer_activate = true;
+                employer.employer_datecreated = DateTime.Now;
+                employer.employer_logo = imglogo.FileName;
+                employer.employer_token = Guid.NewGuid().ToString();
+                imglogo.SaveAs(pa);
                 db.SaveChanges();
                 Session["employer"] = employer;
+                ViewBag.career_id = new SelectList(db.Careers, "career_id", "career_name", employer.career_id);
                 return Redirect(homeemployer);
             }
-
-            return View(employer);
         }
     }
 }

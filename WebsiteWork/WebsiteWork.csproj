@@ -156,16 +156,22 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomeEmployerController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ViewController.cs" />
+    <Compile Include="Controllers\WorkController.cs" />
     <Compile Include="Controllers\WorksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Career.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cv.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Employer.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Form.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Model1.Context.cs">
@@ -182,6 +188,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Province.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -2725,20 +2734,22 @@
     <Content Include="Views\Account\ResEmployer.cshtml" />
     <Content Include="Views\Employer\ViewPageEmployer.cshtml" />
     <Content Include="Views\Employer\CreatePage.cshtml" />
-    <Content Include="Views\Works\Create.cshtml" />
-    <Content Include="Views\Works\Delete.cshtml" />
-    <Content Include="Views\Works\Details.cshtml" />
-    <Content Include="Views\Works\Edit.cshtml" />
-    <Content Include="Views\Works\Index.cshtml" />
     <Content Include="Views\Employer\CreateWork.cshtml" />
     <Content Include="Views\Employer\Manager.cshtml" />
     <Content Include="Views\Employer\ManagerWork.cshtml" />
     <Content Include="Views\Employer\View.cshtml" />
     <Content Include="Views\Shared\_Work.cshtml" />
     <Content Include="Views\Search\SearchWorkEmployer.cshtml" />
+    <Content Include="Views\Home\Employer.cshtml" />
+    <Content Include="Views\Works\Create.cshtml" />
+    <Content Include="Views\Works\Delete.cshtml" />
+    <Content Include="Views\Works\Details.cshtml" />
+    <Content Include="Views\Works\Edit.cshtml" />
+    <Content Include="Views\Works\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Work\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

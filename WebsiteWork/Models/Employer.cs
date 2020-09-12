@@ -56,8 +56,12 @@ namespace WebsiteWork.Models
         public Nullable<int> employer_pricemax { get; set; }
         public string employer_symbol { get; set; }
         public string employer_recrequirement { get; set; }
+        public Nullable<int> province_id { get; set; }
+        public Nullable<int> career_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Work> Works { get; set; }
+        public virtual Province Province { get; set; }
+        public virtual Career Career { get; set; }
     }
 }

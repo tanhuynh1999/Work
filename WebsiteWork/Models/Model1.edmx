@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DataWorkModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Career">
+          <Key>
+            <PropertyRef Name="career_id" />
+          </Key>
+          <Property Name="career_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="career_name" Type="nvarchar" MaxLength="300" />
+          <Property Name="career_view" Type="int" />
+          <Property Name="career_datecreated" Type="datetime" />
+        </EntityType>
         <EntityType Name="Cv">
           <Key>
             <PropertyRef Name="cv_id" />
@@ -86,6 +95,22 @@
           <Property Name="employer_pricemax" Type="int" />
           <Property Name="employer_symbol" Type="nvarchar" MaxLength="50" />
           <Property Name="employer_recrequirement" Type="nvarchar" MaxLength="2000" />
+          <Property Name="province_id" Type="int" />
+          <Property Name="career_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Form">
+          <Key>
+            <PropertyRef Name="form_id" />
+          </Key>
+          <Property Name="form_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="form_name" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="province_id" />
+          </Key>
+          <Property Name="province_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="province_name" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -162,6 +187,9 @@
           <Property Name="work_note" Type="nvarchar(max)" />
           <Property Name="work_delete" Type="bit" />
           <Property Name="work_spam" Type="bit" />
+          <Property Name="province_id" Type="int" />
+          <Property Name="form_id" Type="int" />
+          <Property Name="career_id" Type="int" />
         </EntityType>
         <Association Name="FK_Cv_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
@@ -172,6 +200,42 @@
             </Principal>
             <Dependent Role="Cv">
               <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employer_Career">
+          <End Role="Career" Type="Self.Career" Multiplicity="0..1" />
+          <End Role="Employer" Type="Self.Employer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Career">
+              <PropertyRef Name="career_id" />
+            </Principal>
+            <Dependent Role="Employer">
+              <PropertyRef Name="career_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employer_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
+          <End Role="Employer" Type="Self.Employer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="Employer">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Work_Career">
+          <End Role="Career" Type="Self.Career" Multiplicity="0..1" />
+          <End Role="Work" Type="Self.Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Career">
+              <PropertyRef Name="career_id" />
+            </Principal>
+            <Dependent Role="Work">
+              <PropertyRef Name="career_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -187,9 +251,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Work_Form">
+          <End Role="Form" Type="Self.Form" Multiplicity="0..1" />
+          <End Role="Work" Type="Self.Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Form">
+              <PropertyRef Name="form_id" />
+            </Principal>
+            <Dependent Role="Work">
+              <PropertyRef Name="form_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Work_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
+          <End Role="Work" Type="Self.Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="Work">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DataWorkModelStoreContainer">
+          <EntitySet Name="Career" EntityType="Self.Career" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cv" EntityType="Self.Cv" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employer" EntityType="Self.Employer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Form" EntityType="Self.Form" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Theme" EntityType="Self.Theme" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -198,8 +289,28 @@
             <End Role="User" EntitySet="User" />
             <End Role="Cv" EntitySet="Cv" />
           </AssociationSet>
+          <AssociationSet Name="FK_Employer_Career" Association="Self.FK_Employer_Career">
+            <End Role="Career" EntitySet="Career" />
+            <End Role="Employer" EntitySet="Employer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employer_Province" Association="Self.FK_Employer_Province">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="Employer" EntitySet="Employer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Work_Career" Association="Self.FK_Work_Career">
+            <End Role="Career" EntitySet="Career" />
+            <End Role="Work" EntitySet="Work" />
+          </AssociationSet>
           <AssociationSet Name="FK_Work_Employer" Association="Self.FK_Work_Employer">
             <End Role="Employer" EntitySet="Employer" />
+            <End Role="Work" EntitySet="Work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Work_Form" Association="Self.FK_Work_Form">
+            <End Role="Form" EntitySet="Form" />
+            <End Role="Work" EntitySet="Work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Work_Province" Association="Self.FK_Work_Province">
+            <End Role="Province" EntitySet="Province" />
             <End Role="Work" EntitySet="Work" />
           </AssociationSet>
         </EntityContainer>
@@ -248,6 +359,10 @@
           <Property Name="employer_pricemax" Type="Int32" />
           <Property Name="employer_symbol" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="employer_recrequirement" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="province_id" Type="Int32" />
+          <NavigationProperty Name="Province" Relationship="DataWorkModel.FK_Employer_Province" FromRole="Employer" ToRole="Province" />
+          <Property Name="career_id" Type="Int32" />
+          <NavigationProperty Name="Career" Relationship="DataWorkModel.FK_Employer_Career" FromRole="Employer" ToRole="Career" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -318,6 +433,12 @@
           <Property Name="work_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="work_delete" Type="Boolean" />
           <Property Name="work_spam" Type="Boolean" />
+          <Property Name="province_id" Type="Int32" />
+          <Property Name="form_id" Type="Int32" />
+          <NavigationProperty Name="Form" Relationship="DataWorkModel.FK_Work_Form" FromRole="Work" ToRole="Form" />
+          <NavigationProperty Name="Province" Relationship="DataWorkModel.FK_Work_Province" FromRole="Work" ToRole="Province" />
+          <Property Name="career_id" Type="Int32" />
+          <NavigationProperty Name="Career" Relationship="DataWorkModel.FK_Work_Career" FromRole="Work" ToRole="Career" />
         </EntityType>
         <Association Name="FK_Work_Employer">
           <End Role="Employer" Type="Self.Employer" Multiplicity="0..1" />
@@ -345,6 +466,29 @@
           <AssociationSet Name="FK_Cv_User" Association="DataWorkModel.FK_Cv_User">
             <End Role="User" EntitySet="Users" />
             <End Role="Cv" EntitySet="Cvs" />
+          </AssociationSet>
+          <EntitySet Name="Forms" EntityType="DataWorkModel.Form" />
+          <EntitySet Name="Provinces" EntityType="DataWorkModel.Province" />
+          <AssociationSet Name="FK_Work_Form" Association="DataWorkModel.FK_Work_Form">
+            <End Role="Form" EntitySet="Forms" />
+            <End Role="Work" EntitySet="Works" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Work_Province" Association="DataWorkModel.FK_Work_Province">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="Work" EntitySet="Works" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employer_Province" Association="DataWorkModel.FK_Employer_Province">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="Employer" EntitySet="Employers" />
+          </AssociationSet>
+          <EntitySet Name="Careers" EntityType="DataWorkModel.Career" />
+          <AssociationSet Name="FK_Employer_Career" Association="DataWorkModel.FK_Employer_Career">
+            <End Role="Career" EntitySet="Careers" />
+            <End Role="Employer" EntitySet="Employers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Work_Career" Association="DataWorkModel.FK_Work_Career">
+            <End Role="Career" EntitySet="Careers" />
+            <End Role="Work" EntitySet="Works" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Cv">
@@ -409,6 +553,94 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Form">
+          <Key>
+            <PropertyRef Name="form_id" />
+          </Key>
+          <Property Name="form_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="form_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Works" Relationship="DataWorkModel.FK_Work_Form" FromRole="Form" ToRole="Work" />
+        </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="province_id" />
+          </Key>
+          <Property Name="province_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="province_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Works" Relationship="DataWorkModel.FK_Work_Province" FromRole="Province" ToRole="Work" />
+          <NavigationProperty Name="Employers" Relationship="DataWorkModel.FK_Employer_Province" FromRole="Province" ToRole="Employer" />
+        </EntityType>
+        <Association Name="FK_Work_Form">
+          <End Type="DataWorkModel.Form" Role="Form" Multiplicity="0..1" />
+          <End Type="DataWorkModel.Work" Role="Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Form">
+              <PropertyRef Name="form_id" />
+            </Principal>
+            <Dependent Role="Work">
+              <PropertyRef Name="form_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Work_Province">
+          <End Type="DataWorkModel.Province" Role="Province" Multiplicity="0..1" />
+          <End Type="DataWorkModel.Work" Role="Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="Work">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employer_Province">
+          <End Type="DataWorkModel.Province" Role="Province" Multiplicity="0..1" />
+          <End Type="DataWorkModel.Employer" Role="Employer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="Employer">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Career">
+          <Key>
+            <PropertyRef Name="career_id" />
+          </Key>
+          <Property Name="career_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="career_name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="career_view" Type="Int32" />
+          <Property Name="career_datecreated" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Employers" Relationship="DataWorkModel.FK_Employer_Career" FromRole="Career" ToRole="Employer" />
+          <NavigationProperty Name="Works" Relationship="DataWorkModel.FK_Work_Career" FromRole="Career" ToRole="Work" />
+        </EntityType>
+        <Association Name="FK_Employer_Career">
+          <End Type="DataWorkModel.Career" Role="Career" Multiplicity="0..1" />
+          <End Type="DataWorkModel.Employer" Role="Employer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Career">
+              <PropertyRef Name="career_id" />
+            </Principal>
+            <Dependent Role="Employer">
+              <PropertyRef Name="career_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Work_Career">
+          <End Type="DataWorkModel.Career" Role="Career" Multiplicity="0..1" />
+          <End Type="DataWorkModel.Work" Role="Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Career">
+              <PropertyRef Name="career_id" />
+            </Principal>
+            <Dependent Role="Work">
+              <PropertyRef Name="career_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -418,6 +650,8 @@
           <EntitySetMapping Name="Employers">
             <EntityTypeMapping TypeName="DataWorkModel.Employer">
               <MappingFragment StoreEntitySet="Employer">
+                <ScalarProperty Name="career_id" ColumnName="career_id" />
+                <ScalarProperty Name="province_id" ColumnName="province_id" />
                 <ScalarProperty Name="employer_recrequirement" ColumnName="employer_recrequirement" />
                 <ScalarProperty Name="employer_symbol" ColumnName="employer_symbol" />
                 <ScalarProperty Name="employer_pricemax" ColumnName="employer_pricemax" />
@@ -492,6 +726,9 @@
           <EntitySetMapping Name="Works">
             <EntityTypeMapping TypeName="DataWorkModel.Work">
               <MappingFragment StoreEntitySet="Work">
+                <ScalarProperty Name="career_id" ColumnName="career_id" />
+                <ScalarProperty Name="form_id" ColumnName="form_id" />
+                <ScalarProperty Name="province_id" ColumnName="province_id" />
                 <ScalarProperty Name="work_spam" ColumnName="work_spam" />
                 <ScalarProperty Name="work_delete" ColumnName="work_delete" />
                 <ScalarProperty Name="work_note" ColumnName="work_note" />
@@ -576,6 +813,32 @@
                 <ScalarProperty Name="theme_datecreate" ColumnName="theme_datecreate" />
                 <ScalarProperty Name="cv_id" ColumnName="cv_id" />
                 <ScalarProperty Name="theme_id" ColumnName="theme_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Forms">
+            <EntityTypeMapping TypeName="DataWorkModel.Form">
+              <MappingFragment StoreEntitySet="Form">
+                <ScalarProperty Name="form_name" ColumnName="form_name" />
+                <ScalarProperty Name="form_id" ColumnName="form_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provinces">
+            <EntityTypeMapping TypeName="DataWorkModel.Province">
+              <MappingFragment StoreEntitySet="Province">
+                <ScalarProperty Name="province_name" ColumnName="province_name" />
+                <ScalarProperty Name="province_id" ColumnName="province_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Careers">
+            <EntityTypeMapping TypeName="DataWorkModel.Career">
+              <MappingFragment StoreEntitySet="Career">
+                <ScalarProperty Name="career_datecreated" ColumnName="career_datecreated" />
+                <ScalarProperty Name="career_view" ColumnName="career_view" />
+                <ScalarProperty Name="career_name" ColumnName="career_name" />
+                <ScalarProperty Name="career_id" ColumnName="career_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

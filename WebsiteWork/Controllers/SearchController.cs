@@ -48,5 +48,11 @@ namespace WebsiteWork.Controllers
             work = db.Works.Where(n => n.work_name.StartsWith(work_search)).Select(n => n.work_name).ToList();
             return Json(work);
         }
+        // Search ajax
+        public PartialViewResult SearchUnWorkEmployer(string key)
+        {
+            List<Work> work = db.Works.Where(n => n.work_name.Contains(key)).ToList();
+            return PartialView("_Work",work);
+        }
     }
 }

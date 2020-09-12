@@ -52,6 +52,7 @@
                                     var employer_company = document.getElementById("employer_company").value;
                                     var employer_pass = document.getElementById("employer_pass").value;
                                     var employer_passres = document.getElementById("employer_passres").value;
+                                    var employer_logo = document.getElementById("wizard-picture").value;
                                     if (employer_name == '') {
                                         document.getElementById("testRES").innerHTML = '<b class="text-danger" style="font-size: 12px;"><i class="fas fa-exclamation-circle">&nbsp;</i>Tên hiển thị không được trống.</b>';
                                     }
@@ -73,118 +74,158 @@
                                     else if (employer_pass != employer_passres) {
                                         document.getElementById("testRES").innerHTML = '<b class="text-danger" style="font-size: 12px;"><i class="fas fa-exclamation-circle">&nbsp;</i>Xác nhân mật khẩu không khớp.</b>';
                                     }
+                                    else if (employer_logo == '') {
+                                        document.getElementById("testRES").innerHTML = '<b class="text-danger" style="font-size: 12px;"><i class="fas fa-exclamation-circle">&nbsp;</i>Ảnh logo công ty trống.</b>';
+                                    }
                                     else {
                                         return true;
                                     }
                                     return false;
                                 }
                             </script>
-                            <form action="@Url.Action("CreateEmployer","Account")" method="post" onsubmit="return restest()">
-                                <div class="wizard-header">
-                                    <h3>
-                                        <b>ĐĂNG KÝ</b> NHÀ TUYỂN DỤNG <br>
-                                        <small>Đăng việc làm và tìm ứng viên miễn phí tại AllWork1s.</small>
-                                    </h3>
-                                </div>
-
-                                <div class="wizard-navigation">
-                                    <ul>
-                                        <li><a href="#about" data-toggle="tab">Thông tin cá nhân</a></li>
-                                        <li><a href="#account" data-toggle="tab">Thông tin công ty</a></li>
-                                        <li><a href="#address" data-toggle="tab">Mật khẩu</a></li>
-                                    </ul>
-
-                                </div>
-
-                                <div class="tab-content">
-                                    <div class="tab-pane" id="about">
-                                        <div class="row">
-                                            <h4 class="info-text">Chào bạn! Hãy cho AllWork1s biết thông tin cá nhân của bạn</h4>
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label>Tên hiển thị <small>(Bắt buộc)</small></label>
-                                                    <input name="employer_name" type="text" class="form-control" placeholder="Tên hiển thị..." id="employer_name">
-                                                </div>                                                    
-
-                                                <div class="form-group">
-                                                    <label>Số điện thoại <small>(Bắt buộc)</small></label>
-                                                    <input name="employer_phone" type="text" class="form-control" placeholder="Số điện thoại..." id="employer_phone">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Email đăng nhập <small>(Bắt buộc)</small></label>
-                                                    <input name="employer_email" type="email" class="form-control" placeholder="allworl1s@gmail.com" id="employer_email">
-                                                </div>
-                                            </div>
-                                        </div>
+                            @using (Html.BeginForm("CreateEmployer","Account",FormMethod.Post,new { @enctype = "multipart/form-data" }))
+                            {
+                                <form action="" method="post" onsubmit="return restest()">
+                                    <div class="wizard-header">
+                                        <h3>
+                                            <b>ĐĂNG KÝ</b> NHÀ TUYỂN DỤNG <br>
+                                            <small>Đăng việc làm và tìm ứng viên miễn phí tại AllWork1s.</small>
+                                        </h3>
                                     </div>
-                                    <div class="tab-pane" id="account">
-                                        <h4 class="info-text"> Nhà tuyển dụng cho biết thông tin về công ty mình! </h4>
-                                        <div class="row">
-                                            <div class="col-sm-4 col-sm-offset-1">
-                                                <div class="picture-container">
-                                                    <div class="picture">
-                                                        <img src="~/Content/UI/LoginEmployer/img/default-avatar.png" class="picture-src" id="wizardPicturePreview" title="" />
-                                                        <input type="file" id="wizard-picture">
+
+                                    <div class="wizard-navigation">
+                                        <ul>
+                                            <li><a href="#about" data-toggle="tab">Thông tin cá nhân</a></li>
+                                            <li><a href="#account" data-toggle="tab">Thông tin công ty</a></li>
+                                            <li><a href="#address" data-toggle="tab">Mật khẩu</a></li>
+                                        </ul>
+
+                                    </div>
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane" id="about">
+                                            <div class="row">
+                                                <h4 class="info-text">Chào bạn! Hãy cho AllWork1s biết thông tin cá nhân của bạn</h4>
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label>Tên hiển thị <small>(Bắt buộc)</small></label>
+                                                        <input name="employer_name" type="text" class="form-control" placeholder="Tên hiển thị..." id="employer_name">
                                                     </div>
-                                                    <h6>Logo công ty</h6>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label>Tên công ty <small>(Bắt buộc)</small></label>
-                                                    <input name="employer_company" type="text" class="form-control" placeholder="Tên công ty..." id="employer_company">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Công ty chuyên về <small>(Không bắt buộc - nếu có chúng tôi sẽ giúp bạn tìm kiếm hồ sơ phù hợp)</small></label>
-                                                    <input name="employer_specialized" type="text" class="form-control" placeholder="Phần mềm...">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Vị trí tuyển dụng quan tâm <small>(Bắt buộc)</small></label>
-                                                    <input name="" type="text" class="form-control" placeholder="Vị trí...">
-                                                </div>
-                                            </div>
 
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="address">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <h4 class="info-text"> Mật khẩu đăng nhập! </h4>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label>Mật khẩu đăng nhập <small>(Bắt buộc)</small></label>
-                                                    <input name="employer_pass" type="password" class="form-control" placeholder="Mật khẩu..." id="employer_pass">
+                                                    <div class="form-group">
+                                                        <label>Số điện thoại <small>(Bắt buộc)</small></label>
+                                                        <input name="employer_phone" type="text" class="form-control" placeholder="Số điện thoại..." id="employer_phone">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Email đăng nhập <small>(Bắt buộc)</small></label>
+                                                        <input name="employer_email" type="email" class="form-control" placeholder="allworl1s@gmail.com" id="employer_email">
+                                                    </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label>Xác nhận mật khẩu <small>(Bắt buộc)</small></label>
-                                                    <input name="employer_passres" type="password" class="form-control" placeholder="Xác nhân mật khẩu..." id="employer_passres">
-                                                </div>
-                                                <div id="testRES"></div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="wizard-footer height-wizard">
-                                    <div class="pull-right">
-                                        <input type='button' class='btn btn-next btn-fill btn-warning btn-wd btn-sm' name='next' value='Tiếp tục' />
-                                        <input type='submit' class='btn btn-finish btn-fill btn-warning btn-wd btn-sm' name='finish' value='Đăng ký' />
+                                        <div class="tab-pane" id="account">
+                                            <h4 class="info-text"> Nhà tuyển dụng cho biết thông tin về công ty mình! </h4>
+                                            <div class="row">
+                                                <div class="col-sm-4 col-sm-offset-1">
+                                                    <div class="picture-container">
+                                                        <div class="picture">
+                                                            <img src="~/Content/UI/LoginEmployer/img/default-avatar.png" class="picture-src" id="wizardPicturePreview" title="" />
+                                                            <input type="file" id="wizard-picture" name="imglogo">
+                                                        </div>
+                                                        <h6>Logo công ty</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Tên công ty <small>(Bắt buộc)</small></label>
+                                                        <input name="employer_company" type="text" class="form-control" placeholder="Tên công ty..." id="employer_company">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Công ty chuyên về <small>(Không bắt buộc - nếu có chúng tôi sẽ giúp bạn tìm kiếm hồ sơ phù hợp)</small></label>
+                                                        <input name="employer_specialized" type="text" class="form-control" placeholder="Phần mềm...">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Nghành nghề liên quan<small>(Bắt buộc)</small></label>
+                                                        @Html.DropDownList("career_id", null, htmlAttributes: new { @class = "form-control" })
+                                                    </div>
+                                                </div>
 
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="address">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <h4 class="info-text"> Mật khẩu đăng nhập! </h4>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label>Mật khẩu đăng nhập <small>(Bắt buộc)</small></label>
+                                                        <input name="employer_pass" type="password" class="form-control" placeholder="Mật khẩu..." id="employer_pass">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Xác nhận mật khẩu <small>(Bắt buộc)</small></label>
+                                                        <input name="employer_passres" type="password" class="form-control" placeholder="Xác nhân mật khẩu..." id="employer_passres">
+                                                    </div>
+                                                    <div id="testRES"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="wizard-footer height-wizard">
+                                        <div class="pull-right">
+                                            <input type='button' class='btn btn-next btn-fill btn-warning btn-wd btn-sm' name='next' value='Tiếp tục' />
+                                            <input type='submit' class='btn btn-finish btn-fill btn-warning btn-wd btn-sm' name='finish' value='Đăng ký' />
+
+                                        </div>
+
+                                        <div class="pull-left">
+                                            <input type='button' class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Trờ về' />
+                                        </div>
+                                        <div class="clearfix"></div>
                                     </div>
 
-                                    <div class="pull-left">
-                                        <input type='button' class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Trờ về' />
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-
-                            </form>
+                                </form>
+                            }
                         </div>
                     </div> <!-- wizard container -->
                 </div>
             </div><!-- end row -->
-        </div> 
+        </div>
     </div>
+    <script src="~/Scripts/jquery-3.5.1.slim.min.js"></script>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @Session["img"]
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (Session["img"] != null)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#exampleModal').modal('show');
+            })
+        </script>
+    }
+    else
+    {
+
+    }
 </body>
 
 <!--   Core JS Files   -->

@@ -47,7 +47,13 @@ namespace WebsiteWork.Models
         public string work_note { get; set; }
         public Nullable<bool> work_delete { get; set; }
         public Nullable<bool> work_spam { get; set; }
+        public Nullable<int> province_id { get; set; }
+        public Nullable<int> form_id { get; set; }
+        public Nullable<int> career_id { get; set; }
     
         public virtual Employer Employer { get; set; }
+        public virtual Form Form { get; set; }
+        public virtual Province Province { get; set; }
+        public virtual Career Career { get; set; }
     }
 }

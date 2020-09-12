@@ -94,7 +94,25 @@
             @Html.DisplayNameFor(model => model.work_province)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.work_ifamemap)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.work_note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.work_delete)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.work_spam)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Employer.employer_email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Form.form_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Province.province_name)
         </th>
         <th></th>
     </tr>
@@ -183,7 +201,25 @@
             @Html.DisplayFor(modelItem => item.work_province)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.work_ifamemap)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.work_note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.work_delete)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.work_spam)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Employer.employer_email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Form.form_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Province.province_name)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.work_id }) |

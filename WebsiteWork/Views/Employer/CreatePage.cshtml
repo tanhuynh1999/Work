@@ -9,6 +9,11 @@
     .ck {
         height: 300px
     }
+    .career{
+        border: 1px dashed black; 
+        width: 200px;
+        background-color: #f3f3f3;
+    }
 </style>
 <script>
     function valicreateemployer() {
@@ -26,7 +31,7 @@
         </div>
         <div class="col-lg-3">
             <center style="margin-top: 10px">
-                <img src="~/Images/Employer/cong-ty-co-phan-vien-thong-fpt-5d5f5980e317c.jpg" alt="Raised circle image" class="img-fluid rounded-circle shadow-lg" style="width: 200px; height: 200px; border-radius: 50%">
+                <img src="~/Images/Employer/@Model.employer_logo" alt="Raised circle image" class="img-fluid rounded-circle shadow-lg" style="width: 200px; height: 200px; border-radius: 50%">
             </center>
         </div>
         <div class="col-lg-9">
@@ -35,21 +40,23 @@
             <h3 style="font-size: 30px">
                 <input type="text" placeholder="Tên công ty (vd: AllWork1s)" value="@employer.employer_company" style="border: 1px dashed black; width: 100%; background-color: #f3f3f3" name="employer_company" />
             </h3>
+            <style>
+                .province_id{
+                    border: 1px dashed black;
+                    background-color: #f3f3f3;
+                    margin-top: 4px;
+                }
+            </style>
             <ul>
                 <li>
                     <i class="fa fa-map-marker-alt">&nbsp;</i>Trụ sở chính:
-                    <select style="border: 1px dashed black;background-color: #f3f3f3; margin-top: 4px" name="employer_province">
-                        <option value="">--Tỉnh Thành--</option>
-                        <option value="Bình Dương">Bình Dương</option>
-                        <option value="TP.Hồ Chí Minh">TP.Hồ Chí Minh</option>
-                        <option value="Hà nội">Hà Nội</option>
-                    </select>
-                </li>
+                    @Html.DropDownList("province_id", null, htmlAttributes: new { @class = "province_id" })
                 <li style="margin-top: 4px"><i class="fa fa-users"></i>&nbsp;Số thành viên: <input type="text" placeholder="Số thành viên" value="2" style="border: 1px dashed black; width: 200px; background-color: #f3f3f3" /></li>
                 
                 <hr />
                 <li>Sản phẩm: <input type="text" placeholder="Sản phẩm chính" value="@employer.employer_specialized" style="border: 1px dashed black; width: 200px; background-color: #f3f3f3" /></li>
                 <li style="margin-top: 4px">Đang tuyển: <input type="text" placeholder="Cần tuyển" value="Back end,..." style="border: 1px dashed black; width: 200px; background-color: #f3f3f3" name="employer_recruitment" /></li>
+                <li style="margin-top: 4px">Nghành chính: @Html.DropDownList("career_id", null, htmlAttributes: new { @class = "career" })</li>
                 <hr />
                 <li style="margin-top: 4px">Link Facebook: <input type="text" placeholder="Link facebook" value="" style="border: 1px dashed black; width: 200px; background-color: #f3f3f3" name="employer_linkfc" /></li>
                 <li style="margin-top: 4px">SĐT: <input type="text" placeholder="Số điện thoại" value="@employer.employer_phone" style="border: 1px dashed black; width: 200px; background-color: #f3f3f3" name="employer_phone"/></li>

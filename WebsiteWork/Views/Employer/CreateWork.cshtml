@@ -8,6 +8,9 @@
     .ck {
         height: 300px
     }
+    .province{
+        border: 1px dashed red;
+    }
 </style>
 <div class="" ng-app="">
     <div class="">
@@ -15,7 +18,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="alert alert-danger"><i class="fa fa-bell">&nbsp;</i>Viết nội dung vào các vi trí gạch đỏ và các trường nội dung phù hợp. Sau thi bấm vào sẽ có 1 hướng dẫn cho bạn!</div>
-                    <h5 class="font-weight-light text-primary font-weight-bold mt-3" style="margin-top: 3%">TÊN CÔNG VIỆC</h5>
+                    <h5 class="font-weight-light text-primary font-weight-bold mt-3" style="margin-top: 3% ">TÊN CÔNG VIỆC</h5>
                     <input ng-click="work_name = 'Tên công việc liên quan (vd: Tuyển backend làm website c#, kế toán trường phòng,...)';work_deadline = '';work_description = '';work_price='';work_sex='';work_format='';work_yearsofexp='';work_provinc='';work_address='';work_ifamemap ='';work_note='';work_request='';work_benefit=''" placeholder="Nhập vào tên công việc" name="work_name" style="border: 1px dashed red; margin-top: 3%; font-size: 20px; background-color:#f3f3f3; width: 100%" />
                     <div style="font-size: 12px; color: green; font-weight: bold;margin-top: 2%">{{work_name}}</div>
                     <h5 class="font-weight-light text-primary font-weight-bold mt-3" style="margin-top: 3%">NGÀY HẾT HẠN HỒ SƠ</h5>
@@ -76,10 +79,7 @@
                         </li>
                         <li class="list-group-item" ng-click="work_format = 'Nhập hình thức, toàn thời gian hay bán thời gian.';work_deadline='';work_description='';work_price='';work_sex='';work_amount ='';work_amount ='';work_yearsofexp='';work_provinc='';work_address='';work_ifamemap ='';work_note='';work_request='';work_benefit=''">
                             <b style="font-weight: bold">Hình thức:</b>
-                            <select name="work_format" style="border: 1px dashed red">
-                                <option value="true">Toàn thời gian</option>
-                                <option value="false">Bán thời gian</option>
-                            </select>
+                            @Html.DropDownList("form_id", null, htmlAttributes: new { @class = "province" })
                             <div style="font-size: 12px; color: green; font-weight: bold;margin-top: 2%">{{work_format}}</div>
                         </li>
                         <li class="list-group-item"><b style="font-weight: bold">Số lượng tuyển: </b><input type="text" placeholder="Số lượng cần tuyển" value="" name="work_amount" style="border: 1px dashed red" ng-click="work_amount = 'Số lượng cần tuyển, sẽ trừ nếu nhận được 1 hồ sơ.';work_deadline='';work_description='';work_price='';work_sex='';work_format='';work_option='';work_yearsofexp='';work_provinc='';work_address='';work_ifamemap ='';work_note='';work_request='';work_benefit=''" /> <div style="font-size: 12px; color: green; font-weight: bold;margin-top: 2%">{{work_amount}}</div></li>
@@ -87,10 +87,7 @@
                         <li class="list-group-item"><b style="font-weight: bold">Kinh nghiệm: </b><input type="number" name="work_yearsofexp" value="1" style="border: 1px dashed red; width: 50px" ng-click="work_yearsofexp = 'Kinh nghiệm cần tuyển, nếu không cần thì để trống!';work_deadline = '';work_description = '';work_price='';work_sex='';work_format='';work_format='';work_amount='';work_option='';work_provinc='';work_address='';work_ifamemap ='';work_note='';work_request='';work_benefit=''" /> năm<div style="font-size: 12px; color: green; font-weight: bold;margin-top: 2%">{{work_yearsofexp}}</div></li>
                         <li class="list-group-item" ng-click="work_provinc = 'Nêu tỉnh thành chính xác, ứng viên có thể biết được nơi làm.';work_deadline = '';work_description = '';work_price='';work_sex='';work_format='';work_format='';work_amount='';work_option='';work_yearsofexp='';work_address='';work_ifamemap ='';work_note='';work_request=''">
                             <b style="font-weight: bold">Địa điểm: </b>
-                            <select name="work_province" style="border: 1px dashed red">
-                                <option value="1">Bình Dương</option>
-                                <option value="2">Tp.Hồ Chí Minh</option>
-                            </select>
+                            @Html.DropDownList("province_id", null, htmlAttributes: new { @class = "province" })
                             <div style="font-size: 12px; color: green; font-weight: bold;margin-top: 2%">{{work_provinc}}</div>
                         </li>
                     </ul>

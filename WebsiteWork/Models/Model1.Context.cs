@@ -31,5 +31,8 @@ namespace WebsiteWork.Models
         public virtual DbSet<Work> Works { get; set; }
         public virtual DbSet<Cv> Cvs { get; set; }
         public virtual DbSet<Theme> Themes { get; set; }
+        public virtual DbSet<Form> Forms { get; set; }
+        public virtual DbSet<Province> Provinces { get; set; }
+        public virtual DbSet<Career> Careers { get; set; }
     }
 }

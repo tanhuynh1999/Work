@@ -17,7 +17,7 @@ namespace WebsiteWork.Controllers
         // GET: Works
         public ActionResult Index()
         {
-            var works = db.Works.Include(w => w.Employer);
+            var works = db.Works.Include(w => w.Employer).Include(w => w.Form).Include(w => w.Province);
             return View(works.ToList());
         }
 
@@ -40,6 +40,8 @@ namespace WebsiteWork.Controllers
         public ActionResult Create()
         {
             ViewBag.employer_id = new SelectList(db.Employers, "employer_id", "employer_email");
+            ViewBag.form_id = new SelectList(db.Forms, "form_id", "form_name");
+            ViewBag.province_id = new SelectList(db.Provinces, "province_id", "province_name");
             return View();
         }
 
@@ -48,7 +50,7 @@ namespace WebsiteWork.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "work_id,work_name,work_image,work_deadline,work_description,work_request,work_benefit,work_address,work_moneyf,work_moneye,work_amount,work_activate,work_option,work_view,work_love,work_map,work_datecreated,work_dateexpired,work_datesend,work_imagetwo,work_imgathree,employer_id,work_pricemin,work_pricemax,work_symbol,work_sex,work_format,work_yearsofexp,work_province")] Work work)
+        public ActionResult Create([Bind(Include = "work_id,work_name,work_image,work_deadline,work_description,work_request,work_benefit,work_address,work_moneyf,work_moneye,work_amount,work_activate,work_option,work_view,work_love,work_map,work_datecreated,work_dateexpired,work_datesend,work_imagetwo,work_imgathree,employer_id,work_pricemin,work_pricemax,work_symbol,work_sex,work_format,work_yearsofexp,work_province,work_ifamemap,work_note,work_delete,work_spam,province_id,form_id")] Work work)
         {
             if (ModelState.IsValid)
             {
@@ -58,6 +60,8 @@ namespace WebsiteWork.Controllers
             }
 
             ViewBag.employer_id = new SelectList(db.Employers, "employer_id", "employer_email", work.employer_id);
+            ViewBag.form_id = new SelectList(db.Forms, "form_id", "form_name", work.form_id);
+            ViewBag.province_id = new SelectList(db.Provinces, "province_id", "province_name", work.province_id);
             return View(work);
         }
 
@@ -74,6 +78,8 @@ namespace WebsiteWork.Controllers
                 return HttpNotFound();
             }
             ViewBag.employer_id = new SelectList(db.Employers, "employer_id", "employer_email", work.employer_id);
+            ViewBag.form_id = new SelectList(db.Forms, "form_id", "form_name", work.form_id);
+            ViewBag.province_id = new SelectList(db.Provinces, "province_id", "province_name", work.province_id);
             return View(work);
         }
 
@@ -82,7 +88,7 @@ namespace WebsiteWork.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "work_id,work_name,work_image,work_deadline,work_description,work_request,work_benefit,work_address,work_moneyf,work_moneye,work_amount,work_activate,work_option,work_view,work_love,work_map,work_datecreated,work_dateexpired,work_datesend,work_imagetwo,work_imgathree,employer_id,work_pricemin,work_pricemax,work_symbol,work_sex,work_format,work_yearsofexp,work_province")] Work work)
+        public ActionResult Edit([Bind(Include = "work_id,work_name,work_image,work_deadline,work_description,work_request,work_benefit,work_address,work_moneyf,work_moneye,work_amount,work_activate,work_option,work_view,work_love,work_map,work_datecreated,work_dateexpired,work_datesend,work_imagetwo,work_imgathree,employer_id,work_pricemin,work_pricemax,work_symbol,work_sex,work_format,work_yearsofexp,work_province,work_ifamemap,work_note,work_delete,work_spam,province_id,form_id")] Work work)
         {
             if (ModelState.IsValid)
             {
@@ -91,6 +97,8 @@ namespace WebsiteWork.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.employer_id = new SelectList(db.Employers, "employer_id", "employer_email", work.employer_id);
+            ViewBag.form_id = new SelectList(db.Forms, "form_id", "form_name", work.form_id);
+            ViewBag.province_id = new SelectList(db.Provinces, "province_id", "province_name", work.province_id);
             return View(work);
         }
 
