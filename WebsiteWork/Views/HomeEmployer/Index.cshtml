@@ -33,7 +33,7 @@
                         if (employer.employer_version == 1)
                         {
                             <ul>
-                                <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Đăng tối đa 5 bài tuyển.</li>
+                                <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Đăng tối đa @employer.employer_limit bài tuyển.</li>
                                 <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Nhận tối đa 10 hồ sơ.</li>
                                 <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Công cụ chat load trang.</li>
                                 <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Tạo thông báo trên trang cá nhân.</li>
@@ -45,24 +45,57 @@
                                 <hr />
                                 <li><a href="" class="btn btn-danger" style="width: 100%">Xem tất cả tính năng của phiên bản cao cấp</a></li>
                                 <li style="margin-top: 10px">
-                                    <img src="~/Content/Layout/images/video.jpg" style="width: 100%; height: 170px"/>
+                                    <img src="~/Content/Layout/images/video.jpg" style="width: 100%; height: 170px" />
                                 </li>
                             </ul>
                         }
                         else if (employer.employer_version == 2)
                         {
                             <ul>
-
+                                <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Đăng tối đa @employer.employer_limit bài tuyển.</li>
+                                <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Nhận tối đa 200 hồ sơ.</li>
+                                <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Công cụ chat không load trang.</li>
+                                <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Tạo thông báo trên trang cá nhân.</li>
+                                <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Nhận gợi ý ứng viên tốt nhất (200 hồ sơ ngẫu nhiên).</li>
+                                <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Trình tìm kiếm thông minh (7 sự lựa chọn).</li>
+                                <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Nhận ứng viên miễn phí.</li>
+                                <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Thời gian tồn tại bài viết (Tự cài đặt).</li>
+                                <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Tải hồ sơ ứng viên (Không giới hạn).</li>
+                                <li><i class="fas fa-check-circle" style="color: red">&nbsp;</i>Quảng cáo trên trang cá nhân.</li>
+                                <li><i class="fas fa-check-circle" style="color: red">&nbsp;</i>Công cụ quản lý đặc quyền.</li>
+                                <hr />
+                                <li><a href="" class="btn btn-danger" style="width: 100%">Xem tất cả tính năng của phiên bản cao cấp</a></li>
+                                <li style="margin-top: 10px">
+                                    <img src="~/Content/Layout/images/video.jpg" style="width: 100%; height: 170px" />
+                                </li>
                             </ul>
                         }
                         else if (employer.employer_version == 3)
                         {
-
+                            <ul>
+                                <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Đăng tối đa @employer.employer_limit bài tuyển.</li>
+                                <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Nhận tối đa 400 hồ sơ.</li>
+                                <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Công cụ chat không load trang.</li>
+                                <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Tạo thông báo trên trang cá nhân.</li>
+                                <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Nhận gợi ý ứng viên tốt nhất (400 hồ sơ ngẫu nhiên).</li>
+                                <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Trình tìm kiếm thông minh (10 sự lựa chọn).</li>
+                                <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Nhận ứng viên miễn phí.</li>
+                                <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Thời gian tồn tại bài viết (Tự cài đặt).</li>
+                                <li><i class="fas fa-check-circle" style="color: green">&nbsp;</i>Tải hồ sơ ứng viên (Không giới hạn).</li>
+                                <li><i class="fas fa-check-circle" style="color: red">&nbsp;</i>Quảng cáo trên trang cá nhân.</li>
+                                <li><i class="fas fa-check-circle" style="color: red">&nbsp;</i>Công cụ quản lý đặc quyền.</li>
+                                <li><i class="fas fa-check-circle" style="color: red">&nbsp;</i>Quảng cáo banner trên toàn hệ thống.</li>
+                                <li><i class="fas fa-check-circle" style="color: red">&nbsp;</i>Trình tìm kiếm mạnh mẻ nhất.</li>
+                                <hr />
+                                <li><a href="" class="btn btn-danger" style="width: 100%">Xem tất cả tính năng của phiên bản cao cấp</a></li>
+                                <li style="margin-top: 10px">
+                                    <img src="~/Content/Layout/images/video.jpg" style="width: 100%; height: 170px" />
+                                </li>
+                            </ul>
                         }
                         else
                         {
                             <ul>
-
                             </ul>
                         }
                     }
@@ -80,14 +113,27 @@
                         {
                             if (employer.employer_personalpage == true)
                             {
-
+                                { 
+                                    DataWorkEntities db = new DataWorkEntities();
+                                    List<Work> worksvsone = db.Works.Where(n => n.employer_id == employer.employer_id).ToList();
+                                    ViewBag.One = worksvsone.Count;
+                                }
                                 <div class="col-md-4">
                                     <button type="button" class=" btn-l btn-7" style="height: 100px; margin-top: 5px; width: 100%"><i class="fas fa-building">&nbsp;</i>Trang cá nhân</button>
                                 </div>
                                 <div class="col-md-4">
-                                    <a href="@Url.Action("CreateWork","Employer")">
-                                        <button type="button" class=" btn-l btn-7" style="height: 100px; margin-top: 5px; width: 100%"><i class="fas fa-pager">&nbsp;</i>Đăng bài tuyển</button>
-                                    </a>
+                                    @if (ViewBag.One < employer.employer_limit)
+                                    {
+                                        <a href="@Url.Action("CreateWork","Employer")">
+                                            <button type="button" class=" btn-l btn-7" style="height: 100px; margin-top: 5px; width: 100%"><i class="fas fa-pager">&nbsp;</i>Đăng bài tuyển (@ViewBag.One/@employer.employer_limit)</button>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#">
+                                            <button type="button" class=" btn-l btn-13" style="height: 100px; margin-top: 5px; width: 100%"><i class="fas fa-pager">&nbsp;</i>Đăng bài tuyển (@ViewBag.One/@employer.employer_limit)</button>
+                                        </a>
+                                    }
                                 </div>
                                 <div class="col-md-4">
                                     <button type="button" class=" btn-l btn-7" style="height: 100px; margin-top: 5px;width: 100%"><i class="fa fa-user"></i>&nbsp;Hồ sơ ứng viên</button>

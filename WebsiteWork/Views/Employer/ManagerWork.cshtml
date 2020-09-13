@@ -1,8 +1,11 @@
-﻿@model IEnumerable<WebsiteWork.Models.Work>
+﻿@using WebsiteWork.Models;
+@model IEnumerable<WebsiteWork.Models.Work>
 
 @{
     ViewBag.Title = "ManagerWork";
     Layout = "~/Views/Shared/_LayoutEmployer.cshtml";
+    Employer employer = (Employer)Session["employer"];
+
 }
 <link href="~/Content/UI/BK/css/bootstrap.css" rel="stylesheet" />
 <link href="~/Content/fontawesome-free-5.14.0-web/css/all.min.css" rel="stylesheet" />
@@ -13,7 +16,19 @@
 
 <div class="row">
     <div class="col-lg-7">
-        <button onclick="window.location.href='/Employer/CreateWork'" class="btn btn-danger" style="margin-top: 1%"><i class="fa fa-plus">&nbsp;</i>Thêm mới</button>
+        @{
+            DataWorkEntities db = new DataWorkEntities();
+            List<Work> worksvsone = db.Works.Where(n => n.employer_id == employer.employer_id).ToList();
+            ViewBag.One = worksvsone.Count;
+        }
+        @if (ViewBag.One < employer.employer_limit)
+        {
+            <button onclick="window.location.href='@Url.Action("CreateWork","Employer")'" class="btn btn-danger" style="margin-top: 1%"><i class="fa fa-plus">&nbsp;</i>Thêm mới(@ViewBag.One/@employer.employer_limit)</button>
+        }
+        else
+        {
+            <button onclick="window.location.href='#'" class="btn btn-dark" style="margin-top: 1%"><i class="fa fa-plus">&nbsp;</i>Thêm mới(@ViewBag.One/@employer.employer_limit)</button>
+        }
         <button onclick="window.location.href='/Employer/CreateWork'" class="btn btn-primary" style="margin-top: 1%"><i class="fas fa-chart-bar">&nbsp;</i>Thống kê</button>
         <button onclick="window.location.href='/Employer/CreateWork'" class="btn btn-success" style="margin-top: 1%"><i class="fas fa-file-excel">&nbsp;</i>Xuất Excel</button>
     </div>

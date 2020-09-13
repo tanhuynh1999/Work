@@ -97,6 +97,7 @@
           <Property Name="employer_recrequirement" Type="nvarchar" MaxLength="2000" />
           <Property Name="province_id" Type="int" />
           <Property Name="career_id" Type="int" />
+          <Property Name="employer_limit" Type="int" />
         </EntityType>
         <EntityType Name="Form">
           <Key>
@@ -363,6 +364,7 @@
           <NavigationProperty Name="Province" Relationship="DataWorkModel.FK_Employer_Province" FromRole="Employer" ToRole="Province" />
           <Property Name="career_id" Type="Int32" />
           <NavigationProperty Name="Career" Relationship="DataWorkModel.FK_Employer_Career" FromRole="Employer" ToRole="Career" />
+          <Property Name="employer_limit" Type="Int32" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -650,6 +652,7 @@
           <EntitySetMapping Name="Employers">
             <EntityTypeMapping TypeName="DataWorkModel.Employer">
               <MappingFragment StoreEntitySet="Employer">
+                <ScalarProperty Name="employer_limit" ColumnName="employer_limit" />
                 <ScalarProperty Name="career_id" ColumnName="career_id" />
                 <ScalarProperty Name="province_id" ColumnName="province_id" />
                 <ScalarProperty Name="employer_recrequirement" ColumnName="employer_recrequirement" />

@@ -58,6 +58,7 @@ namespace WebsiteWork.Controllers
                 employer.employer_token = Guid.NewGuid().ToString();
                 employer.employer_personalpage = true;
                 employer.employer_pass = em.employer_pass;
+                employer.employer_limit = 5;
                 employer.employer_email = em.employer_email;
                 employer.employer_name = em.employer_name;
                 employer.employer_datecreated = em.employer_datecreated;
@@ -74,9 +75,27 @@ namespace WebsiteWork.Controllers
         //Đăng bài
         public ActionResult CreateWork()
         {
-            ViewBag.form_id = new SelectList(db.Forms, "form_id", "form_name");
-            ViewBag.province_id = new SelectList(db.Provinces, "province_id", "province_name");
-            return View();
+            Employer employer = (Employer)Session["employer"];
+            List<Work> works = db.Works.Where(n => n.employer_id == employer.employer_id).ToList();
+            int countwork = works.Count;
+            if(employer == null)
+            {
+                return Redirect(LoginEmployer);
+            }
+            else if (employer.employer_personalpage == false)
+            {
+                return Redirect(HomeEmployer);
+            }
+            else if (countwork >= employer.employer_limit)
+            {
+                return Redirect(HomeEmployer);
+            }
+            else
+            {
+                ViewBag.form_id = new SelectList(db.Forms, "form_id", "form_name");
+                ViewBag.province_id = new SelectList(db.Provinces, "province_id", "province_name");
+                return View();
+            }
         }
         [HttpPost]
         [ValidateInput(false)]
@@ -93,6 +112,7 @@ namespace WebsiteWork.Controllers
             work.work_delete = false;
             work.work_option = true;
             db.SaveChanges();
+            Session["employer"] = employer;
             ViewBag.form_id = new SelectList(db.Forms, "form_id", "form_name");
             ViewBag.province_id = new SelectList(db.Provinces, "province_id", "province_name");
             return RedirectToAction("ManagerWork");
