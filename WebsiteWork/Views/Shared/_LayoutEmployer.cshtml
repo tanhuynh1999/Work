@@ -1,8 +1,5 @@
 ﻿@using WebsiteWork.Models;
 @{ 
-    Employer employer_free = (Employer)Session["employer_free"];
-    Employer employer_basic = (Employer)Session["employer_basic"];
-    Employer employer_pro = (Employer)Session["employer_pro"];
     Employer employer = (Employer)Session["employer"];
     if(employer == null)
     {
@@ -78,12 +75,21 @@
                             <p>Trang chủ</p>
                         </a>
                     </li>
-                    <li>
-                        <a href="user.html">
-                            <i class="pe-7s-user"></i>
-                            <p>User Profile</p>
-                        </a>
-                    </li>
+                    @if (employer.employer_personalpage == true)
+                    {
+                        <li>
+                            <a href="@Url.Action("ManagerWork","Employer")">
+                                <i class="pe-7s-news-paper"></i>
+                                <p>Bài tuyển</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="user.html">
+                                <i class="pe-7s-user"></i>
+                                <p>Hồ sơ</p>
+                            </a>
+                        </li>
+                    }
                     <li>
                         <a href="table.html">
                             <i class="pe-7s-note2"></i>

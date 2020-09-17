@@ -155,6 +155,7 @@
     <Compile Include="Controllers\EmployerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomeEmployerController.cs" />
+    <Compile Include="Controllers\PayController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ViewController.cs" />
     <Compile Include="Controllers\WorkController.cs" />
@@ -2746,6 +2747,8 @@
     <Content Include="Views\Works\Details.cshtml" />
     <Content Include="Views\Works\Edit.cshtml" />
     <Content Include="Views\Works\Index.cshtml" />
+    <Content Include="Views\Pay\ViewPay.cshtml" />
+    <Content Include="Views\View\WorkPro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

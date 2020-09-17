@@ -31,5 +31,10 @@ namespace WebsiteWork.Controllers
         {
             return View();
         }
+        public ActionResult WorkPro()
+        {
+            List<Work> works = db.Works.ToList();
+            return View(works);
+        }
     }
 }

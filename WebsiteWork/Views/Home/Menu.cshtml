@@ -34,7 +34,7 @@
     }
 </style>
 <div class="w3l-bootstrap-header fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-light p-2">
+    <nav class="navbar navbar-expand-lg navbar-light p-2" style="background-color: var(--light-bg-color)">
         <div class="container">
             <a class="navbar-brand logo" href="@Url.Action("")"><span class="fas fa-briefcase"></span><b class="all">All</b><b class="work">Work</b><b class="ms">1s</b></a>
             <!-- if logo is image enable this
@@ -52,7 +52,7 @@
                         <a class="nav-link" href="index.html">Mẫu CV</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="about.html" style="font-weight: bold">Cần việc gấp</a>
+                        <a class="nav-link" href="@Url.Action("WorkPro","View")" style="font-weight: bold ">Cần việc gấp</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="about.html">Việc làm</a>
@@ -61,7 +61,7 @@
                         <a class="nav-link" href="contact.html">Công ty</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-danger" href="contact.html" style="font-weight: bold">Cuộc sống IT</a>
+                        <a class="nav-link text-danger" href="contact.html" style="font-weight: bold">Cuộc sống công việc</a>
                     </li>
                     @if (user != null)
                     {
