@@ -1,0 +1,449 @@
+﻿@using WebsiteWork.Models
+@model Employer
+@{
+    User user = (User)Session["user"];
+    ViewBag.Title = "ViewPageEmployer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    DataWorkEntities db = new DataWorkEntities();
+    List<Work> works = db.Works.Where(n => n.employer_id == Model.employer_id).OrderByDescending(n => n.work_datecreated).ToList();
+}
+@Html.Action("Menu", "Home")
+<div class="w3l-index-block1">
+    <div class="content py-5">
+        <div class="container">
+            <div class="row align-items-center py-md-5 py-3">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <img src="https://cdn.itviec.com/photos/40792/processed_headline_photo/lg-development-center-vietnam-tuyen-dung-viec-lam-IT-headline_photo-1225369.JPG?He6mLuRivgoA8J3uhAvTcptL" style="height: 500px; width: 100%" />
+                    </div>
+                    <div class="col-lg-3">
+                        <center>
+                            <img src="~/Images/Employer/@Model.employer_logo" alt="Raised circle image" class="img-fluid rounded-circle shadow-lg" style="width: 200px; height: 200px">
+                        </center>
+                    </div>
+                    <div class="col-lg-6">
+                        <h3>
+                            @Model.employer_company
+                        </h3>
+                        <ul>
+                            <li><i class="fa fa-map-marker-alt">&nbsp;</i>Trụ sở chính: @Model.Province.province_name</li>
+                            <li><i class="fa fa-users">&nbsp;</i>Số thành viên: 100</li>
+                            <hr />
+                            <li>Sản phẩm: @Model.employer_specialized</li>
+                            <li>Đang tuyển: @Model.employer_recruitment</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="mt-5">
+                            <a href="#" class="btn btn-danger w-100">Theo dõi</a>
+                            <a href="#" class="btn btn-primary w-100 mt-2">Viết bình luận - đánh giá</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <div class="col-lg-12">
+                                    <div class="nav-wrapper">
+                                        <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="fas fa-building">&nbsp;</i>Giới thiệu</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="ni ni-bell-55 mr-2"></i>Tuyển dụng</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="fa fa-star">&nbsp;</i>Đánh giá</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="card shadow">
+                                        <div class="card-body">
+                                            <div class="tab-content" id="myTabContent">
+                                                <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                                                    <h4 class="text-primary">Giới thiệu</h4>
+                                                    @Html.Raw(Model.employer_introduce)
+                                                    <h4 class="text-primary">Tại sao bạn yêu thích @Model.employer_company</h4>
+                                                    @Html.Raw(Model.employer_favourite)
+                                                    <div class="row mt-3">
+                                                        @foreach (var item in works)
+                                                        {
+                                                            <div class="col-md-12" style="font-size: 15px; padding: 5px; margin-top: -1%">
+                                                                <div class="card mb-3 hover">
+                                                                    <div class="row no-gutters">
+                                                                        <div class="col-md-3">
+                                                                            <a href="@Url.Action("DetailsView","View", new {id = item.work_id })">
+                                                                                <img src="~/Images/Employer/@item.Employer.employer_logo" class=" mt-3" alt="..." style="width: 100%; height: 100px; padding: 7px">
+                                                                                <br />
+                                                                                <br />
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="card-body">
+                                                                                <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" style="font-size: 13px"><b>@item.work_name</b></a>
+                                                                                <a href="@Url.Action("DetailsEmployer","View", new { id = item.employer_id })"><p style="font-size: 12px">@item.Employer.employer_name</p></a>
+                                                                                <div style="font-size: 13px">
+                                                                                    @if (user != null)
+                                                                                    {
+                                                                                        if (item.work_pricemin == 0 && item.work_pricemax == 0)
+                                                                                        {
+                                                                                            <span class="text-primary">Thỏa thuận</span>
+                                                                                        }
+                                                                                        else if (item.work_pricemin == 0 && item.work_pricemax != 0)
+                                                                                        {
+                                                                                            <span class="text-primary">Trên @item.work_pricemax @item.work_symbol</span>
+                                                                                        }
+                                                                                        else if (item.work_pricemin != 0 && item.work_pricemax == 0)
+                                                                                        {
+                                                                                            <span class="text-primary">Trên @item.work_pricemin @item.work_symbol</span>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <span class="text-primary">@item.work_pricemin - @item.work_pricemax @item.work_symbol</span>
+                                                                                        }
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <a href="#" data-toggle="modal" data-target="#login">Đăng nhập để xem lương</a>
+                                                                                    }
+                                                                                </div>
+                                                                                <br />
+                                                                                <div><i class="fa fa-calendar">&nbsp;</i>Ngày hết hạn: @item.work_deadline.Value.Day/@item.work_deadline.Value.Month/@item.work_deadline.Value.Year</div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <br />
+                                                                            <i class="fa fa-eye">&nbsp;</i>@item.work_view
+                                                                            <i class="fa fa-heart text-danger">&nbsp;</i>@item.work_love
+                                                                            <i class="fa fa-star text-warning">&nbsp;</i>@item.work_view
+                                                                            <div><i class="fa fa-calendar">&nbsp;</i>Ngày tạo: @item.work_datecreated.Value.Day/@item.work_datecreated.Value.Month/@item.work_datecreated.Value.Year</div>
+                                                                            <div><i class="fa fa-user">&nbsp;</i>Số lượng cần: @item.work_amount</div>
+                                                                            <div><i class="fa fa-map-marker-alt text-primary font-weight-bold">&nbsp;</i>@item.Province.province_name</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
+                                                    <div class="row">
+                                                        @foreach (var item in works)
+                                                        {
+                                                            <div class="col-md-12" style="font-size: 15px; padding: 5px; margin-top: -1%">
+                                                                <div class="card mb-3 hover">
+                                                                    <div class="row no-gutters">
+                                                                        <div class="col-md-3">
+                                                                            <a href="@Url.Action("DetailsView","View", new {id = item.work_id })">
+                                                                                <img src="~/Images/Employer/@item.Employer.employer_logo" class=" mt-3" alt="..." style="width: 100%; height: 100px; padding: 7px">
+                                                                                <br />
+                                                                                <br />
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="card-body">
+                                                                                <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" style="font-size: 13px"><b>@item.work_name</b></a>
+                                                                                <br />
+                                                                                <a href="@Url.Action("DetailsEmployer","View", new { id = item.employer_id })"><p style="font-size: 12px">@item.Employer.employer_name</p></a>
+                                                                                <div style="font-size: 13px">
+                                                                                    @if (user != null)
+                                                                                    {
+                                                                                        if (item.work_pricemin == 0 && item.work_pricemax == 0)
+                                                                                        {
+                                                                                            <span class="text-primary">Thỏa thuận</span>
+                                                                                        }
+                                                                                        else if (item.work_pricemin == 0 && item.work_pricemax != 0)
+                                                                                        {
+                                                                                            <span class="text-primary">Trên @item.work_pricemax @item.work_symbol</span>
+                                                                                        }
+                                                                                        else if (item.work_pricemin != 0 && item.work_pricemax == 0)
+                                                                                        {
+                                                                                            <span class="text-primary">Trên @item.work_pricemin @item.work_symbol</span>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <span class="text-primary">@item.work_pricemin - @item.work_pricemax @item.work_symbol</span>
+                                                                                        }
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <a href="#" data-toggle="modal" data-target="#login">Đăng nhập để xem lương</a>
+                                                                                    }
+                                                                                </div>
+                                                                                <div><i class="fa fa-calendar">&nbsp;</i>Ngày hết hạn: @item.work_deadline.Value.Day/@item.work_deadline.Value.Month/@item.work_deadline.Value.Year</div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <br />
+                                                                            <i class="fa fa-eye">&nbsp;</i>@item.work_view
+                                                                            <i class="fa fa-heart text-danger">&nbsp;</i>@item.work_love
+                                                                            <i class="fa fa-star text-warning">&nbsp;</i>@item.work_view
+                                                                            <div><i class="fa fa-calendar">&nbsp;</i>Ngày tạo: @item.work_datecreated.Value.Day/@item.work_datecreated.Value.Month/@item.work_datecreated.Value.Year</div>
+                                                                            <div><i class="fa fa-user">&nbsp;</i>Số lượng cần: @item.work_amount</div>
+                                                                            <div><i class="fa fa-map-marker-alt text-primary font-weight-bold">&nbsp;</i>@item.Province.province_name</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
+                                                    <p class="description">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card shadow mt-3">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            Test
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    #mydiv {
+        position: fixed;
+    }
+
+    .nav-pills .nav-link {
+        color: black;
+    }
+</style>
+<!--Modal-->
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document" style="max-width: 600px;">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="card bg-secondary shadow border-0 mb-0">
+                    <div class="card-header bg-white" style="background-image: url('../../Content/Layout/images/login.jpg'); background-repeat: no-repeat; background-size: 100% 100%">
+                        <div class="text-muted text-center mb-3">
+                            <small>Đăng nhập để nộp hồ sơ vào công việc này</small>
+                        </div>
+                        <div class="btn-wrapper text-center">
+                            <a href="javascript:;" class="btn btn-neutral btn-icon">
+                                <span class="btn-inner--icon">
+                                    <img src="~/Content/UI/assets/img/icons/common/github.svg">
+                                </span>
+                                <span class="btn-inner--text">Facebook</span>
+                            </a>
+                            <a href="javascript:;" class="btn btn-neutral btn-icon">
+                                <span class="btn-inner--icon">
+                                    <img src="~/Content/UI/assets/img/icons/common/google.svg">
+                                </span>
+                                <span class="btn-inner--text">Google</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body px-lg-5" style="background-color: #151965">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <!-- Tabs with icons -->
+                                <div class="nav-wrapper">
+                                    <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link mb-sm-3 mb-md-0 @(Session["active"] == null ? "active" : "")" style="border-bottom: 2px solid white" id="res-tab" data-toggle="tab" href="#loginUser" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="fas fa-sign-in-alt">&nbsp;</i>ĐĂNG NHẬP</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" style="border-bottom: 2px solid white" data-toggle="tab" href="#ress" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="fa fa-user">&nbsp;</i>ĐĂNG KÝ</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card shadow">
+                                    <div class="card-body">
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade @(Session["active"] == null ? "show active" : "")" id="loginUser" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                                                <script>
+                                                    function validateForm() {
+                                                        // Bước 1: Lấy giá trị của username và password
+                                                        var user_email = document.getElementById('user_email').value;
+                                                        var user_pass = document.getElementById('user_pass').value;
+                                                        // Bước 2: Kiểm tra dữ liệu hợp lệ hay không
+                                                        if (user_email == '' && user_pass == '') {
+                                                            document.getElementById("testlogin").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Bạn chưa nhập email và mật khẩu.</b></div>"
+                                                        }
+                                                        else if (user_pass == '') {
+                                                            document.getElementById("testlogin").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Bạn chưa nhập mật khẩu.</b></div>"
+                                                        }
+                                                        else if (user_email == '') {
+                                                            document.getElementById("testlogin").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Bạn chưa nhập email.</b></div>"
+                                                        }
+                                                        else {
+                                                            return true;
+                                                        }
+                                                        return false;
+                                                    }
+                                                </script>
+                                                <form role="form" action="@Url.Action("LoginModal","Account")" method="post" onsubmit="return validateForm()">
+                                                    <div class="row">
+                                                        <div class="col-lg-12 col-sm-6 mt-1">
+                                                            <div id="testlogin" class="mt-2">
+
+                                                            </div>
+                                                            @Html.Raw(Session["NotLogin"])
+                                                            <div class="form-input mt-55">
+                                                                <div class="input-items active">
+                                                                    <input type="text" placeholder="Email" class="form-control" style="border: 2px solid #151965" name="user_email" id="user_email">
+                                                                    <i class="lni-user" style="color:#151965"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12 col-sm-6 mt-1">
+                                                            <div class="form-input mt-55">
+                                                                <div class="input-items active">
+                                                                    <input type="password" placeholder="Mật khẩu" class="form-control" style="border: 2px solid #151965" name="user_pass" id="user_pass" )">
+                                                                    <i class="lni-key" style="color:#151965"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12 col-sm-6 mt-1">
+                                                            <div class="ml-4">
+                                                                <div class="row">
+                                                                    <div class="col-lg-8">
+                                                                        <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
+                                                                        <label class="custom-control-label" for=" customCheckLogin">
+                                                                            <span>Nhớ mật khẩu</span>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-lg-4">
+                                                                        <a href="#">Quên mật khẩu?</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12 col-sm-6 mt-1">
+                                                            <button type="submit" class="btn btn-danger w-100 mt-1">Đăng nhập</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="tab-pane fade @(Session["active"] == null ? "" : "show active")" id="ress" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
+                                                <script>
+                                                    function valiRes() {
+                                                        // Bước 1: Lấy giá trị của username và password
+                                                        var user_emailres = document.getElementById('user_emailres').value;
+                                                        var user_nicename = document.getElementById('user_nicename').value;
+                                                        var user_passres = document.getElementById('user_passres').value;
+                                                        var user_rpass = document.getElementById('user_rpass').value;
+                                                        // Bước 2: Kiểm tra dữ liệu hợp lệ hay không
+                                                        if (user_emailres == '' && user_passres == '' && user_nicename == '' && user_rpass == '') {
+                                                            document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Tất cả các trường chưa được nhập, vui lòng nhập đầy đủ thông tin.</b></div>"
+                                                        }
+                                                        else if (user_emailres == '') {
+                                                            document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Vui lòng nhập email.</b></div>"
+                                                        }
+                                                        else if (user_nicename == '') {
+                                                            document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Vui lòng nhập tên hiển thị.</b></div>"
+                                                        }
+                                                        else if (user_passres == '') {
+                                                            document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Bạn chưa nhập mật khẩu.</b></div>"
+                                                        }
+                                                        else if (user_rpass == '') {
+                                                            document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Bạn chưa xác nhận mật khẩu.</b></div>"
+                                                        }
+                                                        else if (user_passres != user_rpass) {
+                                                            document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Xác nhận mật khẩu không đúng.</b></div>"
+                                                        }
+                                                        else {
+                                                            return true;
+                                                        }
+                                                        return false;
+                                                    }
+                                                </script>
+                                                <form role="form" action="@Url.Action("Regist","Account")" method="post" onsubmit="return valiRes()">
+                                                    <div class="row">
+                                                        @Html.Raw(Session["user_exist"])
+                                                        <div id="testRes" class="mt-2">
+
+                                                        </div>
+                                                        <div class="col-lg-6 col-sm-6 mt-1">
+                                                            <div class="form-input mt-55">
+                                                                <div class="input-items active">
+                                                                    <input type="text" placeholder="Email" class="form-control" style="border: 2px solid #151965" name="user_email" id="user_emailres">
+                                                                    <i class="lni-envelope" style="color:#151965"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-sm-6 mt-1">
+                                                            <div class="form-input mt-55">
+                                                                <div class="input-items active">
+                                                                    <input type="text" placeholder="Tên hiển thị" class="form-control" style="border: 2px solid #151965" name="user_nicename" id="user_nicename">
+                                                                    <i class="lni-user" style="color:#151965"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-sm-6 mt-1">
+                                                            <div class="form-input mt-55">
+                                                                <div class="input-items active">
+                                                                    <input type="password" placeholder="Mật khẩu" class="form-control" style="border: 2px solid #151965" id="user_passres" name="user_pass">
+                                                                    <i class="lni-key" style="color:#151965"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-sm-6 mt-1">
+                                                            <div class="form-input mt-55">
+                                                                <div class="input-items active">
+                                                                    <input type="password" placeholder="Nhập lại mật khẩu" class="form-control" style="border: 2px solid #151965" id="user_rpass">
+                                                                    <i class="lni-key" style="color:#151965"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12 col-sm-6 mt-1">
+                                                            <div class="ml-4">
+                                                                <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
+                                                                <label class="custom-control-label" for=" customCheckLogin">
+                                                                    <span>Chấp nhận <a href="#">điểu khoản</a> và <a href="#">chính sách bảo mật</a></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12 col-sm-6 mt-1">
+                                                            <button type="submit" class="btn btn-danger w-100 mt-1">Đăng ký</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.5.1.slim.min.js"></script>
+@if (Session["NotLogin"] != null)
+{
+    <script>
+        $(document).ready(function () {
+            $('#login').modal('show');
+        })
+    </script>
+}
+else if (Session["active"] != null)
+{
+    <script>
+        $(document).ready(function () {
+            $('#login').modal('show');
+        })
+    </script>
+}
+else
+{
+
+}

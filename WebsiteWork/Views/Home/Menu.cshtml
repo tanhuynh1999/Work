@@ -55,24 +55,24 @@
                         <a class="nav-link" href="@Url.Action("WorkPro","View")" style="font-weight: bold ">Cần việc gấp</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="about.html">Việc làm</a>
+                        <a class="nav-link" href="@Url.Action("WorkAll","View")">Việc làm</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Công ty</a>
+                        <a class="nav-link" href="@Url.Action("AllEmployer","View")">Công ty</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-danger" href="contact.html" style="font-weight: bold">Cuộc sống công việc</a>
                     </li>
                     @if (user != null)
                     {
-                        <li class="nav-item dropdown" >
+                        <li class="nav-item dropdown">
                             <a class="nav-link nav-link-icon dropdown-toggle" href="javascript:;" id="navbar-default_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @if (user.user_image == null)
                                 {
                                     <img src="~/Images/User/822711_user_512x512.png" style="width: 30px; height: 30px" class="rounded-circle" />
                                 }
                                 else
-                                { 
+                                {
                                     <img src="~/Images/User/@user.user_image" style="width: 30px; height: 30px" class="rounded-circle" />
                                 }
                                 Chào: @user.user_nicename
@@ -102,11 +102,19 @@
                         </li>
                     }
                 </ul>
-                <div class="form-inline">
-                    <div class="semi-rounded-buttons">
-                        <a href="@Url.Action("IntroduceEmployer","HomeEmployer")" class="main-btn semi-rounded-two">NHÀ TUYỂN DỤNG</a>
-                    </div> <!-- standard-buttons -->
-                </div>
+                @if (user != null)
+                {
+
+                }
+                else
+                {
+
+                    <div class="form-inline">
+                        <div class="semi-rounded-buttons">
+                            <a href="@Url.Action("IntroduceEmployer","HomeEmployer")" class="main-btn semi-rounded-two">NHÀ TUYỂN DỤNG</a>
+                        </div> <!-- standard-buttons -->
+                    </div>
+                }
             </div>
         </div>
     </nav>

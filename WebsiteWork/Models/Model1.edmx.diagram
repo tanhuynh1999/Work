@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="088e338d25bd4f098b3a9495c7d6f68c" Name="Diagram1" ZoomLevel="86">
+      <Diagram DiagramId="088e338d25bd4f098b3a9495c7d6f68c" Name="Diagram1" ZoomLevel="80">
         <EntityTypeShape EntityType="DataWorkModel.Employer" Width="1.5" PointX="0.5" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DataWorkModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DataWorkModel.User" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
@@ -21,6 +21,10 @@
         <EntityTypeShape EntityType="DataWorkModel.Career" Width="1.5" PointX="10.375" PointY="0.875" />
         <AssociationConnector Association="DataWorkModel.FK_Employer_Career" />
         <AssociationConnector Association="DataWorkModel.FK_Work_Career" />
+        <EntityTypeShape EntityType="DataWorkModel.Submit" Width="1.5" PointX="10.625" PointY="4.75" />
+        <AssociationConnector Association="DataWorkModel.FK_Submit_Cv" />
+        <AssociationConnector Association="DataWorkModel.FK_Submit_User" />
+        <AssociationConnector Association="DataWorkModel.FK_Submit_Work" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

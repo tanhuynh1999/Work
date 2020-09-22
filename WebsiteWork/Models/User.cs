@@ -38,5 +38,6 @@ namespace WebsiteWork.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cv> Cvs { get; set; }
+        public virtual Submit Submit { get; set; }
     }
 }

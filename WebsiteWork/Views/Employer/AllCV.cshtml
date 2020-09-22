@@ -1,0 +1,97 @@
+﻿@using WebsiteWork.Models
+@model List<Cv>
+@{
+    Employer employer = (Employer)Session["employer"];
+    ViewBag.Title = "AllCV";
+    Layout = "~/Views/Shared/_LayoutEmployer.cshtml";
+}
+
+<div class="container" style="width: 100%">
+    <div class="row">
+        <div class="col-lg-5" style="padding: 0px">
+            <select class="form-control" style="border-radius: 0px 0px 0px 0px">
+                <option value="">Chọn nghành nghề</option>
+            </select>
+        </div>
+        <div class="col-lg-5" style="padding: 0px">
+            <select class="form-control" style="border-radius: 0px 0px 0px 0px">
+                <option value="">Tinh thành</option>
+            </select>
+        </div>
+        <div class="col-lg-2" style="padding: 0px">
+            <button type="button" class=" btn-l btn-10" style="border-radius: 0px 0px 0px 0px; font-size: 18.3px">Tìm kiếm</button>
+        </div>
+        <div class="col-lg-12" style="padding: 0px; margin-top: 10px">
+            <div class="col-lg-12">
+                <button type="button" class=" btn-l btn-7" style="font-size: 15px; margin-top: 2px">ALL<br />2020</button>
+                <button type="button" class=" btn-l btn-7" style="font-size: 15px; margin-top: 2px">Tìm kiếm tự động <br /> (@employer.Career.career_name)</button>
+                <button type="button" class=" btn-l btn-10" style="font-size: 15px; margin-top: 2px">Tìm kiếm theo tỉnh thành <br /> (@employer.Province.province_name)</button>
+                <button type="button" class=" btn-l btn-13" style="font-size: 15px; margin-top: 2px">Ưu tiên CV tốt <br /> (0 CV tốt / ngày)</button>
+                <button type="button" class=" btn-l btn-7" style="font-size: 15px; margin-top: 2px">Tìm kiếm ứng viên nam <br /> (@employer.Career.career_name)</button>
+                <button type="button" class=" btn-l btn-10" style="font-size: 15px; margin-top: 2px">Tìm kiếm ứng viên nữ <br /> (@employer.Career.career_name)</button>
+            </div>
+    <div class="row" style="margin-top: 6%">
+        <div class="col-lg-9">
+            <style>
+                .hover:hover {
+                    background-color: var(--light-bg-color);
+                }
+            </style>
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-6" style="font-size: 15px; padding: 2px;">
+                    <div class="card hover mb-3" style="margin-bottom: 0px;">
+                        <div class="row no-gutters">
+                            <div class="col-md-5">
+                                <a href="">
+                                    <img src="~/Images/Cv/32644928_2062295167425734_7686714948314988544_o.jpg" class=" mt-3" alt="..." style="width: 100%; height: 140px; padding: 5px">
+                                </a>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body" style="padding: 5px">
+                                    <a href="" style="height: 40px;font-size: 20px; font-weight: bold; color: black">@item.cv_fullname</a>
+                                    <br />
+                                    <a href="#"><p style="font-size: 12px; color: red">Muốn ứng tuyển: @item.cv_location</p></a>
+                                    <div style="font-size: 13px">
+                                        <div class="float-left"><i class="fas fa-university">&nbsp;</i>@item.cv_schools</div>
+                                        <div class="float-left"><i class="fas fa-university">&nbsp;</i>Đã làm ở công ty AllWork1s</div>
+                                        <div class="float-right"><i class="fa fa-map-marker-alt text-primary font-weight-bold">&nbsp;</i>Bình Dương</div>
+                                        <button class="btn-l btn-7" style="font-size: 12px; margin-top: 5%">Xem chi tiết</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-lg-3">
+            <div class="card">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action active">
+                        <i class="fa fa-magic">&nbsp;</i>Ưu tiên hiển thị ứng viên
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">Mới nhất</a>
+                    <a href="#" class="list-group-item list-group-item-action">Đang tìm việc</a>
+                    <a href="#" class="list-group-item list-group-item-action">Có kinh nghiệm việc làm</a>
+                    <a href="#" class="list-group-item list-group-item-action">Ứng viên phù hợp</a>
+                    <a href="#" class="list-group-item list-group-item-action active">
+                        <i class="fas fa-university">&nbsp;</i>Học vấn
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">Đại học</a>
+                    <a href="#" class="list-group-item list-group-item-action">Cao đăng</a>
+                    <a href="#" class="list-group-item list-group-item-action">Kinh tế</a>
+                    <a href="#" class="list-group-item list-group-item-action">Nghề</a>
+                    <a href="#" class="list-group-item list-group-item-action active">
+                        <i class="fas fa-language">&nbsp;   </i>Ngoại ngữ tốt
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">Tiếng Anh</a>
+                    <a href="#" class="list-group-item list-group-item-action">Tiếng nhật</a>
+                    <a href="#" class="list-group-item list-group-item-action">Tiếng Trung</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>

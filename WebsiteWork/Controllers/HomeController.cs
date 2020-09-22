@@ -37,5 +37,9 @@ namespace WebsiteWork.Controllers
             List<Employer> employers = db.Employers.Where(n => n.employer_activate == true).OrderByDescending(n => n.employer_datecreated).OrderByDescending(n => n.employer_version).Take(18).ToList();
             return PartialView(employers);
         }
+        public PartialViewResult Footer()
+        {
+            return PartialView();
+        }
     }
 }

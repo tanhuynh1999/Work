@@ -60,7 +60,7 @@
             Tip 2: you can also add an image using data-image tag
 
         -->
-
+            
             <div class="sidebar-wrapper">
                 <div class="logo">
                     <a href="http://www.creative-tim.com" class="simple-text">
@@ -75,20 +75,27 @@
                             <p>Trang chủ</p>
                         </a>
                     </li>
-                    @if (employer.employer_personalpage == true)
+                    @if (employer != null)
                     {
-                        <li>
-                            <a href="@Url.Action("ManagerWork","Employer")">
-                                <i class="pe-7s-news-paper"></i>
-                                <p>Bài tuyển</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="user.html">
-                                <i class="pe-7s-user"></i>
-                                <p>Hồ sơ</p>
-                            </a>
-                        </li>
+                        if (employer.employer_personalpage == true)
+                        {
+                            <li>
+                                <a href="@Url.Action("ManagerWork","Employer")">
+                                    <i class="pe-7s-news-paper"></i>
+                                    <p>Bài tuyển</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="user.html">
+                                    <i class="pe-7s-user"></i>
+                                    <p>Hồ sơ</p>
+                                </a>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+
                     }
                     <li>
                         <a href="table.html">

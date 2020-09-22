@@ -54,6 +54,9 @@
           <Property Name="cv_point" Type="varchar" MaxLength="100" />
           <Property Name="cv_roleexp" Type="nvarchar" MaxLength="100" />
           <Property Name="cv_roleexptwo" Type="nvarchar" MaxLength="100" />
+          <Property Name="cv_activate" Type="bit" />
+          <Property Name="cv_option" Type="bit" />
+          <Property Name="cv_datecreated" Type="datetime" />
         </EntityType>
         <EntityType Name="Employer">
           <Key>
@@ -112,6 +115,16 @@
           </Key>
           <Property Name="province_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="province_name" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Submit">
+          <Key>
+            <PropertyRef Name="submit_id" />
+          </Key>
+          <Property Name="submit_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="work_id" Type="int" />
+          <Property Name="submit_datecreated" Type="datetime" />
+          <Property Name="cv_id" Type="int" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -228,6 +241,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Submit_Cv">
+          <End Role="Cv" Type="Self.Cv" Multiplicity="0..1" />
+          <End Role="Submit" Type="Self.Submit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cv">
+              <PropertyRef Name="cv_id" />
+            </Principal>
+            <Dependent Role="Submit">
+              <PropertyRef Name="cv_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Submit_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Submit" Type="Self.Submit" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Submit">
+              <PropertyRef Name="submit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Submit_Work">
+          <End Role="Work" Type="Self.Work" Multiplicity="0..1" />
+          <End Role="Submit" Type="Self.Submit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Work">
+              <PropertyRef Name="work_id" />
+            </Principal>
+            <Dependent Role="Submit">
+              <PropertyRef Name="work_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Work_Career">
           <End Role="Career" Type="Self.Career" Multiplicity="0..1" />
           <End Role="Work" Type="Self.Work" Multiplicity="*" />
@@ -282,6 +331,7 @@
           <EntitySet Name="Employer" EntityType="Self.Employer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Form" EntityType="Self.Form" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Submit" EntityType="Self.Submit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Theme" EntityType="Self.Theme" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -297,6 +347,18 @@
           <AssociationSet Name="FK_Employer_Province" Association="Self.FK_Employer_Province">
             <End Role="Province" EntitySet="Province" />
             <End Role="Employer" EntitySet="Employer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Submit_Cv" Association="Self.FK_Submit_Cv">
+            <End Role="Cv" EntitySet="Cv" />
+            <End Role="Submit" EntitySet="Submit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Submit_User" Association="Self.FK_Submit_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Submit" EntitySet="Submit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Submit_Work" Association="Self.FK_Submit_Work">
+            <End Role="Work" EntitySet="Work" />
+            <End Role="Submit" EntitySet="Submit" />
           </AssociationSet>
           <AssociationSet Name="FK_Work_Career" Association="Self.FK_Work_Career">
             <End Role="Career" EntitySet="Career" />
@@ -396,6 +458,7 @@
           <Property Name="user_skill" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="user_interests" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="user_view" Type="Boolean" />
+          <NavigationProperty Name="Submit" Relationship="DataWorkModel.FK_Submit_User" FromRole="User" ToRole="Submit" />
         </EntityType>
         <EntityType Name="Work">
           <Key>
@@ -441,6 +504,7 @@
           <NavigationProperty Name="Province" Relationship="DataWorkModel.FK_Work_Province" FromRole="Work" ToRole="Province" />
           <Property Name="career_id" Type="Int32" />
           <NavigationProperty Name="Career" Relationship="DataWorkModel.FK_Work_Career" FromRole="Work" ToRole="Career" />
+          <NavigationProperty Name="Submits" Relationship="DataWorkModel.FK_Submit_Work" FromRole="Work" ToRole="Submit" />
         </EntityType>
         <Association Name="FK_Work_Employer">
           <End Role="Employer" Type="Self.Employer" Multiplicity="0..1" />
@@ -492,6 +556,19 @@
             <End Role="Career" EntitySet="Careers" />
             <End Role="Work" EntitySet="Works" />
           </AssociationSet>
+          <EntitySet Name="Submits" EntityType="DataWorkModel.Submit" />
+          <AssociationSet Name="FK_Submit_Cv" Association="DataWorkModel.FK_Submit_Cv">
+            <End Role="Cv" EntitySet="Cvs" />
+            <End Role="Submit" EntitySet="Submits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Submit_User" Association="DataWorkModel.FK_Submit_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Submit" EntitySet="Submits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Submit_Work" Association="DataWorkModel.FK_Submit_Work">
+            <End Role="Work" EntitySet="Works" />
+            <End Role="Submit" EntitySet="Submits" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Cv">
           <Key>
@@ -534,6 +611,10 @@
           <Property Name="cv_point" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="cv_roleexp" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="cv_roleexptwo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="cv_activate" Type="Boolean" />
+          <Property Name="cv_option" Type="Boolean" />
+          <Property Name="cv_datecreated" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Submits" Relationship="DataWorkModel.FK_Submit_Cv" FromRole="Cv" ToRole="Submit" />
         </EntityType>
         <EntityType Name="Theme">
           <Key>
@@ -640,6 +721,55 @@
             </Principal>
             <Dependent Role="Work">
               <PropertyRef Name="career_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Submit">
+          <Key>
+            <PropertyRef Name="submit_id" />
+          </Key>
+          <Property Name="submit_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="work_id" Type="Int32" />
+          <Property Name="submit_datecreated" Type="DateTime" Precision="3" />
+          <Property Name="cv_id" Type="Int32" />
+          <NavigationProperty Name="Cv" Relationship="DataWorkModel.FK_Submit_Cv" FromRole="Submit" ToRole="Cv" />
+          <NavigationProperty Name="User" Relationship="DataWorkModel.FK_Submit_User" FromRole="Submit" ToRole="User" />
+          <NavigationProperty Name="Work" Relationship="DataWorkModel.FK_Submit_Work" FromRole="Submit" ToRole="Work" />
+        </EntityType>
+        <Association Name="FK_Submit_Cv">
+          <End Type="DataWorkModel.Cv" Role="Cv" Multiplicity="0..1" />
+          <End Type="DataWorkModel.Submit" Role="Submit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cv">
+              <PropertyRef Name="cv_id" />
+            </Principal>
+            <Dependent Role="Submit">
+              <PropertyRef Name="cv_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Submit_User">
+          <End Type="DataWorkModel.User" Role="User" Multiplicity="1" />
+          <End Type="DataWorkModel.Submit" Role="Submit" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Submit">
+              <PropertyRef Name="submit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Submit_Work">
+          <End Type="DataWorkModel.Work" Role="Work" Multiplicity="0..1" />
+          <End Type="DataWorkModel.Submit" Role="Submit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Work">
+              <PropertyRef Name="work_id" />
+            </Principal>
+            <Dependent Role="Submit">
+              <PropertyRef Name="work_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -771,6 +901,9 @@
           <EntitySetMapping Name="Cvs">
             <EntityTypeMapping TypeName="DataWorkModel.Cv">
               <MappingFragment StoreEntitySet="Cv">
+                <ScalarProperty Name="cv_datecreated" ColumnName="cv_datecreated" />
+                <ScalarProperty Name="cv_option" ColumnName="cv_option" />
+                <ScalarProperty Name="cv_activate" ColumnName="cv_activate" />
                 <ScalarProperty Name="cv_roleexptwo" ColumnName="cv_roleexptwo" />
                 <ScalarProperty Name="cv_roleexp" ColumnName="cv_roleexp" />
                 <ScalarProperty Name="cv_point" ColumnName="cv_point" />
@@ -842,6 +975,17 @@
                 <ScalarProperty Name="career_view" ColumnName="career_view" />
                 <ScalarProperty Name="career_name" ColumnName="career_name" />
                 <ScalarProperty Name="career_id" ColumnName="career_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Submits">
+            <EntityTypeMapping TypeName="DataWorkModel.Submit">
+              <MappingFragment StoreEntitySet="Submit">
+                <ScalarProperty Name="cv_id" ColumnName="cv_id" />
+                <ScalarProperty Name="submit_datecreated" ColumnName="submit_datecreated" />
+                <ScalarProperty Name="work_id" ColumnName="work_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="submit_id" ColumnName="submit_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

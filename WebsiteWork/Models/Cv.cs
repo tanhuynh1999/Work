@@ -14,6 +14,12 @@ namespace WebsiteWork.Models
     
     public partial class Cv
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Cv()
+        {
+            this.Submits = new HashSet<Submit>();
+        }
+    
         public int cv_id { get; set; }
         public string cv_fullname { get; set; }
         public string cv_location { get; set; }
@@ -50,7 +56,12 @@ namespace WebsiteWork.Models
         public string cv_point { get; set; }
         public string cv_roleexp { get; set; }
         public string cv_roleexptwo { get; set; }
+        public Nullable<bool> cv_activate { get; set; }
+        public Nullable<bool> cv_option { get; set; }
+        public Nullable<System.DateTime> cv_datecreated { get; set; }
     
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Submit> Submits { get; set; }
     }
 }

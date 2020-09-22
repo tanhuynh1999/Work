@@ -131,9 +131,9 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="card-body">
-                                                        <a href="@Url.Action("DetailsView","View", new {id = item.work_id })"><b>@item.work_name</b></a>
+                                                        <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" style="height: 40px;font-size: 13px"><b>@(item.work_name.Length < 30 ? item.work_name : item.work_name.Substring(0,30)+"...")</b></a>
                                                         <br />
-                                                        <a href="#"><p style="font-size: 12px">@item.Employer.employer_name</p></a>
+                                                        <a href="@Url.Action("DetailsEmployer","View", new { id = item.employer_id })"><p style="font-size: 12px">@item.Employer.employer_name</p></a>
                                                         <div style="font-size: 13px">
                                                             <div class="float-left"><i class="fa fa-dollar text-danger font-weight-bold">&nbsp;</i>@item.work_pricemin-@item.work_pricemax @item.work_symbol</div>
                                                             <div class="float-right"><i class="fa fa-map-marker-alt text-primary font-weight-bold">&nbsp;</i>Bình Dương</div>
@@ -162,9 +162,9 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="card-body">
-                                                        <a href="@Url.Action("DetailsView","View", new {id = item.work_id })"><b>@item.work_name</b></a>
+                                                        <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" style="height: 40px;font-size: 13px"><b>@(item.work_name.Length < 40 ? item.work_name : item.work_name.Substring(0, 40) + "...")</b></a>
                                                         <br />
-                                                        <a href="#"><p style="font-size: 12px">@item.Employer.employer_name</p></a>
+                                                        <a href="@Url.Action("DetailsEmployer","View", new { id = item.employer_id })"><p style="font-size: 12px">@item.Employer.employer_name</p></a>
                                                         <div style="font-size: 13px">
                                                             <div class="float-left"><i class="fa fa-dollar text-danger font-weight-bold">&nbsp;</i>@item.work_pricemin-@item.work_pricemax @item.work_symbol</div>
                                                             <div class="float-right"><i class="fa fa-map-marker-alt text-primary font-weight-bold">&nbsp;</i>Bình Dương</div>
@@ -193,9 +193,9 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="card-body">
-                                                        <a href="@Url.Action("DetailsView","View", new {id = item.work_id })"><b>@item.work_name</b></a>
+                                                        <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" style="height: 40px;font-size: 13px"><b>@(item.work_name.Length < 40 ? item.work_name : item.work_name.Substring(0, 40) + "...")</b></a>
                                                         <br />
-                                                        <a href="#"><p style="font-size: 12px">@item.Employer.employer_name</p></a>
+                                                        <a href="@Url.Action("DetailsEmployer","View", new { id = item.employer_id })"><p style="font-size: 12px">@item.Employer.employer_name</p></a>
                                                         <div style="font-size: 13px">
                                                             <div class="float-left"><i class="fa fa-dollar text-danger font-weight-bold">&nbsp;</i>@item.work_pricemin-@item.work_pricemax @item.work_symbol</div>
                                                             <div class="float-right"><i class="fa fa-map-marker-alt text-primary font-weight-bold">&nbsp;</i>Bình Dương</div>
@@ -236,9 +236,9 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="card-body">
-                                                        <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" style=" height: 45px"> <b>@item.work_name</b></a> 
+                                                        <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" style="height: 40px;font-size: 13px"><b>@(item.work_name.Length < 40 ? item.work_name : item.work_name.Substring(0, 40) + "...")</b></a>
                                                         <br />
-                                                        <p style="font-size: 12px;">@item.Employer.employer_name</p>
+                                                        <a href="@Url.Action("DetailsEmployer","View", new { id = item.employer_id })" style="font-size: 12px;">@item.Employer.employer_name</a>
                                                         <div style="font-size: 13px">
                                                             <div class="float-left"><i class="fa fa-dollar text-danger font-weight-bold">&nbsp;</i>@item.work_pricemin-@item.work_pricemax @item.work_symbol</div>
                                                             <div class="float-right"><i class="fa fa-map-marker-alt text-primary font-weight-bold">&nbsp;</i>Bình Dương</div>
@@ -275,9 +275,9 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="card-body">
-                                                        <a style="height: 45px" href="@Url.Action("DetailsView","View", new {id = item.work_id })"><b style="font-size: 15px">@item.work_name</b></a>
+                                                        <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" style="height: 40px;font-size: 13px"><b>@(item.work_name.Length < 40 ? item.work_name : item.work_name.Substring(0, 40) + "...")</b></a>
                                                         <br />
-                                                        <p style="font-size: 12px"> @item.Employer.employer_name</p>
+                                                        <a href="@Url.Action("DetailsEmployer","View", new { id = item.employer_id })" style="font-size: 12px"> @item.Employer.employer_name</a>
                                                         <div style="font-size: 13px">
                                                             <div class="float-left"><i class="fa fa-dollar text-danger font-weight-bold">&nbsp;</i>@item.work_pricemin-@item.work_pricemax @item.work_symbol</div>
                                                             <div class="float-right"><i class="fa fa-map-marker-alt text-primary font-weight-bold">&nbsp;</i>Bình Dương</div>
@@ -318,9 +318,9 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="card-body">
-                                                        <a style="height: 45px" href="@Url.Action("DetailsView","View", new {id = item.work_id })"><b style="font-size: 15px">@item.work_name</b></a>
+                                                        <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" style="height: 40px;font-size: 13px"><b>@(item.work_name.Length < 40 ? item.work_name : item.work_name.Substring(0, 40) + "...")</b></a>
                                                         <br />
-                                                        <p style="font-size: 12px"> @item.Employer.employer_name</p>
+                                                        <a href="@Url.Action("DetailsEmployer","View", new { id = item.employer_id })" style="font-size: 12px"> @item.Employer.employer_name</a>
                                                         <div style="font-size: 13px">
                                                             <div class="float-left"><i class="fa fa-dollar text-danger font-weight-bold">&nbsp;</i>@item.work_pricemin-@item.work_pricemax @item.work_symbol</div>
                                                             <div class="float-right"><i class="fa fa-map-marker-alt text-primary font-weight-bold">&nbsp;</i>Bình Dương</div>
@@ -357,9 +357,9 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="card-body">
-                                                        <a style="height: 45px" href="@Url.Action("DetailsView","View", new {id = item.work_id })"><b style="font-size: 15px">@item.work_name</b></a>
+                                                        <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" style="height: 40px;font-size: 13px"><b>@(item.work_name.Length < 40 ? item.work_name : item.work_name.Substring(0, 40) + "...")</b></a>
                                                         <br />
-                                                        <p style="font-size: 12px"> @item.Employer.employer_name</p>
+                                                        <a href="@Url.Action("DetailsEmployer","View", new { id = item.employer_id })" style="font-size: 12px"> @item.Employer.employer_name</a>
                                                         <div style="font-size: 13px">
                                                             <div class="float-left"><i class="fa fa-dollar text-danger font-weight-bold">&nbsp;</i>@item.work_pricemin-@item.work_pricemax @item.work_symbol</div>
                                                             <div class="float-right"><i class="fa fa-map-marker-alt text-primary font-weight-bold">&nbsp;</i>Bình Dương</div>
@@ -396,9 +396,9 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="card-body">
-                                                        <a style="height: 45px" href="@Url.Action("DetailsView","View", new {id = item.work_id })"><b style="font-size: 15px">@item.work_name</b></a>
+                                                        <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" style="height: 40px;font-size: 13px"><b>@(item.work_name.Length < 40 ? item.work_name : item.work_name.Substring(0, 40) + "...")</b></a>
                                                         <br />
-                                                        <p style="font-size: 12px"> @item.Employer.employer_name</p>
+                                                        <a href="@Url.Action("DetailsEmployer","View", new { id = item.employer_id })" style="font-size: 12px"> @item.Employer.employer_name</a>
                                                         <div style="font-size: 13px">
                                                             <div class="float-left"><i class="fa fa-dollar text-danger font-weight-bold">&nbsp;</i>@item.work_pricemin-@item.work_pricemax @item.work_symbol</div>
                                                             <div class="float-right"><i class="fa fa-map-marker-alt text-primary font-weight-bold">&nbsp;</i>Bình Dương</div>

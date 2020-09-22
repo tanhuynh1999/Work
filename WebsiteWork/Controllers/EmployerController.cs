@@ -188,5 +188,16 @@ namespace WebsiteWork.Controllers
             List<Work> work = db.Works.Where(n => n.employer_id == employer.employer_id && n.work_delete == false).OrderByDescending(n => n.work_view).ToList();
             return PartialView("_Work", work);
         }
+        //Xem hồ sơ employer
+        public ActionResult AllCV()
+        {
+            Employer employer = (Employer)Session["employer"];
+            if(employer == null)
+            {
+                return Redirect(LoginEmployer);
+            }
+            List<Cv> cvs = db.Cvs.Where(n => n.cv_activate == true && n.cv_option == true).OrderByDescending(n => n.cv_datecreated).ToList();
+            return View(cvs);
+        }
     }
 }

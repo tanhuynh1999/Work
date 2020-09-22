@@ -1,0 +1,157 @@
+﻿@using WebsiteWork.Models
+<section class="w3l-market-footer">
+    <footer class="footer-28">
+        <div class="footer-bg-layer">
+            <div class="container py-lg-3">
+                <div class="row footer-top-28">
+                    <div class="col-md-6 footer-list-28 mt-5">
+                        <ul>
+                            <li>
+                                <a class="navbar-brand logo" href="@Url.Action("")"><span class="fas fa-briefcase"></span><b class="all">All</b><b class="work">Work</b><b class="ms">1s</b></a>
+                            </li>
+                            <li>
+                                <b>Ứng dụng AllWorl1s <button class="btn btn-danger" style="font-size: 10px;font-weight: bold">Chưa phát hành</button></b>
+                                <br /><br />
+                                <img src="~/Content/Layout/images/googleplay.jpg" style="width: 200px; height: 50px; margin-top: 5px" />
+                                <img src="~/Content/Layout/images/appstore.jpg" style="width: 200px; height: 50px; margin-top: 5px" />
+                            </li>
+                        </ul>
+                        <br />
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <ul>
+                                        <li>Giới thiệu</li>
+                                        <li>Tin tức</li>
+                                        <li>Giới thiệu</li>
+                                        <li>Giới thiệu</li>
+                                        <li>Giới thiệu</li>
+                                        <li>Giới thiệu</li>
+                                        <li>Giới thiệu</li>
+                                        <li>Giới thiệu</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul>
+                                        <li>Chính sách bảo mật</li>
+                                        <li>Chính sách bảo mật</li>
+                                        <li>Chính sách bảo mật</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="main-social-footer-28 mt-3">
+                            <ul class="social-icons">
+                                <li class="facebook">
+                                    <a href="#link" title="Facebook">
+                                        <span class="fa fa-facebook" aria-hidden="true"></span>
+                                    </a>
+                                </li>
+                                <li class="twitter">
+                                    <a href="#link" title="Twitter">
+                                        <span class="fa fa-twitter" aria-hidden="true"></span>
+                                    </a>
+                                </li>
+                                <li class="dribbble">
+                                    <a href="#link" title="Dribbble">
+                                        <span class="fa fa-dribbble" aria-hidden="true"></span>
+                                    </a>
+                                </li>
+                                <li class="google">
+                                    <a href="#link" title="Google">
+                                        <span class="fa fa-google" aria-hidden="true"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-4 footer-list-28 mt-5">
+                                <h6 class="footer-title-28">Ứng viên</h6>
+                                <ul>
+                                    <li><a href="about.html">Tìm việc làm</a></li>
+                                    <li><a href="#blog.html">Tài khoản cao cấp</a></li>
+                                    <li><a href="#pricing.html">Thiết kế CV</a></li>
+                                    <li><a href="#pricing.html">Bài viết tham thảo</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4 footer-list-28 mt-5">
+                                <h6 class="footer-title-28">Nhà tuyển dụng</h6>
+                                <ul>
+                                    <li><a href="contact.html">Doanh nghiệp</a></li>
+                                    <li><a href="#signup.html">Trường học</a></li>
+                                    <li><a href="#learn.html">Câu lạc bộ</a></li>
+                                    @{
+                                        DataWorkEntities db = new DataWorkEntities();
+                                        List<Employer> employers = db.Employers.Where(n => n.employer_activate == true && n.employer_option == true).OrderByDescending(n => n.employer_version).OrderByDescending(n => n.employer_datecreated).ToList();
+                                    }
+                                    @foreach (var item in employers)
+                                    {
+
+                                        <li><a href="@Url.Action("DetailsEmployer","View", new { id = item.employer_id })">@item.employer_company</a></li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="col-md-4 footer-list-28 mt-5">
+                                <h6 class="footer-title-28">Kết nối</h6>
+                                <ul>
+                                    <li><a href="#URL"><img src="~/Content/Layout/images/_dmca_premi_badge_2.png" /></a></li>
+                                    <li><a href="#URL"><img src="~/Content/Layout/images/bct.jpg" /></a></li>
+                                    <li>
+                                        <a href="#URL"><i class="fab fa-facebook"></i></a>
+                                        <a href="#URL"><i class="fab fa-facebook"></i></a>
+                                        <a href="#URL"><i class="fab fa-facebook"></i></a>
+                                        <a href="#URL"><i class="fab fa-facebook"></i></a>
+                                        <a href="#URL"><i class="fab fa-facebook"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 footer-list-28 mt-5">
+                        cv là gì, mẫu cv tiếng anh, mẫu cv tiếng việt, tải mẫu sơ yếu lý lịch chuẩn miễn phí, tổng hợp CV tham khảo các nhóm ngành, tổng hợp CV tham khảo cho lập trình viên, giấy tờ thủ tục hồ sơ xin việc, email bằng tiếng anh, mẫu đơn xin việc các nhóm ngành, mẫu đơn xin nghỉ việc, mẫu đơn xin nghỉ phép cách viết CV Chuẩn, cách viết CV Ngành Kinh doanh/Bán hàng cách viết CV Ngành Kế Toán/Kiểm Toán, cách viết CV Ngành Nhân Sự cách viết CV xin Học bổng cách viết CV Tiếng Anh cách viết CV Tiếng Nhật cách viết CV Tiếng Trung cách viết CV Tiếng Hàn cẩm nang năm nhất cho sinh viên Mẫu đơn xin thực tập Hướng dẫn sửa lỗi gõ tiếng Việt Ngành du lịch làm những công việc gì Cẩm nang xin việc ngành nhân sự Xin việc ngành công nghệ thông tin Cẩm nang xin việc ngành marketing Cẩm nang xin việc ngành kế toán kiểm toán Cẩm nang xin việc ngành công nghệ thực phẩm Cẩm nang xin việc ngành tài chính ngân hàng Cẩm nang xin việc ngành luật Cẩm nang xin việc ngành xây dựng - địa ốc
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="midd-footer-28 align-center py-lg-4 py-3 mt-5">
+                <div class="container">
+                    <p class="copy-footer-28 text-center">
+                        &copy; 2020 Market. All Rights Reserved. Design by <a href="https://w3layouts.com/">W3Layouts</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- move top -->
+    <button onclick="topFunction()" id="movetop" title="Go to top">
+        &#10548;
+    </button>
+    <script>
+            // When the user scrolls down 20px from the top of the document, show the button
+            window.onscroll = function () {
+                scrollFunction()
+            };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementById("movetop").style.display = "block";
+                } else {
+                    document.getElementById("movetop").style.display = "none";
+                }
+            }
+
+            // When the user clicks on the button, scroll to the top of the document
+            function topFunction() {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+            }
+    </script>
+    <!-- /move top -->
+</section>

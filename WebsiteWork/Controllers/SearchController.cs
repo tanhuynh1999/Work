@@ -17,6 +17,46 @@ namespace WebsiteWork.Controllers
         {
             return PartialView();
         }
+        // Tìm kiếm tất cả việc làm
+        public PartialViewResult SearchWorkAll()
+        {
+            return PartialView();
+        }
+        public PartialViewResult AllWork()
+        {
+            List<Work> works = db.Works.Where(n => n.work_activate == true && n.work_option == true).OrderByDescending(n => n.work_datecreated).ToList();
+            return PartialView("_WorkAll",works);
+        }
+        public PartialViewResult PartTimeWork()
+        {
+            List<Work> works = db.Works.Where(n => n.work_activate == true && n.work_option == true && n.Form.form_id == 3).OrderByDescending(n => n.work_datecreated).ToList();
+            return PartialView("_WorkAll", works);
+        }
+        public PartialViewResult AllTimeWork()
+        {
+            List<Work> works = db.Works.Where(n => n.work_activate == true && n.work_option == true && n.Form.form_id == 2).OrderByDescending(n => n.work_datecreated).ToList();
+            return PartialView("_WorkAll", works);
+        }
+        public PartialViewResult InternsWork()
+        {
+            List<Work> works = db.Works.Where(n => n.work_activate == true && n.work_option == true && n.Form.form_id == 4).OrderByDescending(n => n.work_datecreated).ToList();
+            return PartialView("_WorkAll", works);
+        }
+        public PartialViewResult MonopolyWork()
+        {
+            List<Work> works = db.Works.Where(n => n.work_activate == true && n.work_option == true).Where(n=>n.Employer.employer_version == 2 || n.Employer.employer_version == 3).OrderByDescending(n => n.work_datecreated).ToList();
+            return PartialView("_WorkAll", works);
+        }
+        public PartialViewResult ViewWork()
+        {
+            List<Work> works = db.Works.Where(n => n.work_activate == true && n.work_option == true).OrderByDescending(n => n.work_view).ToList();
+            return PartialView("_WorkAll", works);
+        }
+        public PartialViewResult LikeWork()
+        {
+            List<Work> works = db.Works.Where(n => n.work_activate == true && n.work_option == true).OrderByDescending(n => n.work_love).ToList();
+            return PartialView("_WorkAll", works);
+        }
         //Tìm kiếm quản lý việc làm nhà tuyển dụng
         public ActionResult SearchWorkEmployer()
         {

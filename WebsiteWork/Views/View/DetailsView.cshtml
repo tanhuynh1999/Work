@@ -40,7 +40,14 @@
                                                 <a href="" class="btn btn-white mt-4"><i class="fab fa-rev">&nbsp;</i>Ngày hết hạn nộp hồ sơ: @Model.work_deadline.Value.Day/@Model.work_deadline.Value.Month/@Model.work_deadline.Value.Year</a>
                                             </div>
                                             <div class="col-lg-3">
-                                                <button type="button" class="btn btn-primary w-100 mt-1" data-toggle="modal" data-target="#login"><i class="far fa-address-card">&nbsp;</i>Nộp hồ sơ</button>
+                                                @if (user != null)
+                                                {
+                                                    <button type="button" class="btn btn-primary w-100 mt-1" data-toggle="modal" data-target="#submitcv"><i class="far fa-address-card">&nbsp;</i>Nộp hồ sơ</button>
+                                                }
+                                                else
+                                                {
+                                                    <button type="button" class="btn btn-primary w-100 mt-1" data-toggle="modal" data-target="#login"><i class="far fa-address-card">&nbsp;</i>Nộp hồ sơ</button>
+                                                }
                                                 <button type="button" class="btn btn-danger w-100 mt-1"><i class="fa fa-heart">&nbsp;</i>Yêu thích</button>
                                                 <hr />
                                                 <button type="button" class="btn btn-dark w-100 mt-1"><i class="fa fa-mail-forward">&nbsp;</i>Liên hệ</button>
@@ -686,6 +693,42 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="submitcv" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document" style="max-width: 600px;">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="card bg-secondary shadow border-0 mb-0">
+                    <div class="card-header bg-white">
+                        @{
+                            List<Cv> cv = db.Cvs.Where(n => n.cv_activate == true && n.cv_option == true && n.user_id == user.user_id).OrderByDescending(n => n.cv_datecreated).ToList();
+                            
+                        }
+                        <ul>
+                            @foreach (var item in cv)
+                            {
+                                <li>
+                                    <div class="custom-control custom-radio mb-3">
+                                        <input name="custom-radio-1" class="custom-control-input" id="@ViewBag.title@item.cv_id" checked type="radio">
+                                        <label class="custom-control-label" for="customRadio2">
+                                            <span>Checked</span>
+                                        </label>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="card-body px-lg-5" >
+                        <div class="row">
+                            <div class="col-lg-12">
+                                
                             </div>
                         </div>
                     </div>

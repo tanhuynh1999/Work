@@ -14,6 +14,12 @@ namespace WebsiteWork.Models
     
     public partial class Work
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Work()
+        {
+            this.Submits = new HashSet<Submit>();
+        }
+    
         public int work_id { get; set; }
         public string work_name { get; set; }
         public string work_image { get; set; }
@@ -55,5 +61,7 @@ namespace WebsiteWork.Models
         public virtual Form Form { get; set; }
         public virtual Province Province { get; set; }
         public virtual Career Career { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Submit> Submits { get; set; }
     }
 }

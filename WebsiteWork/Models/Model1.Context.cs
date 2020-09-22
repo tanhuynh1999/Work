@@ -34,5 +34,6 @@ namespace WebsiteWork.Models
         public virtual DbSet<Form> Forms { get; set; }
         public virtual DbSet<Province> Provinces { get; set; }
         public virtual DbSet<Career> Careers { get; set; }
+        public virtual DbSet<Submit> Submits { get; set; }
     }
 }
