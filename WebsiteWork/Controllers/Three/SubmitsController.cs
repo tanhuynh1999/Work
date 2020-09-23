@@ -17,7 +17,7 @@ namespace WebsiteWork.Controllers.Three
         // GET: Submits
         public ActionResult Index()
         {
-            var submits = db.Submits.Include(s => s.Cv).Include(s => s.User).Include(s => s.Work);
+            var submits = db.Submits.Include(s => s.Cv).Include(s => s.User).Include(s => s.Work).Include(s => s.User);
             return View(submits.ToList());
         }
 
@@ -42,6 +42,7 @@ namespace WebsiteWork.Controllers.Three
             ViewBag.cv_id = new SelectList(db.Cvs, "cv_id", "cv_fullname");
             ViewBag.submit_id = new SelectList(db.Users, "user_id", "user_login");
             ViewBag.work_id = new SelectList(db.Works, "work_id", "work_name");
+            ViewBag.user_id = new SelectList(db.Users, "user_id", "user_login");
             return View();
         }
 
@@ -62,6 +63,7 @@ namespace WebsiteWork.Controllers.Three
             ViewBag.cv_id = new SelectList(db.Cvs, "cv_id", "cv_fullname", submit.cv_id);
             ViewBag.submit_id = new SelectList(db.Users, "user_id", "user_login", submit.submit_id);
             ViewBag.work_id = new SelectList(db.Works, "work_id", "work_name", submit.work_id);
+            ViewBag.user_id = new SelectList(db.Users, "user_id", "user_login", submit.user_id);
             return View(submit);
         }
 
@@ -80,6 +82,7 @@ namespace WebsiteWork.Controllers.Three
             ViewBag.cv_id = new SelectList(db.Cvs, "cv_id", "cv_fullname", submit.cv_id);
             ViewBag.submit_id = new SelectList(db.Users, "user_id", "user_login", submit.submit_id);
             ViewBag.work_id = new SelectList(db.Works, "work_id", "work_name", submit.work_id);
+            ViewBag.user_id = new SelectList(db.Users, "user_id", "user_login", submit.user_id);
             return View(submit);
         }
 
@@ -99,6 +102,7 @@ namespace WebsiteWork.Controllers.Three
             ViewBag.cv_id = new SelectList(db.Cvs, "cv_id", "cv_fullname", submit.cv_id);
             ViewBag.submit_id = new SelectList(db.Users, "user_id", "user_login", submit.submit_id);
             ViewBag.work_id = new SelectList(db.Works, "work_id", "work_name", submit.work_id);
+            ViewBag.user_id = new SelectList(db.Users, "user_id", "user_login", submit.user_id);
             return View(submit);
         }
 

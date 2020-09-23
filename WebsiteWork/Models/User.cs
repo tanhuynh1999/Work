@@ -18,6 +18,7 @@ namespace WebsiteWork.Models
         public User()
         {
             this.Cvs = new HashSet<Cv>();
+            this.Submits = new HashSet<Submit>();
         }
     
         public int user_id { get; set; }
@@ -38,6 +39,7 @@ namespace WebsiteWork.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cv> Cvs { get; set; }
-        public virtual Submit Submit { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Submit> Submits { get; set; }
     }
 }

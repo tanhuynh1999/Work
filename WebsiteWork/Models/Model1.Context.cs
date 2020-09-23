@@ -25,15 +25,15 @@ namespace WebsiteWork.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Employer> Employers { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Work> Works { get; set; }
+        public virtual DbSet<Career> Careers { get; set; }
         public virtual DbSet<Cv> Cvs { get; set; }
-        public virtual DbSet<Theme> Themes { get; set; }
+        public virtual DbSet<Employer> Employers { get; set; }
         public virtual DbSet<Form> Forms { get; set; }
         public virtual DbSet<Province> Provinces { get; set; }
-        public virtual DbSet<Career> Careers { get; set; }
         public virtual DbSet<Submit> Submits { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Theme> Themes { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Work> Works { get; set; }
     }
 }

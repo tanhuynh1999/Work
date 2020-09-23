@@ -9,25 +9,60 @@
 @{
     DataWorkEntities db = new DataWorkEntities();
     List<Work> works = db.Works.Where(n => n.employer_id == Model.employer_id && n.work_id != Model.work_id && n.work_activate == true).OrderByDescending(n => n.work_datecreated).Take(20).ToList();
-    List<Work> worksinvolve = db.Works.Where(n => n.career_id == Model.career_id && n.work_activate == true && n.employer_id != Model.employer_id).OrderByDescending(n=>n.work_datecreated).Take(7).ToList();
+    List<Work> worksinvolve = db.Works.Where(n => n.career_id == Model.career_id && n.work_activate == true && n.employer_id != Model.employer_id).OrderByDescending(n => n.work_datecreated).Take(7).ToList();
 }
 @Html.Action("Menu", "Home")
+<section class="section">
+    <div class="col-lg-12" style="background-image: url('../../Images/Employer/cover_trang_chu.jpg');background-repeat: no-repeat; background-size: 100%; width: 100%; height: 200px">
+        <div class="col-lg-12" style="background-image: url('../../Images/Employer/cover_trang_chu.jpg');background-repeat: no-repeat; background-size: 100%; width: 100%; height: 200px">
+            <br />
+            <br />
+            <br />
+            <div>
+                <div class="row py-1" style="padding: 5%; height: 80px;">
+                    <div class="col-lg-5 col-sm-6 mt-1" style="padding: 0px;">
+                        <div class="form-input mt-55">
+                            <form action="#">
+                                <div class="input-items active">
+                                    <input type="text" placeholder="Tên công việc hoặc vị trí - kỹ năng ứng tuyển..." class="form-control" style="border-radius: 0%;border: 2px solid #151965">
+                                    <i class="lni-search" style="color:#151965"></i>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 mt-1" style="padding: 0px">
+                        <select class="form-control" style="border: 2px solid #151965;height: 44px;border-radius: 0%">
+                            <option>Tỉnh thành</option>
+                            <option>1</option>
+                            <option>1</option>
+                            <option>1</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 mt-1" style="padding: 0px">
+                        <select class="form-control" style="border: 2px solid #151965; height: 44px;border-radius: 0%">
+                            <option><i class="lni lni-thought">&nbsp;</i>Nghề nghiệp</option>
+                            <option>1</option>
+                            <option>1</option>
+                            <option>1</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-1 col-sm-6 mt-1" style="padding: 0px">
+                        <button class="btn btn-danger w-100" style="height: 44px;border-radius: 0%"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <div class="w3l-index-block1" ng-app="">
-    <div class="py-5">
+    <div class="">
         <div class="">
-            <div class="row align-items-center py-3">
-                <nav class="sticky-top bg-white w-100" style="z-index: 100000 !important; height: 70px;">
-                    <div class="">
-                        <div class="" id="main_nav">
-                            @Html.Action("ViewSrarch", "Search")
-                        </div> <!-- navbar-collapse.// -->
-                    </div><!-- container //  -->
-                </nav>
+            <div class="row align-items-center">
                 <section class="container">
                     <div class="">
                         <div class="w3l-index-block1">
                             <div class="">
-                                <div class="section" style="background-color: white; height:250px">
+                                <div class="" style="background-color: white; height:250px">
                                     <div class="container py-md">
                                         <div class="row">
                                             <div class="col-lg-2">
@@ -42,7 +77,18 @@
                                             <div class="col-lg-3">
                                                 @if (user != null)
                                                 {
-                                                    <button type="button" class="btn btn-primary w-100 mt-1" data-toggle="modal" data-target="#submitcv"><i class="far fa-address-card">&nbsp;</i>Nộp hồ sơ</button>
+                                                    {
+                                                        List<Submit> submits = db.Submits.Where(n => n.user_id == user.user_id && n.work_id == Model.work_id).ToList();
+                                                        ViewBag.submits = submits.Count;
+                                                    }
+                                                    if (ViewBag.submits == 0)
+                                                    {
+                                                        <button type="button" class="btn btn-primary w-100 mt-1" data-toggle="modal" data-target="#submitcv"><i class="far fa-address-card">&nbsp;</i>Nộp hồ sơ</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn btn-primary w-100 mt-1" data-toggle="modal" data-target=""><i class="far fa-address-card">&nbsp;</i>Hủy nộp hồ sơ</button>
+                                                    }
                                                 }
                                                 else
                                                 {
@@ -56,7 +102,7 @@
                                     </div>
                                 </div>
                                 <div class="section-content">
-                                    <div class="row align-items-center py-md-5 py-3">
+                                    <div class="row align-items-center">
                                         <div class="row justify-content-center">
                                             <div class="row">
                                                 <div class="col-lg-12">
@@ -499,196 +545,203 @@
     }
 </style>
 <!--Modal-->
-<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm" role="document" style="max-width: 600px;">
-        <div class="modal-content">
-            <div class="modal-body p-0">
-                <div class="card bg-secondary shadow border-0 mb-0">
-                    <div class="card-header bg-white" style="background-image: url('../../Content/Layout/images/login.jpg'); background-repeat: no-repeat; background-size: 100% 100%">
-                        <div class="text-muted text-center mb-3">
-                            <small>Đăng nhập để nộp hồ sơ vào công việc này</small>
-                        </div>
-                        <div class="btn-wrapper text-center">
-                            <a href="javascript:;" class="btn btn-neutral btn-icon">
-                                <span class="btn-inner--icon">
-                                    <img src="~/Content/UI/assets/img/icons/common/github.svg">
-                                </span>
-                                <span class="btn-inner--text">Facebook</span>
-                            </a>
-                            <a href="javascript:;" class="btn btn-neutral btn-icon">
-                                <span class="btn-inner--icon">
-                                    <img src="~/Content/UI/assets/img/icons/common/google.svg">
-                                </span>
-                                <span class="btn-inner--text">Google</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="card-body px-lg-5" style="background-color: #151965">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <!-- Tabs with icons -->
-                                <div class="nav-wrapper">
-                                    <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link mb-sm-3 mb-md-0 @(Session["active"] == null ? "active" : "")" style="border-bottom: 2px solid white" id="res-tab" data-toggle="tab" href="#loginUser" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="fas fa-sign-in-alt">&nbsp;</i>ĐĂNG NHẬP</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" style="border-bottom: 2px solid white" data-toggle="tab" href="#ress" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="fa fa-user">&nbsp;</i>ĐĂNG KÝ</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="card shadow">
-                                    <div class="card-body">
-                                        <div class="tab-content" id="myTabContent">
-                                            <div class="tab-pane fade @(Session["active"] == null ? "show active" : "")" id="loginUser" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
-                                                <script>
-                                                    function validateForm() {
-                                                        // Bước 1: Lấy giá trị của username và password
-                                                        var user_email = document.getElementById('user_email').value;
-                                                        var user_pass = document.getElementById('user_pass').value;
-                                                        // Bước 2: Kiểm tra dữ liệu hợp lệ hay không
-                                                        if (user_email == '' && user_pass == '') {
-                                                            document.getElementById("testlogin").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Bạn chưa nhập email và mật khẩu.</b></div>"
-                                                        }
-                                                        else if (user_pass == '') {
-                                                            document.getElementById("testlogin").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Bạn chưa nhập mật khẩu.</b></div>"
-                                                        }
-                                                        else if (user_email == '') {
-                                                            document.getElementById("testlogin").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Bạn chưa nhập email.</b></div>"
-                                                        }
-                                                        else {
-                                                            return true;
-                                                        }
-                                                        return false;
-                                                    }
-                                                </script>
-                                                <form role="form" action="@Url.Action("LoginModal","Account")" method="post" onsubmit="return validateForm()">
-                                                    <div class="row">
-                                                        <div class="col-lg-12 col-sm-6 mt-1">
-                                                            <div id="testlogin" class="mt-2">
+@if (user != null)
+{
 
-                                                            </div>
-                                                            @Html.Raw(Session["NotLogin"])
-                                                            <div class="form-input mt-55">
-                                                                <div class="input-items active">
-                                                                    <input type="text" placeholder="Email" class="form-control" style="border: 2px solid #151965" name="user_email" id="user_email">
-                                                                    <i class="lni-user" style="color:#151965"></i>
+}
+else
+{
+    <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document" style="max-width: 600px;">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="card bg-secondary shadow border-0 mb-0">
+                        <div class="card-header bg-white" style="background-image: url('../../Content/Layout/images/login.jpg'); background-repeat: no-repeat; background-size: 100% 100%">
+                            <div class="text-muted text-center mb-3">
+                                <small>Đăng nhập để nộp hồ sơ vào công việc này</small>
+                            </div>
+                            <div class="btn-wrapper text-center">
+                                <a href="javascript:;" class="btn btn-neutral btn-icon">
+                                    <span class="btn-inner--icon">
+                                        <img src="~/Content/UI/assets/img/icons/common/github.svg">
+                                    </span>
+                                    <span class="btn-inner--text">Facebook</span>
+                                </a>
+                                <a href="javascript:;" class="btn btn-neutral btn-icon">
+                                    <span class="btn-inner--icon">
+                                        <img src="~/Content/UI/assets/img/icons/common/google.svg">
+                                    </span>
+                                    <span class="btn-inner--text">Google</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body px-lg-5" style="background-color: #151965">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <!-- Tabs with icons -->
+                                    <div class="nav-wrapper">
+                                        <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link mb-sm-3 mb-md-0 @(Session["active"] == null ? "active" : "")" style="border-bottom: 2px solid white" id="res-tab" data-toggle="tab" href="#loginUser" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="fas fa-sign-in-alt">&nbsp;</i>ĐĂNG NHẬP</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" style="border-bottom: 2px solid white" data-toggle="tab" href="#ress" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="fa fa-user">&nbsp;</i>ĐĂNG KÝ</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="card shadow">
+                                        <div class="card-body">
+                                            <div class="tab-content" id="myTabContent">
+                                                <div class="tab-pane fade @(Session["active"] == null ? "show active" : "")" id="loginUser" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                                                    <script>
+                                                        function validateForm() {
+                                                            // Bước 1: Lấy giá trị của username và password
+                                                            var user_email = document.getElementById('user_email').value;
+                                                            var user_pass = document.getElementById('user_pass').value;
+                                                            // Bước 2: Kiểm tra dữ liệu hợp lệ hay không
+                                                            if (user_email == '' && user_pass == '') {
+                                                                document.getElementById("testlogin").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Bạn chưa nhập email và mật khẩu.</b></div>"
+                                                            }
+                                                            else if (user_pass == '') {
+                                                                document.getElementById("testlogin").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Bạn chưa nhập mật khẩu.</b></div>"
+                                                            }
+                                                            else if (user_email == '') {
+                                                                document.getElementById("testlogin").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Bạn chưa nhập email.</b></div>"
+                                                            }
+                                                            else {
+                                                                return true;
+                                                            }
+                                                            return false;
+                                                        }
+                                                    </script>
+                                                    <form role="form" action="@Url.Action("LoginModal","Account")" method="post" onsubmit="return validateForm()">
+                                                        <div class="row">
+                                                            <div class="col-lg-12 col-sm-6 mt-1">
+                                                                <div id="testlogin" class="mt-2">
+
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 col-sm-6 mt-1">
-                                                            <div class="form-input mt-55">
-                                                                <div class="input-items active">
-                                                                    <input type="password" placeholder="Mật khẩu" class="form-control" style="border: 2px solid #151965" name="user_pass" id="user_pass" )">
-                                                                    <i class="lni-key" style="color:#151965"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12 col-sm-6 mt-1">
-                                                            <div class="ml-4">
-                                                                <div class="row">
-                                                                    <div class="col-lg-8">
-                                                                        <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-                                                                        <label class="custom-control-label" for=" customCheckLogin">
-                                                                            <span>Nhớ mật khẩu</span>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="col-lg-4">
-                                                                        <a href="#">Quên mật khẩu?</a>
+                                                                @Html.Raw(Session["NotLogin"])
+                                                                <div class="form-input mt-55">
+                                                                    <div class="input-items active">
+                                                                        <input type="text" placeholder="Email" class="form-control" style="border: 2px solid #151965" name="user_email" id="user_email">
+                                                                        <i class="lni-user" style="color:#151965"></i>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <div class="col-lg-12 col-sm-6 mt-1">
+                                                                <div class="form-input mt-55">
+                                                                    <div class="input-items active">
+                                                                        <input type="password" placeholder="Mật khẩu" class="form-control" style="border: 2px solid #151965" name="user_pass" id="user_pass" )">
+                                                                        <i class="lni-key" style="color:#151965"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12 col-sm-6 mt-1">
+                                                                <div class="ml-4">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-8">
+                                                                            <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
+                                                                            <label class="custom-control-label" for=" customCheckLogin">
+                                                                                <span>Nhớ mật khẩu</span>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="col-lg-4">
+                                                                            <a href="#">Quên mật khẩu?</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12 col-sm-6 mt-1">
+                                                                <button type="submit" class="btn btn-danger w-100 mt-1">Đăng nhập</button>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-lg-12 col-sm-6 mt-1">
-                                                            <button type="submit" class="btn btn-danger w-100 mt-1">Đăng nhập</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="tab-pane fade @(Session["active"] == null ? "" : "show active")" id="ress" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
-                                                <script>
-                                                    function valiRes() {
-                                                        // Bước 1: Lấy giá trị của username và password
-                                                        var user_emailres = document.getElementById('user_emailres').value;
-                                                        var user_nicename = document.getElementById('user_nicename').value;
-                                                        var user_passres = document.getElementById('user_passres').value;
-                                                        var user_rpass = document.getElementById('user_rpass').value;
-                                                        // Bước 2: Kiểm tra dữ liệu hợp lệ hay không
-                                                        if (user_emailres == '' && user_passres == '' && user_nicename == '' && user_rpass == '') {
-                                                            document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Tất cả các trường chưa được nhập, vui lòng nhập đầy đủ thông tin.</b></div>"
+                                                    </form>
+                                                </div>
+                                                <div class="tab-pane fade @(Session["active"] == null ? "" : "show active")" id="ress" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
+                                                    <script>
+                                                        function valiRes() {
+                                                            // Bước 1: Lấy giá trị của username và password
+                                                            var user_emailres = document.getElementById('user_emailres').value;
+                                                            var user_nicename = document.getElementById('user_nicename').value;
+                                                            var user_passres = document.getElementById('user_passres').value;
+                                                            var user_rpass = document.getElementById('user_rpass').value;
+                                                            // Bước 2: Kiểm tra dữ liệu hợp lệ hay không
+                                                            if (user_emailres == '' && user_passres == '' && user_nicename == '' && user_rpass == '') {
+                                                                document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Tất cả các trường chưa được nhập, vui lòng nhập đầy đủ thông tin.</b></div>"
+                                                            }
+                                                            else if (user_emailres == '') {
+                                                                document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Vui lòng nhập email.</b></div>"
+                                                            }
+                                                            else if (user_nicename == '') {
+                                                                document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Vui lòng nhập tên hiển thị.</b></div>"
+                                                            }
+                                                            else if (user_passres == '') {
+                                                                document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Bạn chưa nhập mật khẩu.</b></div>"
+                                                            }
+                                                            else if (user_rpass == '') {
+                                                                document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Bạn chưa xác nhận mật khẩu.</b></div>"
+                                                            }
+                                                            else if (user_passres != user_rpass) {
+                                                                document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Xác nhận mật khẩu không đúng.</b></div>"
+                                                            }
+                                                            else {
+                                                                return true;
+                                                            }
+                                                            return false;
                                                         }
-                                                        else if (user_emailres == '') {
-                                                            document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Vui lòng nhập email.</b></div>"
-                                                        }
-                                                        else if (user_nicename == '') {
-                                                            document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Vui lòng nhập tên hiển thị.</b></div>"
-                                                        }
-                                                        else if (user_passres == '') {
-                                                            document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Bạn chưa nhập mật khẩu.</b></div>"
-                                                        }
-                                                        else if (user_rpass == '') {
-                                                            document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Bạn chưa xác nhận mật khẩu.</b></div>"
-                                                        }
-                                                        else if (user_passres != user_rpass) {
-                                                            document.getElementById("testRes").innerHTML = "<div class='alert alert-danger'><b class='text-danger'><i class='fas fa-times-circle' style='color: red'>&nbsp;</i>Xác nhận mật khẩu không đúng.</b></div>"
-                                                        }
-                                                        else {
-                                                            return true;
-                                                        }
-                                                        return false;
-                                                    }
-                                                </script>
-                                                <form role="form" action="@Url.Action("Regist","Account")" method="post" onsubmit="return valiRes()">
-                                                    <div class="row">
-                                                        @Html.Raw(Session["user_exist"])
-                                                        <div id="testRes" class="mt-2">
+                                                    </script>
+                                                    <form role="form" action="@Url.Action("Regist","Account")" method="post" onsubmit="return valiRes()">
+                                                        <div class="row">
+                                                            @Html.Raw(Session["user_exist"])
+                                                            <div id="testRes" class="mt-2">
 
-                                                        </div>
-                                                        <div class="col-lg-6 col-sm-6 mt-1">
-                                                            <div class="form-input mt-55">
-                                                                <div class="input-items active">
-                                                                    <input type="text" placeholder="Email" class="form-control" style="border: 2px solid #151965" name="user_email" id="user_emailres">
-                                                                    <i class="lni-envelope" style="color:#151965"></i>
+                                                            </div>
+                                                            <div class="col-lg-6 col-sm-6 mt-1">
+                                                                <div class="form-input mt-55">
+                                                                    <div class="input-items active">
+                                                                        <input type="text" placeholder="Email" class="form-control" style="border: 2px solid #151965" name="user_email" id="user_emailres">
+                                                                        <i class="lni-envelope" style="color:#151965"></i>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-lg-6 col-sm-6 mt-1">
-                                                            <div class="form-input mt-55">
-                                                                <div class="input-items active">
-                                                                    <input type="text" placeholder="Tên hiển thị" class="form-control" style="border: 2px solid #151965" name="user_nicename" id="user_nicename">
-                                                                    <i class="lni-user" style="color:#151965"></i>
+                                                            <div class="col-lg-6 col-sm-6 mt-1">
+                                                                <div class="form-input mt-55">
+                                                                    <div class="input-items active">
+                                                                        <input type="text" placeholder="Tên hiển thị" class="form-control" style="border: 2px solid #151965" name="user_nicename" id="user_nicename">
+                                                                        <i class="lni-user" style="color:#151965"></i>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-lg-6 col-sm-6 mt-1">
-                                                            <div class="form-input mt-55">
-                                                                <div class="input-items active">
-                                                                    <input type="password" placeholder="Mật khẩu" class="form-control" style="border: 2px solid #151965" id="user_passres" name="user_pass">
-                                                                    <i class="lni-key" style="color:#151965"></i>
+                                                            <div class="col-lg-6 col-sm-6 mt-1">
+                                                                <div class="form-input mt-55">
+                                                                    <div class="input-items active">
+                                                                        <input type="password" placeholder="Mật khẩu" class="form-control" style="border: 2px solid #151965" id="user_passres" name="user_pass">
+                                                                        <i class="lni-key" style="color:#151965"></i>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-lg-6 col-sm-6 mt-1">
-                                                            <div class="form-input mt-55">
-                                                                <div class="input-items active">
-                                                                    <input type="password" placeholder="Nhập lại mật khẩu" class="form-control" style="border: 2px solid #151965" id="user_rpass">
-                                                                    <i class="lni-key" style="color:#151965"></i>
+                                                            <div class="col-lg-6 col-sm-6 mt-1">
+                                                                <div class="form-input mt-55">
+                                                                    <div class="input-items active">
+                                                                        <input type="password" placeholder="Nhập lại mật khẩu" class="form-control" style="border: 2px solid #151965" id="user_rpass">
+                                                                        <i class="lni-key" style="color:#151965"></i>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-lg-12 col-sm-6 mt-1">
-                                                            <div class="ml-4">
-                                                                <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-                                                                <label class="custom-control-label" for=" customCheckLogin">
-                                                                    <span>Chấp nhận <a href="#">điểu khoản</a> và <a href="#">chính sách bảo mật</a></span>
-                                                                </label>
+                                                            <div class="col-lg-12 col-sm-6 mt-1">
+                                                                <div class="ml-4">
+                                                                    <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
+                                                                    <label class="custom-control-label" for=" customCheckLogin">
+                                                                        <span>Chấp nhận <a href="#">điểu khoản</a> và <a href="#">chính sách bảo mật</a></span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12 col-sm-6 mt-1">
+                                                                <button type="submit" class="btn btn-danger w-100 mt-1">Đăng ký</button>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-12 col-sm-6 mt-1">
-                                                            <button type="submit" class="btn btn-danger w-100 mt-1">Đăng ký</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -700,45 +753,153 @@
             </div>
         </div>
     </div>
-</div>
+}
 <div class="modal fade" id="submitcv" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm" role="document" style="max-width: 600px;">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document" style="max-width: 1200px;z-index: 1900000000 !important">
         <div class="modal-content">
             <div class="modal-body p-0">
                 <div class="card bg-secondary shadow border-0 mb-0">
-                    <div class="card-header bg-white">
-                        @{
-                            List<Cv> cv = db.Cvs.Where(n => n.cv_activate == true && n.cv_option == true && n.user_id == user.user_id).OrderByDescending(n => n.cv_datecreated).ToList();
-                            
-                        }
-                        <ul>
-                            @foreach (var item in cv)
+                    @{
+                        String radio = "customRadio";
+                        int number = 1;
+                        int i = 1;
+                        String id_num = "hscv";
+                    }
+                    <form action="@Url.Action("SubmitCV","Button")" method="post">
+                        <div class="card-header bg-white">
+                            @if (user != null)
                             {
-                                <li>
-                                    <div class="custom-control custom-radio mb-3">
-                                        <input name="custom-radio-1" class="custom-control-input" id="@ViewBag.title@item.cv_id" checked type="radio">
-                                        <label class="custom-control-label" for="customRadio2">
-                                            <span>Checked</span>
-                                        </label>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h2 class="text-center">Chọn hồ sơ nộp</h2>
+                                        <input type="hidden" value="@Model.work_id" name="work_id" />
+                                        <hr />
+                                        <div class="alert alert-warning alert-dismissible fade show" role="alert" style="background-color: #fc7c5f">
+                                            <span class="alert-inner--icon"><i class="ni ni-bell-55"></i></span>
+                                            <span class="alert-inner--text"><strong>Chào @user.user_nicename!</strong> Chọn hồ sơ để nộp cho nhà tuyển dụng @Model.Employer.employer_company!</span>
+                                        </div>
                                     </div>
-                                </li>
+                                    @foreach (var item in db.Cvs.Where(n => n.cv_activate == true && n.cv_option == true && n.user_id == user.user_id).OrderByDescending(n => n.cv_datecreated).ToList())
+                                    {
+                                        <div class="col-lg-6 mt-3">
+                                            <div class="row no-gutters">
+                                                <div class="col-md-5">
+                                                    <img src="~/Images/User/32644928_2062295167425734_7686714948314988544_o.jpg" class="card-img" alt="..." style="height: 100%">
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">@item.cv_fullname</h5>
+                                                        <p class="card-text">
+                                                            <ul>
+                                                                <li><i class="fa fa-mail-bulk">&nbsp;</i>@item.cv_email</li>
+                                                                <li><i class="fas fa-university">&nbsp;</i>@item.cv_schools</li>
+                                                                <li><i class="fab fa-accusoft"></i>@item.cv_location</li>
+                                                                <li><i class="fa fa-calendar">&nbsp;</i>@item.cv_datecreated</li>
+                                                                <li><button type="button" class="btn btn-sm btn-primary btn-tooltip" data-toggle="tooltip" data-placement="top" title="Tooltip on top" data-container="body" data-animation="true">Sửa hồ sơ @id_num@item.cv_id</button></li>
+                                                            </ul>
+                                                        </p>
+                                                        <p class="card-text"><small class="text-muted">Mã hồ sơ: #@id_num@item.cv_id</small></p>
+                                                        <div class="custom-control custom-radio">
+                                                            <input name="cv_id" class="custom-control-input" id="@radio@i" type="radio" value="@item.cv_id">
+                                                            <label class="custom-control-label" for="@radio@i">
+                                                                <span>#@id_num@item.cv_id</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        i++;
+                                    }
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Nộp hồ sơ</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                </div>
                             }
-                        </ul>
-                    </div>
-                    <div class="card-body px-lg-5" >
-                        <div class="row">
-                            <div class="col-lg-12">
-                                
-                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <script src="~/Scripts/jquery-3.5.1.slim.min.js"></script>
+@if (user != null)
+{
+    {
+        List<Submit> submits = db.Submits.Where(n => n.user_id == user.user_id && n.work_id == Model.work_id).ToList();
+        ViewBag.submits = submits.Count;
+    }
+    if (Session["TestSubmit"] != null || ViewBag.submits != 0)
+    {
+        <div class="modal fade" id="note" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="max-width: 700px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Thông báo từ công ty @Model.Employer.employer_company</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="text-danger">Bạn đã nộp hồ sơ thành công cho công ty @Model.Employer.employer_company!</div>
+                        @{ 
+                            List<Submit> submits = db.Submits.Where(n => n.user_id == user.user_id && n.work_id == Model.work_id).ToList();
+                        }
+                        @foreach(var item in submits)
+                        {
+                    <ul>
+                        <li><b>Mẫu hồ sơ đã nộp:</b> #@id_num@item.cv_id <a href="#">Xem hồ sơ</a></li>
+                        <li><b>Ngày nộp:</b> @item.submit_datecreated</li>
+                        <li><b>Tình trạng:</b> Chưa phản hồi</li>
+                        <hr />
+                        <li>
+                            <div class="col-lg-12 mt-3">
+                                <div class="row no-gutters">
+                                    <div class="col-md-5">
+                                        <img src="~/Images/User/32644928_2062295167425734_7686714948314988544_o.jpg" class="card-img" alt="..." style="height: 100%">
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="card-body">
+                                            <h5 class="card-title">@item.Cv.cv_fullname</h5>
+                                            <p class="card-text">
+                                                <ul>
+                                                    <li><i class="fa fa-mail-bulk">&nbsp;</i>@item.Cv.cv_email</li>
+                                                    <li><i class="fas fa-university">&nbsp;</i>@item.Cv.cv_schools</li>
+                                                    <li><i class="fab fa-accusoft"></i>@item.Cv.cv_location</li>
+                                                    <li><i class="fa fa-calendar">&nbsp;</i>@item.Cv.cv_datecreated</li>
+                                                    <li><button type="button" class="btn btn-sm btn-primary btn-tooltip" data-toggle="tooltip" data-placement="top" title="Tooltip on top" data-container="body" data-animation="true">Sửa hồ sơ @id_num@item.cv_id</button></li>
+                                                </ul>
+                                            </p>
+                                            <p class="card-text"><small class="text-muted">Mã hồ sơ: #@id_num@item.cv_id</small></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <br />
+                        <li><button type="button" class="btn btn-sm btn-danger btn-tooltip w-100" data-toggle="tooltip" data-placement="top" title="Tooltip on top" data-container="body" data-animation="true">Quản lý nộp hồ sơ</button></li>
+                    </ul>
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+
+    }
+}
+<script>
+    $(document).ready(function () {
+        $('#note').modal('show');
+    })
+</script>
 @if (Session["NotLogin"] != null)
 {
     <script>

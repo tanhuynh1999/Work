@@ -158,6 +158,7 @@
     <Compile Include="Controllers\HomeEmployerController.cs" />
     <Compile Include="Controllers\PayController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\Three\CvsController.cs" />
     <Compile Include="Controllers\Three\SubmitsController.cs" />
     <Compile Include="Controllers\ViewController.cs" />
     <Compile Include="Controllers\WorkController.cs" />
@@ -2365,8 +2366,8 @@
     <Content Include="Models\Database\Work.sql" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
       <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -2473,13 +2474,6 @@
     <Content Include="Content\UI\images\pricing\.DS_Store" />
     <Content Include="Content\UI\images\services\.DS_Store" />
     <Content Include="Content\UI\js\.DS_Store" />
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\UI\assets\css\argon-design-system.css.map" />
     <Content Include="Content\UI\assets\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\UI\assets\fonts\fontawesome-webfont.ttf" />
@@ -2608,6 +2602,13 @@
     <Content Include="Content\ckeditor5-build-classic\ckeditor.js.map" />
     <Content Include="Content\ckeditor5-build-classic\LICENSE.md" />
     <Content Include="Content\ckeditor5-build-classic\README.md" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -2762,6 +2763,11 @@
     <Content Include="Views\Submits\Details.cshtml" />
     <Content Include="Views\Submits\Edit.cshtml" />
     <Content Include="Views\Submits\Index.cshtml" />
+    <Content Include="Views\Cvs\Create.cshtml" />
+    <Content Include="Views\Cvs\Delete.cshtml" />
+    <Content Include="Views\Cvs\Details.cshtml" />
+    <Content Include="Views\Cvs\Edit.cshtml" />
+    <Content Include="Views\Cvs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

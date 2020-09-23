@@ -4,27 +4,27 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="088e338d25bd4f098b3a9495c7d6f68c" Name="Diagram1" ZoomLevel="80">
-        <EntityTypeShape EntityType="DataWorkModel.Employer" Width="1.5" PointX="0.5" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataWorkModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataWorkModel.User" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataWorkModel.Work" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+      <Diagram DiagramId="08308a98014b4fa1a9590e2e376a800a" Name="Diagram1">
+        <EntityTypeShape EntityType="DataWorkModel.Career" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWorkModel.Cv" Width="1.5" PointX="5.25" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWorkModel.Employer" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWorkModel.Form" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWorkModel.Province" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWorkModel.Submit" Width="1.5" PointX="7.5" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWorkModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWorkModel.Theme" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWorkModel.User" Width="1.5" PointX="3" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWorkModel.Work" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <AssociationConnector Association="DataWorkModel.FK_Employer_Career" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWorkModel.FK_Work_Career" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWorkModel.FK_Cv_User" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWorkModel.FK_Submit_Cv" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWorkModel.FK_Employer_Province" ManuallyRouted="false" />
         <AssociationConnector Association="DataWorkModel.FK_Work_Employer" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DataWorkModel.Cv" Width="1.5" PointX="8.375" PointY="2" />
-        <EntityTypeShape EntityType="DataWorkModel.Theme" Width="1.5" PointX="3" PointY="6.875" />
-        <AssociationConnector Association="DataWorkModel.FK_Cv_User" />
-        <EntityTypeShape EntityType="DataWorkModel.Form" Width="1.5" PointX="0.75" PointY="11.5" />
-        <EntityTypeShape EntityType="DataWorkModel.Province" Width="1.5" PointX="5.375" PointY="8.875" />
-        <AssociationConnector Association="DataWorkModel.FK_Work_Form" />
-        <AssociationConnector Association="DataWorkModel.FK_Work_Province" />
-        <AssociationConnector Association="DataWorkModel.FK_Employer_Province" />
-        <EntityTypeShape EntityType="DataWorkModel.Career" Width="1.5" PointX="10.375" PointY="0.875" />
-        <AssociationConnector Association="DataWorkModel.FK_Employer_Career" />
-        <AssociationConnector Association="DataWorkModel.FK_Work_Career" />
-        <EntityTypeShape EntityType="DataWorkModel.Submit" Width="1.5" PointX="10.625" PointY="4.75" />
-        <AssociationConnector Association="DataWorkModel.FK_Submit_Cv" />
-        <AssociationConnector Association="DataWorkModel.FK_Submit_User" />
-        <AssociationConnector Association="DataWorkModel.FK_Submit_Work" />
+        <AssociationConnector Association="DataWorkModel.FK_Work_Form" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWorkModel.FK_Work_Province" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWorkModel.FK_Submit_User" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWorkModel.FK_Submit_Work" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -60,9 +60,9 @@ namespace WebsiteWork.Models
         public Nullable<int> career_id { get; set; }
         public Nullable<int> employer_limit { get; set; }
     
+        public virtual Career Career { get; set; }
+        public virtual Province Province { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Work> Works { get; set; }
-        public virtual Province Province { get; set; }
-        public virtual Career Career { get; set; }
     }
 }

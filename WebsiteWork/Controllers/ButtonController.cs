@@ -14,9 +14,14 @@ namespace WebsiteWork.Controllers
         [HttpPost]
         public ActionResult SubmitCV([Bind(Include = "submit_id,user_id,work_id,submit_datecreated,cv_id")] Submit submit)
         {
+            User user = (User)Session["user"];
             db.Submits.Add(submit);
+            submit.user_id = user.user_id;
+            submit.submit_datecreated = DateTime.Now;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            Session["TestSubmit"] = "Nộp hồ sơ thành công";
+            Session["user"] = user;
+            return Redirect(Request.UrlReferrer.ToString());
         }
     }
 }
