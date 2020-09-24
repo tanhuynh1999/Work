@@ -152,6 +152,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ButtonController.cs" />
+    <Compile Include="Controllers\CVEmployerController.cs" />
     <Compile Include="Controllers\CVUserController.cs" />
     <Compile Include="Controllers\EmployerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\Three\CvsController.cs" />
     <Compile Include="Controllers\Three\SubmitsController.cs" />
+    <Compile Include="Controllers\Three\UsersController.cs" />
     <Compile Include="Controllers\ViewController.cs" />
     <Compile Include="Controllers\WorkController.cs" />
     <Compile Include="Global.asax.cs">
@@ -2758,21 +2760,18 @@
     <Content Include="Views\View\DetailsEmployer.cshtml" />
     <Content Include="Views\View\AllEmployer.cshtml" />
     <Content Include="Views\Home\Footer.cshtml" />
-    <Content Include="Views\Submits\Create.cshtml" />
-    <Content Include="Views\Submits\Delete.cshtml" />
-    <Content Include="Views\Submits\Details.cshtml" />
-    <Content Include="Views\Submits\Edit.cshtml" />
-    <Content Include="Views\Submits\Index.cshtml" />
-    <Content Include="Views\Cvs\Create.cshtml" />
-    <Content Include="Views\Cvs\Delete.cshtml" />
-    <Content Include="Views\Cvs\Details.cshtml" />
-    <Content Include="Views\Cvs\Edit.cshtml" />
-    <Content Include="Views\Cvs\Index.cshtml" />
+    <Content Include="Views\Work\WorkUser.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\CVEmployer\ManageCV.cshtml" />
+    <Content Include="Views\CVEmployer\ViewCv.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Button\" />
-    <Folder Include="Views\Work\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

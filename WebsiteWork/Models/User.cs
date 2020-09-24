@@ -36,10 +36,12 @@ namespace WebsiteWork.Models
         public string user_skill { get; set; }
         public string user_interests { get; set; }
         public Nullable<bool> user_view { get; set; }
+        public Nullable<int> career_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cv> Cvs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Submit> Submits { get; set; }
+        public virtual Career Career { get; set; }
     }
 }

@@ -19,6 +19,8 @@ namespace WebsiteWork.Models
         public Nullable<int> work_id { get; set; }
         public Nullable<System.DateTime> submit_datecreated { get; set; }
         public Nullable<int> cv_id { get; set; }
+        public Nullable<bool> submit_ViewEm { get; set; }
+        public Nullable<bool> submit_Check { get; set; }
     
         public virtual Cv Cv { get; set; }
         public virtual User User { get; set; }

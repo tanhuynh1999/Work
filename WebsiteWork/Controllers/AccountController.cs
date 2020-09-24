@@ -105,6 +105,7 @@ namespace WebsiteWork.Controllers
                 user.user_token = Guid.NewGuid().ToString();
                 user.user_activate = true;
                 user.user_login = user.user_login;
+                user.user_datelogin = DateTime.Now;
                 db.SaveChanges();
                 Session["user"] = user;
                 return Redirect(Request.UrlReferrer.ToString());

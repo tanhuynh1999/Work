@@ -25,6 +25,8 @@
         <AssociationConnector Association="DataWorkModel.FK_Work_Province" ManuallyRouted="false" />
         <AssociationConnector Association="DataWorkModel.FK_Submit_User" ManuallyRouted="false" />
         <AssociationConnector Association="DataWorkModel.FK_Submit_Work" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWorkModel.FK_Cv_Career" />
+        <AssociationConnector Association="DataWorkModel.FK_User_Career" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

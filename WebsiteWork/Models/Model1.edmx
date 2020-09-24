@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DataWorkModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DataWorkModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Career">
           <Key>
             <PropertyRef Name="career_id" />
@@ -57,6 +57,7 @@
           <Property Name="cv_activate" Type="bit" />
           <Property Name="cv_option" Type="bit" />
           <Property Name="cv_datecreated" Type="datetime" />
+          <Property Name="career_id" Type="int" />
         </EntityType>
         <EntityType Name="Employer">
           <Key>
@@ -125,6 +126,8 @@
           <Property Name="work_id" Type="int" />
           <Property Name="submit_datecreated" Type="datetime" />
           <Property Name="cv_id" Type="int" />
+          <Property Name="submit_ViewEm" Type="bit" />
+          <Property Name="submit_Check" Type="bit" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -163,6 +166,7 @@
           <Property Name="user_skill" Type="nvarchar(max)" />
           <Property Name="user_interests" Type="nvarchar(max)" />
           <Property Name="user_view" Type="bit" />
+          <Property Name="career_id" Type="int" />
         </EntityType>
         <EntityType Name="Work">
           <Key>
@@ -205,6 +209,18 @@
           <Property Name="form_id" Type="int" />
           <Property Name="career_id" Type="int" />
         </EntityType>
+        <Association Name="FK_Cv_Career">
+          <End Role="Career" Type="Self.Career" Multiplicity="0..1" />
+          <End Role="Cv" Type="Self.Cv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Career">
+              <PropertyRef Name="career_id" />
+            </Principal>
+            <Dependent Role="Cv">
+              <PropertyRef Name="career_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Cv_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Cv" Type="Self.Cv" Multiplicity="*" />
@@ -277,6 +293,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_User_Career">
+          <End Role="Career" Type="Self.Career" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Career">
+              <PropertyRef Name="career_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="career_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Work_Career">
           <End Role="Career" Type="Self.Career" Multiplicity="0..1" />
           <End Role="Work" Type="Self.Work" Multiplicity="*" />
@@ -336,6 +364,10 @@
           <EntitySet Name="Theme" EntityType="Self.Theme" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Work" EntityType="Self.Work" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Cv_Career" Association="Self.FK_Cv_Career">
+            <End Role="Career" EntitySet="Career" />
+            <End Role="Cv" EntitySet="Cv" />
+          </AssociationSet>
           <AssociationSet Name="FK_Cv_User" Association="Self.FK_Cv_User">
             <End Role="User" EntitySet="User" />
             <End Role="Cv" EntitySet="Cv" />
@@ -360,6 +392,10 @@
             <End Role="Work" EntitySet="Work" />
             <End Role="Submit" EntitySet="Submit" />
           </AssociationSet>
+          <AssociationSet Name="FK_User_Career" Association="Self.FK_User_Career">
+            <End Role="Career" EntitySet="Career" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
           <AssociationSet Name="FK_Work_Career" Association="Self.FK_Work_Career">
             <End Role="Career" EntitySet="Career" />
             <End Role="Work" EntitySet="Work" />
@@ -377,8 +413,7 @@
             <End Role="Work" EntitySet="Work" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DataWorkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -392,6 +427,8 @@
           <Property Name="career_datecreated" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Employers" Relationship="Self.FK_Employer_Career" FromRole="Career" ToRole="Employer" />
           <NavigationProperty Name="Works" Relationship="Self.FK_Work_Career" FromRole="Career" ToRole="Work" />
+          <NavigationProperty Name="Cvs" Relationship="DataWorkModel.FK_Cv_Career" FromRole="Career" ToRole="Cv" />
+          <NavigationProperty Name="Users" Relationship="DataWorkModel.FK_User_Career" FromRole="Career" ToRole="User" />
         </EntityType>
         <EntityType Name="Cv">
           <Key>
@@ -438,6 +475,8 @@
           <Property Name="cv_datecreated" Type="DateTime" Precision="3" />
           <NavigationProperty Name="User" Relationship="Self.FK_Cv_User" FromRole="Cv" ToRole="User" />
           <NavigationProperty Name="Submits" Relationship="Self.FK_Submit_Cv" FromRole="Cv" ToRole="Submit" />
+          <Property Name="career_id" Type="Int32" />
+          <NavigationProperty Name="Career" Relationship="DataWorkModel.FK_Cv_Career" FromRole="Cv" ToRole="Career" />
         </EntityType>
         <EntityType Name="Employer">
           <Key>
@@ -515,6 +554,8 @@
           <NavigationProperty Name="Cv" Relationship="Self.FK_Submit_Cv" FromRole="Submit" ToRole="Cv" />
           <NavigationProperty Name="User" Relationship="Self.FK_Submit_User" FromRole="Submit" ToRole="User" />
           <NavigationProperty Name="Work" Relationship="Self.FK_Submit_Work" FromRole="Submit" ToRole="Work" />
+          <Property Name="submit_ViewEm" Type="Boolean" />
+          <Property Name="submit_Check" Type="Boolean" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -555,6 +596,8 @@
           <Property Name="user_view" Type="Boolean" />
           <NavigationProperty Name="Cvs" Relationship="Self.FK_Cv_User" FromRole="User" ToRole="Cv" />
           <NavigationProperty Name="Submits" Relationship="Self.FK_Submit_User" FromRole="User" ToRole="Submit" />
+          <Property Name="career_id" Type="Int32" />
+          <NavigationProperty Name="Career" Relationship="DataWorkModel.FK_User_Career" FromRole="User" ToRole="Career" />
         </EntityType>
         <EntityType Name="Work">
           <Key>
@@ -773,7 +816,39 @@
             <End Role="Work" EntitySet="Works" />
             <End Role="Submit" EntitySet="Submits" />
           </AssociationSet>
+          <AssociationSet Name="FK_Cv_Career" Association="DataWorkModel.FK_Cv_Career">
+            <End Role="Career" EntitySet="Careers" />
+            <End Role="Cv" EntitySet="Cvs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Career" Association="DataWorkModel.FK_User_Career">
+            <End Role="Career" EntitySet="Careers" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Cv_Career">
+          <End Type="DataWorkModel.Career" Role="Career" Multiplicity="0..1" />
+          <End Type="DataWorkModel.Cv" Role="Cv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Career">
+              <PropertyRef Name="career_id" />
+            </Principal>
+            <Dependent Role="Cv">
+              <PropertyRef Name="career_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Career">
+          <End Type="DataWorkModel.Career" Role="Career" Multiplicity="0..1" />
+          <End Type="DataWorkModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Career">
+              <PropertyRef Name="career_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="career_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -793,6 +868,7 @@
           <EntitySetMapping Name="Cvs">
             <EntityTypeMapping TypeName="DataWorkModel.Cv">
               <MappingFragment StoreEntitySet="Cv">
+                <ScalarProperty Name="career_id" ColumnName="career_id" />
                 <ScalarProperty Name="cv_id" ColumnName="cv_id" />
                 <ScalarProperty Name="cv_fullname" ColumnName="cv_fullname" />
                 <ScalarProperty Name="cv_location" ColumnName="cv_location" />
@@ -899,6 +975,8 @@
           <EntitySetMapping Name="Submits">
             <EntityTypeMapping TypeName="DataWorkModel.Submit">
               <MappingFragment StoreEntitySet="Submit">
+                <ScalarProperty Name="submit_Check" ColumnName="submit_Check" />
+                <ScalarProperty Name="submit_ViewEm" ColumnName="submit_ViewEm" />
                 <ScalarProperty Name="submit_id" ColumnName="submit_id" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="work_id" ColumnName="work_id" />
@@ -930,6 +1008,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="DataWorkModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="career_id" ColumnName="career_id" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="user_login" ColumnName="user_login" />
                 <ScalarProperty Name="user_pass" ColumnName="user_pass" />

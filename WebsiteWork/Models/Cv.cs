@@ -59,9 +59,11 @@ namespace WebsiteWork.Models
         public Nullable<bool> cv_activate { get; set; }
         public Nullable<bool> cv_option { get; set; }
         public Nullable<System.DateTime> cv_datecreated { get; set; }
+        public Nullable<int> career_id { get; set; }
     
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Submit> Submits { get; set; }
+        public virtual Career Career { get; set; }
     }
 }

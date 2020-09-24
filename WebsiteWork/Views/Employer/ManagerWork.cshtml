@@ -6,6 +6,8 @@
     Layout = "~/Views/Shared/_LayoutEmployer.cshtml";
     Employer employer = (Employer)Session["employer"];
 
+    String code = "VL";
+
 }
 <link href="~/Content/UI/BK/css/bootstrap.css" rel="stylesheet" />
 <link href="~/Content/fontawesome-free-5.14.0-web/css/all.min.css" rel="stylesheet" />
@@ -68,6 +70,9 @@
     <table class="table table-striped">
         <tr>
             <th>
+                <b><i class="fas fa-barcode">&nbsp;</i>Mã công việc</b>
+            </th>
+            <th>
                 <b><i class="fas fa-briefcase">&nbsp;</i>Tên công việc</b>
             </th>
             <th>
@@ -102,6 +107,9 @@
         @foreach (var item in Model)
         {
             <tr class="search_tr">
+                <td>
+                   #@code@item.work_id  
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.work_name)
                 </td>

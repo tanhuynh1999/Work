@@ -1,10 +1,10 @@
 ﻿@using WebsiteWork.Models
-@model List<Cv>
+@model List<Submit>
 @{
-    ViewBag.Title = "ViewCV";
-    Layout = "~/Views/Shared/_Layout.cshtml";
     User user = (User)Session["user"];
-    DataWorkEntities db = new DataWorkEntities();
+    ViewBag.Title = "Cvone";
+    String user_idtext = "TW1S";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Html.Action("Menu", "Home")
 <link href="~/Content/UI/UIImages/css/pe-icon-7-stroke.css" rel="stylesheet" />
@@ -16,7 +16,7 @@
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded">
                         <div class="container">
-                            <a class="navbar-brand" href="javascript:;">Chào: @user.user_nicename đã quay trở lại AllWork1s</a>
+                            <a class="navbar-brand" href="javascript:;">Chào: Tấn đã quay trở lại AllWork1s</a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-inner-primary" aria-controls="nav-inner-primary" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
@@ -60,130 +60,102 @@
                         </div>
                     </nav>
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-12 page">
+                    <div id="loading"></div>
                     <div class="row">
                         <div class="col-lg-8">
                             <!-- Tabs with icons -->
-                            <div class="nav-wrapper alert alert-primary text-dark mt-2">
-                                Bạn đã tạo @Model.Where(n => n.cv_numbertheme == 1 && n.user_id == user.user_id).ToList().Count hồ sơ xin việc và không được tạo thêm
+                            <div class="nav-wrapper alert alert-primary text-dark mt-3">
+                                <i class="fa fa-bell">&nbsp;</i>Chào tấn: Bạn có 1 lời mời từ nhà tuyển dụng
                             </div>
                             <div class="card shadow">
                                 <div class="card-body">
                                     <div class="row">
-                                        <!--Hồ sơ 1 : cơ bản-->
-                                        @foreach (var item in Model.Where(n => n.cv_numbertheme == 1 && n.user_id == user.user_id).ToList())
+                                        @if (Model.Count == 0)
                                         {
-                                            <div class="col-md-4 col-sm-6">
-                                                <div class="card-container">
-                                                    <div class="card">
-                                                        <div class="front">
-                                                            <img class="img-circle w-100" style="height: 300px" src="~/Content/UI/UIImages/images/mau-cv-default.jpg" />
-                                                            <div class="content">
-                                                                <div class="footer bg-primary text-white">
-                                                                    <div style="height: 30px">
-                                                                        Miển phí (<i class="fa fa-plus"></i>)
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div> <!-- end front panel -->
-                                                        <div class="back">
-                                                            <div class="header">
-                                                                <h5 class="motto">"Mẫu CV trắng, dễ sử dụng"</h5>
-                                                            </div>
-                                                            <div class="content">
-                                                                <div class="main">
-                                                                    <h4 class="text-center">Mẫu CV cơ bản</h4>
-                                                                    <p class="text-center">Phù hợp với tất cả nghành nghề</p>
-
-                                                                    <div class="stats-container">
-                                                                        <div class="stats">
-                                                                            <h4>@Model.Where(n => n.cv_numbertheme == 1).Count()</h4>
-                                                                            <p>
-                                                                                Người dùng
-                                                                            </p>
-                                                                        </div>
-                                                                        <div class="stats">
-                                                                            <h4>0</h4>
-                                                                            <p>
-                                                                                0 kiểm duyệt
-                                                                            </p>
-                                                                        </div>
-                                                                        <div class="stats">
-                                                                            <h4>35</h4>
-                                                                            <p>
-                                                                                Hướng dẫn
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-                                                            <div class="footer">
-                                                                <div class="social-links text-center btn btn-danger">
-                                                                    <a class="text-white" href="@Url.Action("EditcVOne","CVUser",new { id=item.cv_id })">SỬA</a>
-                                                                </div>
-                                                            </div>
-                                                        </div> <!-- end back panel -->
-                                                    </div> <!-- end card -->
-                                                </div> <!-- end card-container -->
-                                            </div> <!-- end col sm 3 -->
+                                            <h5>Chưa nộp hồ sơ nào! <a href="">Tìm ngay việc làm nghành <span class="text-primary">@user.Career.career_name</span></a></h5>
                                         }
-                                        @if (Model.Where(n => n.cv_numbertheme == 1 && n.user_id == user.user_id).ToList().Count < 1)
+                                        else
                                         {
-                                            <div class="col-md-4 col-sm-6">
-                                                <div class="card-container">
-                                                    <div class="card">
-                                                        <div class="front">
-                                                            <img class="img-circle w-100" style="height: 300px" src="~/Content/UI/UIImages/images/mau-cv-default.jpg" />
-                                                            <div class="content">
-                                                                <div class="footer bg-primary text-white">
-                                                                    <div style="height: 30px">
-                                                                        Miển phí (<i class="fa fa-plus"></i>)
+                                            <div class="col-md-12">
+                                                <button type="button" class="btn btn-sm btn-primary btn-tooltip" data-toggle="tooltip" data-placement="top" title="Tooltip on top" data-container="body" data-animation="true"><i class="fas fa-check-circle">&nbsp;</i>NTD nhận</button>
+                                                <button type="button" class="btn btn-sm btn-info btn-tooltip" data-toggle="tooltip" data-placement="top" title="Tooltip on top" data-container="body" data-animation="true"><i class="fas fa-times-circle">&nbsp;</i>NTD từ chối</button>
+                                                <button type="button" class="btn btn-sm btn-success btn-tooltip" data-toggle="tooltip" data-placement="top" title="Tooltip on top" data-container="body" data-animation="true"><i class="fas fa-comments">&nbsp;</i>Chat</button>
+                                            </div>
+                                            <br />
+                                            <br />
+                                            <br />
+                                            foreach (var item in Model)
+                                            {
+                                                <div class="col-md-12" style="font-size: 15px; padding: 5px; margin-top: -1%">
+                                                    <div class="card mb-3 hover">
+                                                        <div class="row no-gutters">
+                                                            <div class="col-md-3">
+                                                                <a href="@Url.Action("DetailsView","View", new {id = item.work_id })">
+                                                                    <img src="~/Images/Employer/@item.Work.Employer.employer_logo" class=" mt-3" alt="..." style="width: 100%; height: 100px; padding: 7px">
+                                                                    <br />
+                                                                    <br />
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-md-5">
+                                                                <div class="card-body">
+                                                                    <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" style="font-size: 13px"><b>@item.Work.work_name</b></a>
+                                                                    <br />
+                                                                    <a href="@Url.Action("DetailsEmployer","View", new { id = item.Work.employer_id })"><p style="font-size: 12px">@item.Work.Employer.employer_name</p></a>
+                                                                    <div style="font-size: 13px">
+                                                                        @if (user != null)
+                                                                        {
+                                                                            if (item.Work.work_pricemin == 0 && item.Work.work_pricemax == 0)
+                                                                            {
+                                                                                <span class="text-primary">Thỏa thuận</span>
+                                                                            }
+                                                                            else if (item.Work.work_pricemin == 0 && item.Work.work_pricemax != 0)
+                                                                            {
+                                                                                <span class="text-primary">Trên @item.Work.work_pricemax @item.Work.work_symbol</span>
+                                                                            }
+                                                                            else if (item.Work.work_pricemin != 0 && item.Work.work_pricemax == 0)
+                                                                            {
+                                                                                <span class="text-primary">Trên @item.Work.work_pricemin @item.Work.work_symbol</span>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <span class="text-primary">@item.Work.work_pricemin - @item.Work.work_pricemax @item.Work.work_symbol</span>
+                                                                            }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <a href="#" data-toggle="modal" data-target="#login">Đăng nhập để xem lương</a>
+                                                                        }
                                                                     </div>
+                                                                    @{ 
+                                                                        String id_num = "hscv";
+                                                                    }
+                                                                    <div>Mẫu hồ sơ sử dụng: <a href="">#@id_num@item.cv_id</a></div>
                                                                 </div>
                                                             </div>
-                                                        </div> <!-- end front panel -->
-                                                        <div class="back">
-                                                            <div class="header">
-                                                                <h5 class="motto">"Mẫu CV trắng, dễ sử dụng"</h5>
+                                                            <div class="col-md-4">
+                                                                <br />
+                                                                <ul>
+                                                                    <li>
+                                                                        Tình trạng: Đang xử lý
+                                                                    </li>
+                                                                    <li>
+                                                                        Thời gian nộp: @item.submit_datecreated
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#"><i class="fas fa-user-times">&nbsp;</i>Hủy nộp</a>
+                                                                        <a href="#"><i class="fas fa-trash-alt">&nbsp;</i>Xóa vĩnh viễn</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#"><i class="fa fa-edit">&nbsp;</i>Ghi chú</a>
+                                                                        <a href="#"><i class="fa fa-bell">&nbsp;</i>Gửi thông báo</a>
+                                                                    </li>
+                                                                </ul>
                                                             </div>
-                                                            <div class="content">
-                                                                <div class="main">
-                                                                    <h4 class="text-center">Mẫu CV cơ bản</h4>
-                                                                    <p class="text-center">Phù hợp với tất cả nghành nghề</p>
-
-                                                                    <div class="stats-container">
-                                                                        <div class="stats">
-                                                                            <h4>0</h4>
-                                                                            <p>
-                                                                                Người dùng
-                                                                            </p>
-                                                                        </div>
-                                                                        <div class="stats">
-                                                                            <h4>0</h4>
-                                                                            <p>
-                                                                                0 kiểm duyệt
-                                                                            </p>
-                                                                        </div>
-                                                                        <div class="stats">
-                                                                            <h4>35</h4>
-                                                                            <p>
-                                                                                Hướng dẫn
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-                                                            <div class="footer">
-                                                                <div class="social-links text-center btn btn-danger">
-                                                                    <a class="text-white" href="@Url.Action("Cvone","CVUser")">THÊM</a>
-                                                                </div>
-                                                            </div>
-                                                        </div> <!-- end back panel -->
-                                                    </div> <!-- end card -->
-                                                </div> <!-- end card-container -->
-                                            </div> <!-- end col sm 3 -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
                                         }
                                     </div>
                                 </div>
@@ -207,18 +179,9 @@
                                         <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
                                             <div class="row">
                                                 <div class="col-md-5 col-sm-6">
-                                                    @if (user.user_image == null)
-                                                    {
-                                                        <img src="~/Images/User/822711_user_512x512.png" style="width: 100px; height: 100px" class="img-fluid rounded-circle shadow" />
-                                                    }
-                                                    else
-                                                    {
-                                                        <img src="~/Images/User/@user.user_image" style="width: 100px; height: 100px" class="img-fluid rounded-circle shadow" />
-                                                        <div class="clearfix"></div>
-                                                        <a href="#" style="font-size: 10px;">Cập nhật ảnh đại diện</a>
-                                                    }
+                                                    <img src="~/Images/User/822711_user_512x512.png" style="width: 100px; height: 100px" class="img-fluid rounded-circle shadow" />
                                                 </div>
-                                                <div class="col-md-7 col-sm-6" ng-init="ten = '@user.user_nicename'">
+                                                <div class="col-md-7 col-sm-6">
                                                     Chào bạn: <b class="font-weight-bold">{{ten | uppercase}}</b>
                                                     <ul>
                                                         <li class="text-danger font-weight-bold">Tài khoản miễn phí</li>
@@ -255,23 +218,20 @@
                                                     <hr />
                                                     <ul>
                                                         <li>Các việc làm theo kỹ năng của bạn</li>
-                                                        @{
-                                                            List<Work> work = db.Works.Where(n => n.career_id == user.career_id).OrderByDescending(n => n.work_datecreated).ToList();
-                                                        }
-                                                        @foreach (var item in work)
+                                                        @for (int i = 0; i < 5; i++)
                                                         {
                                                             <div class="row no-gutters">
                                                                 <div class="col-md-4">
-                                                                    <img src="~/Images/Employer/@item.Employer.employer_logo" class=" mt-3" alt="..." style="width: 100%; height: 80px">
+                                                                    <img src="~/Images/Employer/cong-ty-co-phan-vien-thong-fpt-5d5f5980e317c.jpg" class=" mt-3" alt="..." style="width: 100%; height: 80px">
                                                                 </div>
                                                                 <div class="col-md-8">
                                                                     <div class="card-body">
-                                                                        <b>@item.work_name</b>
+                                                                        <b>Trưởng Phòng Kinh Doanh - Hà Nội</b>
                                                                         <br />
-                                                                        <p style="font-size: 12px">@item.Employer.employer_company</p>
+                                                                        <p style="font-size: 12px">Công ty Cổ phần viễn thông FPT</p>
                                                                         <div style="font-size: 13px">
                                                                             <div class="float-left"><i class="fa fa-dollar text-danger font-weight-bold">&nbsp;</i>10-20 triệu</div>
-                                                                            <div class="float-right"><i class="fa fa-map-marker-alt text-primary font-weight-bold">&nbsp;</i>@item.Province.province_name</div>
+                                                                            <div class="float-right"><i class="fa fa-map-marker-alt text-primary font-weight-bold">&nbsp;</i>Bình Dương</div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -311,7 +271,7 @@
                                                 <hr />
                                                 <ul>
                                                     <li>Các việc làm theo kỹ năng của bạn</li>
-                                                    @foreach(var item in work)
+                                                    @for (int i = 0; i < 5; i++)
                                                     {
                                                         <div class="row no-gutters">
                                                             <div class="col-md-4">
@@ -319,7 +279,7 @@
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <div class="card-body">
-                                                                    <b>@item.work_name</b>
+                                                                    <b>Trưởng Phòng Kinh Doanh - Hà Nội</b>
                                                                     <br />
                                                                     <p style="font-size: 12px">Công ty Cổ phần viễn thông FPT</p>
                                                                     <div style="font-size: 13px">
@@ -343,48 +303,25 @@
         </div>
     </div>
 </div>
-<script src="~/Scripts/jquery-3.5.1.slim.min.js"></script>
-@if (user.career_id == null)
-{
-    <!-- Modal -->
-    <div class="modal fade" id="note" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">CÀI ĐẶT TÌM VIỆC</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+<div class="section-content bg-white w-100 fixed-bottom" style="height: 55px; ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row mt-2">
+                    <div class="col-lg-3 col-sm-6">
+
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                        <button type="button" class="btn btn-danger w-100"><i class="fas fa-laugh-beam">&nbsp;</i>Phiên bản cao cấp chỉ 200.000 vnđ / 12 tháng</button>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+
+                    </div>
                 </div>
-                <form action="@Url.Action("EditCareer","Work")" method="post">
-                    <div class="modal-body">
-                        @{
-                            List<Career> career = db.Careers.ToList();
-                        }
-                        <p><i class="fa fa-bell">&nbsp;</i>Để quá trình hiển thị việc làm tốt hơn, bạn nên chọn nghành nghề của mình. Hệ thống sẽ tự động tìm việc phù hợp với nghành nghề cho bạn.</p>
-                        <br />
-                        <b class="mt-4">Chọn nghành nghề chính: </b>
-                        <select name="career_id" class="form-control">
-                            @foreach (var item in career)
-                            {
-                                <option value="@item.career_id">@item.career_name</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Lưu việc</button>
-                    </div>
-                </form>
             </div>
         </div>
+        <div class="col-lg-4 bg-white">
+
+        </div>
     </div>
-    <script>
-        $(document).ready(function () {
-            $('#note').modal('show');
-        })
-    </script>
-}
-else
-{
-    
-}
+</div>

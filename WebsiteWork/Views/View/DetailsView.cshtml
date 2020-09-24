@@ -831,7 +831,7 @@ else
         List<Submit> submits = db.Submits.Where(n => n.user_id == user.user_id && n.work_id == Model.work_id).ToList();
         ViewBag.submits = submits.Count;
     }
-    if (Session["TestSubmit"] != null || ViewBag.submits != 0)
+    if (ViewBag.submits != 0)
     {
         <div class="modal fade" id="note" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" style="max-width: 700px">
@@ -849,38 +849,38 @@ else
                         }
                         @foreach(var item in submits)
                         {
-                    <ul>
-                        <li><b>Mẫu hồ sơ đã nộp:</b> #@id_num@item.cv_id <a href="#">Xem hồ sơ</a></li>
-                        <li><b>Ngày nộp:</b> @item.submit_datecreated</li>
-                        <li><b>Tình trạng:</b> Chưa phản hồi</li>
-                        <hr />
-                        <li>
-                            <div class="col-lg-12 mt-3">
-                                <div class="row no-gutters">
-                                    <div class="col-md-5">
-                                        <img src="~/Images/User/32644928_2062295167425734_7686714948314988544_o.jpg" class="card-img" alt="..." style="height: 100%">
-                                    </div>
-                                    <div class="col-md-7">
-                                        <div class="card-body">
-                                            <h5 class="card-title">@item.Cv.cv_fullname</h5>
-                                            <p class="card-text">
-                                                <ul>
-                                                    <li><i class="fa fa-mail-bulk">&nbsp;</i>@item.Cv.cv_email</li>
-                                                    <li><i class="fas fa-university">&nbsp;</i>@item.Cv.cv_schools</li>
-                                                    <li><i class="fab fa-accusoft"></i>@item.Cv.cv_location</li>
-                                                    <li><i class="fa fa-calendar">&nbsp;</i>@item.Cv.cv_datecreated</li>
-                                                    <li><button type="button" class="btn btn-sm btn-primary btn-tooltip" data-toggle="tooltip" data-placement="top" title="Tooltip on top" data-container="body" data-animation="true">Sửa hồ sơ @id_num@item.cv_id</button></li>
-                                                </ul>
-                                            </p>
-                                            <p class="card-text"><small class="text-muted">Mã hồ sơ: #@id_num@item.cv_id</small></p>
+                            <ul>
+                                <li><b>Mẫu hồ sơ đã nộp:</b> #@id_num@item.cv_id <a href="#">Xem hồ sơ</a></li>
+                                <li><b>Ngày nộp:</b> @item.submit_datecreated</li>
+                                <li><b>Tình trạng:</b> Chưa phản hồi</li>
+                                <hr />
+                                <li>
+                                    <div class="col-lg-12 mt-3">
+                                        <div class="row no-gutters">
+                                            <div class="col-md-5">
+                                                <img src="~/Images/User/32644928_2062295167425734_7686714948314988544_o.jpg" class="card-img" alt="..." style="height: 100%">
+                                            </div>
+                                            <div class="col-md-7">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">@item.Cv.cv_fullname</h5>
+                                                    <p class="card-text">
+                                                        <ul>
+                                                            <li><i class="fa fa-mail-bulk">&nbsp;</i>@item.Cv.cv_email</li>
+                                                            <li><i class="fas fa-university">&nbsp;</i>@item.Cv.cv_schools</li>
+                                                            <li><i class="fab fa-accusoft"></i>@item.Cv.cv_location</li>
+                                                            <li><i class="fa fa-calendar">&nbsp;</i>@item.Cv.cv_datecreated</li>
+                                                            <li><button type="button" class="btn btn-sm btn-primary btn-tooltip" data-toggle="tooltip" data-placement="top" title="Tooltip on top" data-container="body" data-animation="true">Sửa hồ sơ @id_num@item.cv_id</button></li>
+                                                        </ul>
+                                                    </p>
+                                                    <p class="card-text"><small class="text-muted">Mã hồ sơ: #@id_num@item.cv_id</small></p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </li>
-                        <br />
-                        <li><button type="button" class="btn btn-sm btn-danger btn-tooltip w-100" data-toggle="tooltip" data-placement="top" title="Tooltip on top" data-container="body" data-animation="true">Quản lý nộp hồ sơ</button></li>
-                    </ul>
+                                </li>
+                                <br />
+                                <li><button type="button" class="btn btn-sm btn-danger btn-tooltip w-100" data-toggle="tooltip" data-placement="top" title="Tooltip on top" data-container="body" data-animation="true" onclick="window.location.href='@Url.Action("WorkUser","Work")'">Quản lý nộp hồ sơ</button></li>
+                            </ul>
                         }
                     </div>
                     <div class="modal-footer">

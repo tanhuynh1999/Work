@@ -19,6 +19,8 @@ namespace WebsiteWork.Models
         {
             this.Employers = new HashSet<Employer>();
             this.Works = new HashSet<Work>();
+            this.Cvs = new HashSet<Cv>();
+            this.Users = new HashSet<User>();
         }
     
         public int career_id { get; set; }
@@ -30,5 +32,9 @@ namespace WebsiteWork.Models
         public virtual ICollection<Employer> Employers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Work> Works { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cv> Cvs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
     }
 }

@@ -1,0 +1,115 @@
+﻿@using WebsiteWork.Models;
+@model List<Submit>
+@{
+    ViewBag.Title = "ManageCV";
+    Layout = "~/Views/Shared/_LayoutEmployer.cshtml";
+    String code = "VL";
+}
+<link href="~/Content/UI/BK/css/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/fontawesome-free-5.14.0-web/css/all.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/textext.plugin.autocomplete.js"></script>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="search1">
+            <form action="@Url.Action("SearchUnWorkEmployer","Search")" method="post" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#divWork">
+                <input id="autoSearch" type="text" name="key" placeholder="Nhập mã bài tuyển, tên bài tuyển, nội dung liên quan,..." value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
+                <input autocomplete="on" type="submit" value="" style="background: #e74c3c url(../../Content/UI/BK/images/img-sprite.png) no-repeat -279px -128px;">
+            </form>
+        </div>
+    </div>
+</div>
+<hr />
+<a href="/Employer/AllWork" data-ajax="true" data-ajax-method="GET" data-ajax-update="#divWork" data-ajax-mode="replace">Tất cả</a>&nbsp;|
+&nbsp;<a href="/Employer/WorkAc" data-ajax="true" data-ajax-method="GET" data-ajax-update="#divWork" data-ajax-mode="replace">Đã xem</a>&nbsp;|
+&nbsp;<a href="/Employer/WorkNotAc" data-ajax="true" data-ajax-method="GET" data-ajax-update="#divWork" data-ajax-mode="replace">Chưa xem</a>&nbsp;|
+&nbsp;<a href="/Employer/WorkTrash" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#divWork">Đã duyệt</a>&nbsp;|
+&nbsp;<a href="/Employer/WorkOld" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#divWork">Chờ nhận</a>&nbsp;|
+&nbsp;<a href="/Employer/WorkAZ" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#divWork">Đã từ chối</a>&nbsp;|
+&nbsp;<a href="/Employer/WorkSpam" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#divWork">Thùng rác</a>&nbsp;
+<hr />
+
+<script>
+    document.getElementById('my_selection').onchange = function () {
+        window.location.href = this.children[this.selectedIndex].getAttribute('href');
+    }
+</script>
+<div class="card" id="divWork">
+    <table class="table table-striped table-hover">
+        <tr style="background-color: #151965; color: white">
+            <th>
+                <b><i class="fas fa-image">&nbsp;</i>Thông tin công việc</b>
+            </th>
+            <th>
+                <b><i class="fas fa-user">&nbsp;</i>Thông tin</b>
+            </th>
+            <th>
+                <b><i class="fas fa-image">&nbsp;</i>Ảnh</b>
+            </th>
+            <th>
+                <b><i class="fas fa-map-marker">&nbsp;</i>Tỉnh thành</b>
+            </th>
+            <th>
+                <b><i class="fab fa-buffer">&nbsp;</i>Chuyên nghành</b>
+            </th>
+            <th>
+                <b><i class="fas fa-file-signature"></i>Vị trí</b>
+            </th>
+            <th>
+                <b><i class="fa fa-calendar-alt">&nbsp;</i>Ngày nộp</b>
+            </th>
+            <th>
+                <b><i class="fas fa-bullhorn">&nbsp;</i>Xem hồ sơ CV</b>
+            </th>
+            <th>
+                <b><i class="fas fa-address-card">&nbsp;</i>Thông tin liên hệ</b>
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr class="search_tr">
+                <td>
+                   <ul>
+                       <li>Mã: #@code@item.work_id</li>
+                       <li>@item.Work.work_name</li>
+                       <li>Lương: @item.Work.work_pricemin-@item.Work.work_pricemax@item.Work.work_symbol</li>
+                   </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li><b>Tên:</b> @item.Cv.cv_fullname</li>
+                        <li>
+                            <b>Giới tính:</b> Nam
+                        </li>
+                    </ul>
+                </td>
+                <td>
+                    <img src="~/Images/User/32644928_2062295167425734_7686714948314988544_o.jpg" style="width: 100px; height: 100px" />
+                </td>
+                <td>
+                    Bình dương
+                </td>
+                <td>
+                    Công nghệ thông tin
+                </td>
+                <td>
+                    @item.Cv.cv_location
+                </td>
+                <td>
+                    @item.submit_datecreated.Value.Day/@item.submit_datecreated.Value.Month/@item.submit_datecreated.Value.Year lúc @item.submit_datecreated.Value.Hour:@item.submit_datecreated.Value.Minute
+                </td>
+                <td>
+                    <button type="button" class=" btn-l btn-7" style="font-size: 10px; width: 100%" onclick="window.location.href='@Url.Action("ViewCv","CVEmployer", new { id = item.submit_id })'">Xem hồ sơ</button>
+                </td>
+                <td>
+                    <button type="button" class=" btn-l btn-13" style="font-size: 10px; width: 100%">Xem chuẩn</button>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+
