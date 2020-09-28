@@ -3,19 +3,55 @@
 @{
     ViewBag.Title = "WorkPro";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    User user = (User)Session["user"];
 }
 @Html.Action("Menu", "Home")
+<section class="section">
+    <div class="col-lg-12" style="background-image: url('../../Images/Employer/cover_trang_chu.jpg');background-repeat: no-repeat; background-size: 100%; width: 100%; height: 200px">
+        <div class="col-lg-12" style="background-image: url('../../Images/Employer/cover_trang_chu.jpg');background-repeat: no-repeat; background-size: 100%; width: 100%; height: 200px">
+            <br />
+            <br />
+            <br />
+            <div>
+                <div class="row py-1" style="padding: 5%; height: 80px;">
+                    <div class="col-lg-5 col-sm-6 mt-1" style="padding: 0px;">
+                        <div class="form-input mt-55">
+                            <form action="#">
+                                <div class="input-items active">
+                                    <input type="text" placeholder="Tên công việc hoặc vị trí - kỹ năng ứng tuyển..." class="form-control" style="border-radius: 0%;border: 2px solid #151965">
+                                    <i class="lni-search" style="color:#151965"></i>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 mt-1" style="padding: 0px">
+                        <select class="form-control" style="border: 2px solid #151965;height: 44px;border-radius: 0%">
+                            <option>Tỉnh thành</option>
+                            <option>1</option>
+                            <option>1</option>
+                            <option>1</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 mt-1" style="padding: 0px">
+                        <select class="form-control" style="border: 2px solid #151965; height: 44px;border-radius: 0%">
+                            <option><i class="lni lni-thought">&nbsp;</i>Nghề nghiệp</option>
+                            <option>1</option>
+                            <option>1</option>
+                            <option>1</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-1 col-sm-6 mt-1" style="padding: 0px">
+                        <button class="btn btn-danger w-100" style="height: 44px;border-radius: 0%"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <div class="w3l-index-block1" ng-app="">
-    <div class="py-5">
+    <div class="">
         <div class="">
-            <div class="row align-items-center py-3">
-                <nav class="sticky-top bg-white w-100" style="z-index: 100000 !important; height: 70px;">
-                    <div class="">
-                        <div class="" id="main_nav">
-                            @Html.Action("ViewSrarch", "Search")
-                        </div> <!-- navbar-collapse.// -->
-                    </div><!-- container //  -->
-                </nav>
+            <div class="row align-items-center">
                 <section class="container">
                     <div class="">
                         <div class="row align-items-center py-md-5 py-3">
@@ -46,25 +82,64 @@
                                                         @foreach (var item in Model.Where(n => n.work_activate == true && n.work_option == true && n.Employer.employer_version == 3).OrderByDescending(n => n.work_datecreated).Take(15).ToList())
                                                         {
                                                             <div class="col-md-4" style="font-size: 15px; padding: 5px; margin-top: -1%">
-                                                                <div class="card mb-3 hover">
-                                                                    <div class="row no-gutters">
-                                                                        <div class="col-md-4">
-                                                                            <a href="@Url.Action("DetailsView","View", new {id = item.work_id })">
-                                                                                <img src="~/Images/Employer/@item.Employer.employer_logo" class=" mt-3" alt="..." style="width: 100%; height: 70px; padding: 7px">
-                                                                                <br />
-                                                                                <br />
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="col-md-8">
-                                                                            <div class="card-body">
-                                                                                <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" style="height: 40px;font-size: 13px"><b>@(item.work_name.Length < 30 ? item.work_name : item.work_name.Substring(1, 30) + "...")</b></a>
-                                                                                <br />
-                                                                                <a href="#"><p style="font-size: 12px">@item.Employer.employer_name</p></a>
-                                                                                <div style="font-size: 13px">
-                                                                                    <div class="float-left"><i class="fa fa-dollar text-danger font-weight-bold">&nbsp;</i>@item.work_pricemin-@item.work_pricemax @item.work_symbol</div>
-                                                                                    <div class="float-right"><i class="fa fa-map-marker-alt text-primary font-weight-bold">&nbsp;</i>Bình Dương</div>
-                                                                                </div>
+                                                                <div class="card-media">
+                                                                    <!-- media container -->
+                                                                    <div class="card-media-object-container">
+                                                                        <div class="card-media-object" style="background-image: url('../../Images/Employer/@item.Employer.employer_logo');"></div>
+                                                                        @if (item.Employer.employer_version == 3)
+                                                                        {
+                                                                            <a class="card-media-object-tag subtle btn btn-danger">Cần gấp</a>
+                                                                        }
+                                                                        else if (item.Employer.employer_version == 2)
+                                                                        {
+                                                                            <span class="card-media-object-tag subtle">Mới</span>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <span class="card-media-object-tag subtle"></span>
+                                                                        }
+                                                                        @*<ul class="card-media-object-social-list">
+                                                                            <li>
+                                                                                <img src="https://s10.postimg.cc/3rjjbzcvd/profile_f.jpg" class="">
+                                                                            </li>
+                                                                            <li>
+                                                                                <img src="https://s16.postimg.cc/b0j0djh79/profile_0_f.jpg" class="">
+                                                                            </li>
+                                                                            <li class="card-media-object-social-list-item-additional">
+                                                                                <span>+2</span>
+                                                                            </li>
+                                                                        </ul>*@
+                                                                    </div>
+                                                                    <!-- body container -->
+                                                                    <div class="card-media-body">
+                                                                        <div class="card-media-body-top">
+                                                                            <span class="subtle">12 phút trước <br /> <a href="@Url.Action("DetailsEmployer","View", new { id = item.employer_id })">@(item.Employer.employer_company.Length < 25 ? item.Employer.employer_company : item.Employer.employer_company.Substring(0, 25) + "...")</a></span>
+                                                                            <div class="card-media-body-top-icons u-float-right">
+                                                                                <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <path d="M0 0h24v24H0z" fill="none" />
+                                                                                    <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
+                                                                                </svg>
+                                                                                <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z" />
+                                                                                    <path d="M0 0h24v24H0z" fill="none" />
+                                                                                </svg>
                                                                             </div>
+                                                                        </div>
+                                                                        <span class="card-media-body-heading"><b>@(item.work_name.Length < 30 ? item.work_name : item.work_name.Substring(0, 30) + "...")</b></span>
+                                                                        <div class="card-media-body-supporting-bottom">
+                                                                            <span class="card-media-body-supporting-bottom-text subtle"><i class="fa fa-map-marker-alt text-primary">&nbsp;</i>@item.Province.province_name</span>
+                                                                            @if (user != null)
+                                                                            {
+                                                                                <span class="card-media-body-supporting-bottom-text subtle u-float-right" style="color: black"><i class="fas fa-donate text-primary">&nbsp;</i>@item.work_pricemin &ndash; @item.work_pricemax @item.work_symbol </span>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <span class="card-media-body-supporting-bottom-text subtle u-float-right" style="color: black"><i class="fas fa-donate text-primary">&nbsp;</i>Đăng nhập</span>
+                                                                            }
+                                                                        </div>
+                                                                        <div class="card-media-body-supporting-bottom card-media-body-supporting-bottom-reveal">
+                                                                            <span class="card-media-body-supporting-bottom-text subtle">Cần @item.Form.form_name</span>
+                                                                            <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" class="card-media-body-supporting-bottom-text card-media-link u-float-right text-danger">Xem việc</a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -77,25 +152,64 @@
                                                         @foreach (var item in Model.Where(n => n.work_activate == true && n.work_option == true).OrderByDescending(n => n.Employer.employer_version).OrderByDescending(n => n.work_datecreated).Take(15).ToList())
                                                         {
                                                             <div class="col-md-4" style="font-size: 15px; padding: 5px; margin-top: -1%">
-                                                                <div class="card mb-3 hover">
-                                                                    <div class="row no-gutters">
-                                                                        <div class="col-md-4">
-                                                                            <a href="@Url.Action("DetailsView","View", new {id = item.work_id })">
-                                                                                <img src="~/Images/Employer/@item.Employer.employer_logo" class=" mt-3" alt="..." style="width: 100%; height: 70px; padding: 7px">
-                                                                                <br />
-                                                                                <br />
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="col-md-8">
-                                                                            <div class="card-body">
-                                                                                <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" style="height: 40px;font-size: 13px"><b>@(item.work_name.Length < 40 ? item.work_name : item.work_name.Substring(1, 40) + "...")</b></a>
-                                                                                <br />
-                                                                                <a href="#"><p style="font-size: 12px">@item.Employer.employer_name</p></a>
-                                                                                <div style="font-size: 13px">
-                                                                                    <div class="float-left"><i class="fa fa-dollar text-danger font-weight-bold">&nbsp;</i>@item.work_pricemin-@item.work_pricemax @item.work_symbol</div>
-                                                                                    <div class="float-right"><i class="fa fa-map-marker-alt text-primary font-weight-bold">&nbsp;</i>Bình Dương</div>
-                                                                                </div>
+                                                                <div class="card-media">
+                                                                    <!-- media container -->
+                                                                    <div class="card-media-object-container">
+                                                                        <div class="card-media-object" style="background-image: url('../../Images/Employer/@item.Employer.employer_logo');"></div>
+                                                                        @if (item.Employer.employer_version == 3)
+                                                                        {
+                                                                            <a class="card-media-object-tag subtle btn btn-danger">Cần gấp</a>
+                                                                        }
+                                                                        else if (item.Employer.employer_version == 2)
+                                                                        {
+                                                                            <span class="card-media-object-tag subtle">Mới</span>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <span class="card-media-object-tag subtle"></span>
+                                                                        }
+                                                                        @*<ul class="card-media-object-social-list">
+                                                                            <li>
+                                                                                <img src="https://s10.postimg.cc/3rjjbzcvd/profile_f.jpg" class="">
+                                                                            </li>
+                                                                            <li>
+                                                                                <img src="https://s16.postimg.cc/b0j0djh79/profile_0_f.jpg" class="">
+                                                                            </li>
+                                                                            <li class="card-media-object-social-list-item-additional">
+                                                                                <span>+2</span>
+                                                                            </li>
+                                                                        </ul>*@
+                                                                    </div>
+                                                                    <!-- body container -->
+                                                                    <div class="card-media-body">
+                                                                        <div class="card-media-body-top">
+                                                                            <span class="subtle">12 phút trước <br /> <a href="@Url.Action("DetailsEmployer","View", new { id = item.employer_id })">@(item.Employer.employer_company.Length < 25 ? item.Employer.employer_company : item.Employer.employer_company.Substring(0, 25) + "...")</a></span>
+                                                                            <div class="card-media-body-top-icons u-float-right">
+                                                                                <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <path d="M0 0h24v24H0z" fill="none" />
+                                                                                    <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
+                                                                                </svg>
+                                                                                <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z" />
+                                                                                    <path d="M0 0h24v24H0z" fill="none" />
+                                                                                </svg>
                                                                             </div>
+                                                                        </div>
+                                                                        <span class="card-media-body-heading"><b>@(item.work_name.Length < 30 ? item.work_name : item.work_name.Substring(0, 30) + "...")</b></span>
+                                                                        <div class="card-media-body-supporting-bottom">
+                                                                            <span class="card-media-body-supporting-bottom-text subtle"><i class="fa fa-map-marker-alt text-primary">&nbsp;</i>@item.Province.province_name</span>
+                                                                            @if (user != null)
+                                                                            {
+                                                                                <span class="card-media-body-supporting-bottom-text subtle u-float-right" style="color: black"><i class="fas fa-donate text-primary">&nbsp;</i>@item.work_pricemin &ndash; @item.work_pricemax @item.work_symbol </span>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <span class="card-media-body-supporting-bottom-text subtle u-float-right" style="color: black"><i class="fas fa-donate text-primary">&nbsp;</i>Đăng nhập</span>
+                                                                            }
+                                                                        </div>
+                                                                        <div class="card-media-body-supporting-bottom card-media-body-supporting-bottom-reveal">
+                                                                            <span class="card-media-body-supporting-bottom-text subtle">Cần @item.Form.form_name</span>
+                                                                            <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" class="card-media-body-supporting-bottom-text card-media-link u-float-right text-danger">Xem việc</a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -107,26 +221,65 @@
                                                     <div class="row">
                                                         @foreach (var item in Model.Where(n => n.work_activate == true && n.work_option == true).OrderByDescending(n => n.Employer.employer_version).OrderByDescending(n => n.work_datecreated).Take(15).ToList())
                                                         {
-                                                            <div class="col-md-4" style="font-size: 15px; padding: 5px; margin-top: -1%">
-                                                                <div class="card mb-3 hover">
-                                                                    <div class="row no-gutters">
-                                                                        <div class="col-md-4">
-                                                                            <a href="@Url.Action("DetailsView","View", new {id = item.work_id })">
-                                                                                <img src="~/Images/Employer/@item.Employer.employer_logo" class=" mt-3" alt="..." style="width: 100%; height: 70px; padding: 7px">
-                                                                                <br />
-                                                                                <br />
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="col-md-8">
-                                                                            <div class="card-body">
-                                                                                <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" style="height: 40px;font-size: 13px"><b>@(item.work_name.Length < 40 ? item.work_name : item.work_name.Substring(1, 40) + "...")</b></a>
-                                                                                <br />
-                                                                                <a href="#"><p style="font-size: 12px">@item.Employer.employer_name</p></a>
-                                                                                <div style="font-size: 13px">
-                                                                                    <div class="float-left"><i class="fa fa-dollar text-danger font-weight-bold">&nbsp;</i>@item.work_pricemin-@item.work_pricemax @item.work_symbol</div>
-                                                                                    <div class="float-right"><i class="fa fa-map-marker-alt text-primary font-weight-bold">&nbsp;</i>Bình Dương</div>
-                                                                                </div>
+                                                            <div class="col-md-4" style="font-size: 15px;padding: 5px;margin-top: -1%">
+                                                                <div class="card-media">
+                                                                    <!-- media container -->
+                                                                    <div class="card-media-object-container">
+                                                                        <div class="card-media-object" style="background-image: url('../../Images/Employer/@item.Employer.employer_logo');"></div>
+                                                                        @if (item.Employer.employer_version == 3)
+                                                                        {
+                                                                            <a class="card-media-object-tag subtle btn btn-danger">Cần gấp</a>
+                                                                        }
+                                                                        else if (item.Employer.employer_version == 2)
+                                                                        {
+                                                                            <span class="card-media-object-tag subtle">Mới</span>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <span class="card-media-object-tag subtle"></span>
+                                                                        }
+                                                                        @*<ul class="card-media-object-social-list">
+                                                                            <li>
+                                                                                <img src="https://s10.postimg.cc/3rjjbzcvd/profile_f.jpg" class="">
+                                                                            </li>
+                                                                            <li>
+                                                                                <img src="https://s16.postimg.cc/b0j0djh79/profile_0_f.jpg" class="">
+                                                                            </li>
+                                                                            <li class="card-media-object-social-list-item-additional">
+                                                                                <span>+2</span>
+                                                                            </li>
+                                                                        </ul>*@
+                                                                    </div>
+                                                                    <!-- body container -->
+                                                                    <div class="card-media-body">
+                                                                        <div class="card-media-body-top">
+                                                                            <span class="subtle">12 phút trước <br /> <a href="@Url.Action("DetailsEmployer","View", new { id = item.employer_id })">@(item.Employer.employer_company.Length < 25 ? item.Employer.employer_company : item.Employer.employer_company.Substring(0, 25) + "...")</a></span>
+                                                                            <div class="card-media-body-top-icons u-float-right">
+                                                                                <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <path d="M0 0h24v24H0z" fill="none" />
+                                                                                    <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
+                                                                                </svg>
+                                                                                <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z" />
+                                                                                    <path d="M0 0h24v24H0z" fill="none" />
+                                                                                </svg>
                                                                             </div>
+                                                                        </div>
+                                                                        <span class="card-media-body-heading"><b>@(item.work_name.Length < 30 ? item.work_name : item.work_name.Substring(0, 30) + "...")</b></span>
+                                                                        <div class="card-media-body-supporting-bottom">
+                                                                            <span class="card-media-body-supporting-bottom-text subtle"><i class="fa fa-map-marker-alt text-primary">&nbsp;</i>@item.Province.province_name</span>
+                                                                            @if (user != null)
+                                                                            {
+                                                                                <span class="card-media-body-supporting-bottom-text subtle u-float-right" style="color: black"><i class="fas fa-donate text-primary">&nbsp;</i>@item.work_pricemin &ndash; @item.work_pricemax @item.work_symbol </span>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <span class="card-media-body-supporting-bottom-text subtle u-float-right" style="color: black"><i class="fas fa-donate text-primary">&nbsp;</i>Đăng nhập</span>
+                                                                            }
+                                                                        </div>
+                                                                        <div class="card-media-body-supporting-bottom card-media-body-supporting-bottom-reveal">
+                                                                            <span class="card-media-body-supporting-bottom-text subtle">Cần @item.Form.form_name</span>
+                                                                            <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" class="card-media-body-supporting-bottom-text card-media-link u-float-right text-danger">Xem việc</a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -149,27 +302,68 @@
                                             <div class="tab-content" id="myTabContent">
                                                 <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
                                                     <button class="btn btn-primary w-100"><i class="fas fa-calendar-plus text-white">&nbsp;</i>VIỆC LÀM MỚI NHẤT</button>
-                                                    <div class="row mt-2">
+                                                    <div class="row mt-2" style="margin-top: 2% !important">
                                                         @foreach (var item in Model.Where(n => n.work_activate == true && n.work_option == true).OrderByDescending(n => n.work_datecreated).Take(24).ToList())
                                                         {
                                                             <div class="col-md-6" style="font-size: 15px; padding: 5px; margin-top: -1%">
-                                                                <div class="card hover mb-3" style="max-width: 540px;">
-                                                                    <div class="row no-gutters">
-                                                                        <div class="col-md-4">
-                                                                            <a href="@Url.Action("DetailsView","View", new {id = item.work_id })">
-                                                                                <img src="~/Images/Employer/@item.Employer.employer_logo" class=" mt-3" alt="..." style="width: 100%; height: 70px; padding: 7px">
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="col-md-8">
-                                                                            <div class="card-body">
-                                                                                <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" style="height: 40px;font-size: 13px"><b>@(item.work_name.Length < 40 ? item.work_name : item.work_name.Substring(1, 40) + "...")</b></a>
-                                                                                <br />
-                                                                                <p style="font-size: 12px;">@item.Employer.employer_name</p>
-                                                                                <div style="font-size: 13px">
-                                                                                    <div class="float-left"><i class="fa fa-dollar text-danger font-weight-bold">&nbsp;</i>@item.work_pricemin-@item.work_pricemax @item.work_symbol</div>
-                                                                                    <div class="float-right"><i class="fa fa-map-marker-alt text-primary font-weight-bold">&nbsp;</i>Bình Dương</div>
-                                                                                </div>
+                                                                <div class="card-media">
+                                                                    <!-- media container -->
+                                                                    <div class="card-media-object-container">
+                                                                        <div class="card-media-object" style="background-image: url('../../Images/Employer/@item.Employer.employer_logo');"></div>
+                                                                        @if (item.Employer.employer_version == 3)
+                                                                        {
+                                                                            <a class="card-media-object-tag subtle btn btn-danger">Cần gấp</a>
+                                                                        }
+                                                                        else if (item.Employer.employer_version == 2)
+                                                                        {
+                                                                            <span class="card-media-object-tag subtle">Mới</span>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <span class="card-media-object-tag subtle"></span>
+                                                                        }
+                                                                        @*<ul class="card-media-object-social-list">
+                                                                                <li>
+                                                                                    <img src="https://s10.postimg.cc/3rjjbzcvd/profile_f.jpg" class="">
+                                                                                </li>
+                                                                                <li>
+                                                                                    <img src="https://s16.postimg.cc/b0j0djh79/profile_0_f.jpg" class="">
+                                                                                </li>
+                                                                                <li class="card-media-object-social-list-item-additional">
+                                                                                    <span>+2</span>
+                                                                                </li>
+                                                                            </ul>*@
+                                                                    </div>
+                                                                    <!-- body container -->
+                                                                    <div class="card-media-body">
+                                                                        <div class="card-media-body-top">
+                                                                            <span class="subtle">12 phút trước <br /> <a href="@Url.Action("DetailsEmployer","View", new { id = item.employer_id })">@(item.Employer.employer_company.Length < 25 ? item.Employer.employer_company : item.Employer.employer_company.Substring(0, 25) + "...")</a></span>
+                                                                            <div class="card-media-body-top-icons u-float-right">
+                                                                                <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <path d="M0 0h24v24H0z" fill="none" />
+                                                                                    <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
+                                                                                </svg>
+                                                                                <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z" />
+                                                                                    <path d="M0 0h24v24H0z" fill="none" />
+                                                                                </svg>
                                                                             </div>
+                                                                        </div>
+                                                                        <span class="card-media-body-heading"><b>@(item.work_name.Length < 30 ? item.work_name : item.work_name.Substring(0, 30) + "...")</b></span>
+                                                                        <div class="card-media-body-supporting-bottom">
+                                                                            <span class="card-media-body-supporting-bottom-text subtle"><i class="fa fa-map-marker-alt text-primary">&nbsp;</i>@item.Province.province_name</span>
+                                                                            @if (user != null)
+                                                                            {
+                                                                                <span class="card-media-body-supporting-bottom-text subtle u-float-right" style="color: black"><i class="fas fa-donate text-primary">&nbsp;</i>@item.work_pricemin &ndash; @item.work_pricemax @item.work_symbol </span>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <span class="card-media-body-supporting-bottom-text subtle u-float-right" style="color: black"><i class="fas fa-donate text-primary">&nbsp;</i>Đăng nhập</span>
+                                                                            }
+                                                                        </div>
+                                                                        <div class="card-media-body-supporting-bottom card-media-body-supporting-bottom-reveal">
+                                                                            <span class="card-media-body-supporting-bottom-text subtle">Cần @item.Form.form_name</span>
+                                                                            <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" class="card-media-body-supporting-bottom-text card-media-link u-float-right text-danger">Xem việc</a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -188,148 +382,68 @@
                                             <div class="tab-content" id="myTabContent">
                                                 <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
                                                     <button class="btn btn-primary w-100"><i class="fab fa-hotjar text-white">&nbsp;</i>VIỆC LÀM HOT NHẤT</button>
-                                                    <div class="row mt-2">
+                                                    <div class="row mt-2" style="margin-top: 2% !important">
                                                         @foreach (var item in Model.Where(n => n.work_activate == true && n.work_option == true).OrderByDescending(n => n.work_view).Take(12).ToList())
                                                         {
                                                             <div class="col-md-12" style="font-size: 15px; padding: 1px; margin-top: -1%">
-                                                                <div class="card hover mb-3" style="max-width: 540px;">
-                                                                    <div class="row no-gutters">
-                                                                        <div class="col-md-4">
-                                                                            <a href="@Url.Action("DetailsView","View", new {id = item.work_id })">
-                                                                                <img src="~/Images/Employer/@item.Employer.employer_logo" class=" mt-3" alt="..." style="width: 100%; height: 70px; padding: 7px">
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="col-md-8">
-                                                                            <div class="card-body">
-                                                                                <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" style="height: 40px;font-size: 13px"><b>@(item.work_name.Length < 40 ? item.work_name : item.work_name.Substring(1, 40) + "...")</b></a>
-                                                                                <br />
-                                                                                <p style="font-size: 12px"> @item.Employer.employer_name</p>
-                                                                                <div style="font-size: 13px">
-                                                                                    <div class="float-left"><i class="fa fa-dollar text-danger font-weight-bold">&nbsp;</i>@item.work_pricemin-@item.work_pricemax @item.work_symbol</div>
-                                                                                    <div class="float-right"><i class="fa fa-map-marker-alt text-primary font-weight-bold">&nbsp;</i>Bình Dương</div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+                                                                <div class="card-media">
+                                                                    <!-- media container -->
+                                                                    <div class="card-media-object-container">
+                                                                        <div class="card-media-object" style="background-image: url('../../Images/Employer/@item.Employer.employer_logo');"></div>
+                                                                        @if (item.Employer.employer_version == 3)
+                                                                        {
+                                                                            <a class="card-media-object-tag subtle btn btn-danger">Cần gấp</a>
+                                                                        }
+                                                                        else if (item.Employer.employer_version == 2)
+                                                                        {
+                                                                            <span class="card-media-object-tag subtle">Mới</span>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <span class="card-media-object-tag subtle"></span>
+                                                                        }
+                                                                        @*<ul class="card-media-object-social-list">
+                                                                                <li>
+                                                                                    <img src="https://s10.postimg.cc/3rjjbzcvd/profile_f.jpg" class="">
+                                                                                </li>
+                                                                                <li>
+                                                                                    <img src="https://s16.postimg.cc/b0j0djh79/profile_0_f.jpg" class="">
+                                                                                </li>
+                                                                                <li class="card-media-object-social-list-item-additional">
+                                                                                    <span>+2</span>
+                                                                                </li>
+                                                                            </ul>*@
                                                                     </div>
-                                                                </div>
-                                                            </div>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container mt-5">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-4">
-                                    <!-- Tabs with icons -->
-                                    <div class="card shadow">
-                                        <div class="card-body">
-                                            <div class="tab-content" id="myTabContent">
-                                                <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
-                                                    <button class="btn btn-primary w-100"><i class="fas fa-user-clock text-white">&nbsp;</i>VIỆC LÀM THỰC TẬP SINH</button>
-                                                    <div class="row mt-2">
-                                                        @foreach (var item in Model.Where(n => n.work_activate == true && n.work_option == true).OrderByDescending(n => n.work_datecreated).Take(10).ToList())
-                                                        {
-                                                            <div class="col-md-12" style="font-size: 15px; padding: 1px; margin-top: -1%">
-                                                                <div class="card hover mb-3" style="max-width: 540px;">
-                                                                    <div class="row no-gutters">
-                                                                        <div class="col-md-4">
-                                                                            <a href="@Url.Action("DetailsView","View", new {id = item.work_id })">
-                                                                                <img src="~/Images/Employer/@item.Employer.employer_logo" class=" mt-3" alt="..." style="width: 100%; height: 70px; padding: 7px">
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="col-md-8">
-                                                                            <div class="card-body">
-                                                                                <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" style="height: 40px;font-size: 13px"><b>@(item.work_name.Length < 40 ? item.work_name : item.work_name.Substring(1, 40) + "...")</b></a>
-                                                                                <br />
-                                                                                <p style="font-size: 12px"> @item.Employer.employer_name</p>
-                                                                                <div style="font-size: 13px">
-                                                                                    <div class="float-left"><i class="fa fa-dollar text-danger font-weight-bold">&nbsp;</i>@item.work_pricemin-@item.work_pricemax @item.work_symbol</div>
-                                                                                    <div class="float-right"><i class="fa fa-map-marker-alt text-primary font-weight-bold">&nbsp;</i>Bình Dương</div>
-                                                                                </div>
+                                                                    <!-- body container -->
+                                                                    <div class="card-media-body">
+                                                                        <div class="card-media-body-top">
+                                                                            <span class="subtle">12 phút trước <br /> <a href="@Url.Action("DetailsEmployer","View", new { id = item.employer_id })">@(item.Employer.employer_company.Length < 25 ? item.Employer.employer_company : item.Employer.employer_company.Substring(0, 25) + "...")</a></span>
+                                                                            <div class="card-media-body-top-icons u-float-right">
+                                                                                <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <path d="M0 0h24v24H0z" fill="none" />
+                                                                                    <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
+                                                                                </svg>
+                                                                                <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z" />
+                                                                                    <path d="M0 0h24v24H0z" fill="none" />
+                                                                                </svg>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <!-- Tabs with icons -->
-                                    <div class="card shadow">
-                                        <div class="card-body">
-                                            <div class="tab-content" id="myTabContent">
-                                                <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
-                                                    <button class="btn btn-primary w-100"><i class="far fa-clock text-white">&nbsp;</i>VIỆC LÀM BÁN THỜI GIAN</button>
-                                                    <div class="row mt-2">
-                                                        @foreach (var item in Model.Where(n => n.work_activate == true && n.work_option == true).OrderByDescending(n => n.work_datecreated).Take(10).ToList())
-                                                        {
-                                                            <div class="col-md-12" style="font-size: 15px; padding: 1px; margin-top: -1%">
-                                                                <div class="card hover mb-3" style="max-width: 540px;">
-                                                                    <div class="row no-gutters">
-                                                                        <div class="col-md-4">
-                                                                            <a href="@Url.Action("DetailsView","View", new {id = item.work_id })">
-                                                                                <img src="~/Images/Employer/@item.Employer.employer_logo" class=" mt-3" alt="..." style="width: 100%; height: 70px; padding: 7px">
-                                                                            </a>
+                                                                        <span class="card-media-body-heading"><b>@(item.work_name.Length < 30 ? item.work_name : item.work_name.Substring(0, 30) + "...")</b></span>
+                                                                        <div class="card-media-body-supporting-bottom">
+                                                                            <span class="card-media-body-supporting-bottom-text subtle"><i class="fa fa-map-marker-alt text-primary">&nbsp;</i>@item.Province.province_name</span>
+                                                                            @if (user != null)
+                                                                            {
+                                                                                <span class="card-media-body-supporting-bottom-text subtle u-float-right" style="color: black"><i class="fas fa-donate text-primary">&nbsp;</i>@item.work_pricemin &ndash; @item.work_pricemax @item.work_symbol </span>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <span class="card-media-body-supporting-bottom-text subtle u-float-right" style="color: black"><i class="fas fa-donate text-primary">&nbsp;</i>Đăng nhập</span>
+                                                                            }
                                                                         </div>
-                                                                        <div class="col-md-8">
-                                                                            <div class="card-body">
-                                                                                <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" style="height: 40px;font-size: 13px"><b>@(item.work_name.Length < 40 ? item.work_name : item.work_name.Substring(1, 40) + "...")</b></a>
-                                                                                <br />
-                                                                                <p style="font-size: 12px"> @item.Employer.employer_name</p>
-                                                                                <div style="font-size: 13px">
-                                                                                    <div class="float-left"><i class="fa fa-dollar text-danger font-weight-bold">&nbsp;</i>@item.work_pricemin-@item.work_pricemax @item.work_symbol</div>
-                                                                                    <div class="float-right"><i class="fa fa-map-marker-alt text-primary font-weight-bold">&nbsp;</i>Bình Dương</div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <!-- Tabs with icons -->
-                                    <div class="card shadow">
-                                        <div class="card-body">
-                                            <div class="tab-content" id="myTabContent">
-                                                <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
-                                                    <button class="btn btn-primary w-100"><i class="fas fa-dollar-sign text-white">&nbsp;</i>VIỆC LÀM LƯƠNG CAO</button>
-                                                    <div class="row mt-2">
-                                                        @foreach (var item in Model.Where(n => n.work_activate == true && n.work_option == true).OrderByDescending(n => n.work_pricemax).Take(10).ToList())
-                                                        {
-                                                            <div class="col-md-12" style="font-size: 15px; padding: 1px; margin-top: -1%">
-                                                                <div class="card hover mb-3" style="max-width: 540px;">
-                                                                    <div class="row no-gutters">
-                                                                        <div class="col-md-4">
-                                                                            <a href="@Url.Action("DetailsView","View", new {id = item.work_id })">
-                                                                                <img src="~/Images/Employer/@item.Employer.employer_logo" class=" mt-3" alt="..." style="width: 100%; height: 70px; padding: 7px">
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="col-md-8">
-                                                                            <div class="card-body">
-                                                                                <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" style="height: 40px;font-size: 13px"><b>@(item.work_name.Length < 40 ? item.work_name : item.work_name.Substring(1, 40) + "...")</b></a>
-                                                                                <br />
-                                                                                <p style="font-size: 12px"> @item.Employer.employer_name</p>
-                                                                                <div style="font-size: 13px">
-                                                                                    <div class="float-left"><i class="fa fa-dollar text-danger font-weight-bold">&nbsp;</i>@item.work_pricemin-@item.work_pricemax @item.work_symbol</div>
-                                                                                    <div class="float-right"><i class="fa fa-map-marker-alt text-primary font-weight-bold">&nbsp;</i>Bình Dương</div>
-                                                                                </div>
-                                                                            </div>
+                                                                        <div class="card-media-body-supporting-bottom card-media-body-supporting-bottom-reveal">
+                                                                            <span class="card-media-body-supporting-bottom-text subtle">Cần @item.Form.form_name</span>
+                                                                            <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" class="card-media-body-supporting-bottom-text card-media-link u-float-right text-danger">Xem việc</a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -351,4 +465,248 @@
     </div>
 </div>
 <!-- index-block1 -->
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-4">
+            <!-- Tabs with icons -->
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                            <button class="btn btn-primary w-100"><i class="fas fa-user-clock text-white">&nbsp;</i>VIỆC LÀM THỰC TẬP SINH</button>
+                            <div class="row mt-2">
+                                @foreach (var item in Model.Where(n => n.work_activate == true && n.work_option == true).OrderByDescending(n => n.work_datecreated).Take(10).ToList())
+                                {
+                                    <div class="col-md-12" style="font-size: 15px; padding: 1px; margin-top: -1%">
+                                        <div class="card-media">
+                                            <!-- media container -->
+                                            <div class="card-media-object-container">
+                                                <div class="card-media-object" style="background-image: url('../../Images/Employer/@item.Employer.employer_logo');"></div>
+                                                @if (item.Employer.employer_version == 3)
+                                                {
+                                                    <a class="card-media-object-tag subtle btn btn-danger">Cần gấp</a>
+                                                }
+                                                else if (item.Employer.employer_version == 2)
+                                                {
+                                                    <span class="card-media-object-tag subtle">Mới</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="card-media-object-tag subtle"></span>
+                                                }
+                                                @*<ul class="card-media-object-social-list">
+                                                        <li>
+                                                            <img src="https://s10.postimg.cc/3rjjbzcvd/profile_f.jpg" class="">
+                                                        </li>
+                                                        <li>
+                                                            <img src="https://s16.postimg.cc/b0j0djh79/profile_0_f.jpg" class="">
+                                                        </li>
+                                                        <li class="card-media-object-social-list-item-additional">
+                                                            <span>+2</span>
+                                                        </li>
+                                                    </ul>*@
+                                            </div>
+                                            <!-- body container -->
+                                            <div class="card-media-body">
+                                                <div class="card-media-body-top">
+                                                    <span class="subtle">12 phút trước <br /> <a href="@Url.Action("DetailsEmployer","View", new { id = item.employer_id })">@(item.Employer.employer_company.Length < 25 ? item.Employer.employer_company : item.Employer.employer_company.Substring(0, 25) + "...")</a></span>
+                                                    <div class="card-media-body-top-icons u-float-right">
+                                                        <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M0 0h24v24H0z" fill="none" />
+                                                            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
+                                                        </svg>
+                                                        <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z" />
+                                                            <path d="M0 0h24v24H0z" fill="none" />
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <span class="card-media-body-heading"><b>@(item.work_name.Length < 30 ? item.work_name : item.work_name.Substring(0, 30) + "...")</b></span>
+                                                <div class="card-media-body-supporting-bottom">
+                                                    <span class="card-media-body-supporting-bottom-text subtle"><i class="fa fa-map-marker-alt text-primary">&nbsp;</i>@item.Province.province_name</span>
+                                                    @if (user != null)
+                                                    {
+                                                        <span class="card-media-body-supporting-bottom-text subtle u-float-right" style="color: black"><i class="fas fa-donate text-primary">&nbsp;</i>@item.work_pricemin &ndash; @item.work_pricemax @item.work_symbol </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="card-media-body-supporting-bottom-text subtle u-float-right" style="color: black"><i class="fas fa-donate text-primary">&nbsp;</i>Đăng nhập</span>
+                                                    }
+                                                </div>
+                                                <div class="card-media-body-supporting-bottom card-media-body-supporting-bottom-reveal">
+                                                    <span class="card-media-body-supporting-bottom-text subtle">Cần @item.Form.form_name</span>
+                                                    <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" class="card-media-body-supporting-bottom-text card-media-link u-float-right text-danger">Xem việc</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <!-- Tabs with icons -->
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                            <button class="btn btn-primary w-100"><i class="far fa-clock text-white">&nbsp;</i>VIỆC LÀM BÁN THỜI GIAN</button>
+                            <div class="row mt-2">
+                                @foreach (var item in Model.Where(n => n.work_activate == true && n.work_option == true).OrderByDescending(n => n.work_datecreated).Take(10).ToList())
+                                {
+                                    <div class="col-md-12" style="font-size: 15px; padding: 1px; margin-top: -1%">
+                                        <div class="card-media">
+                                            <!-- media container -->
+                                            <div class="card-media-object-container">
+                                                <div class="card-media-object" style="background-image: url('../../Images/Employer/@item.Employer.employer_logo');"></div>
+                                                @if (item.Employer.employer_version == 3)
+                                                {
+                                                    <a class="card-media-object-tag subtle btn btn-danger">Cần gấp</a>
+                                                }
+                                                else if (item.Employer.employer_version == 2)
+                                                {
+                                                    <span class="card-media-object-tag subtle">Mới</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="card-media-object-tag subtle"></span>
+                                                }
+                                                @*<ul class="card-media-object-social-list">
+                                                        <li>
+                                                            <img src="https://s10.postimg.cc/3rjjbzcvd/profile_f.jpg" class="">
+                                                        </li>
+                                                        <li>
+                                                            <img src="https://s16.postimg.cc/b0j0djh79/profile_0_f.jpg" class="">
+                                                        </li>
+                                                        <li class="card-media-object-social-list-item-additional">
+                                                            <span>+2</span>
+                                                        </li>
+                                                    </ul>*@
+                                            </div>
+                                            <!-- body container -->
+                                            <div class="card-media-body">
+                                                <div class="card-media-body-top">
+                                                    <span class="subtle">12 phút trước <br /> <a href="@Url.Action("DetailsEmployer","View", new { id = item.employer_id })">@(item.Employer.employer_company.Length < 25 ? item.Employer.employer_company : item.Employer.employer_company.Substring(0, 25) + "...")</a></span>
+                                                    <div class="card-media-body-top-icons u-float-right">
+                                                        <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M0 0h24v24H0z" fill="none" />
+                                                            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
+                                                        </svg>
+                                                        <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z" />
+                                                            <path d="M0 0h24v24H0z" fill="none" />
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <span class="card-media-body-heading"><b>@(item.work_name.Length < 30 ? item.work_name : item.work_name.Substring(0, 30) + "...")</b></span>
+                                                <div class="card-media-body-supporting-bottom">
+                                                    <span class="card-media-body-supporting-bottom-text subtle"><i class="fa fa-map-marker-alt text-primary">&nbsp;</i>@item.Province.province_name</span>
+                                                    @if (user != null)
+                                                    {
+                                                        <span class="card-media-body-supporting-bottom-text subtle u-float-right" style="color: black"><i class="fas fa-donate text-primary">&nbsp;</i>@item.work_pricemin &ndash; @item.work_pricemax @item.work_symbol </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="card-media-body-supporting-bottom-text subtle u-float-right" style="color: black"><i class="fas fa-donate text-primary">&nbsp;</i>Đăng nhập</span>
+                                                    }
+                                                </div>
+                                                <div class="card-media-body-supporting-bottom card-media-body-supporting-bottom-reveal">
+                                                    <span class="card-media-body-supporting-bottom-text subtle">Cần @item.Form.form_name</span>
+                                                    <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" class="card-media-body-supporting-bottom-text card-media-link u-float-right text-danger">Xem việc</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <!-- Tabs with icons -->
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                            <button class="btn btn-primary w-100"><i class="fas fa-dollar-sign text-white">&nbsp;</i>VIỆC LÀM LƯƠNG CAO</button>
+                            <div class="row mt-2">
+                                @foreach (var item in Model.Where(n => n.work_activate == true && n.work_option == true).OrderByDescending(n => n.work_pricemax).Take(10).ToList())
+                                {
+                                    <div class="col-md-12" style="font-size: 15px; padding: 1px; margin-top: -1%">
+                                        <div class="card-media">
+                                            <!-- media container -->
+                                            <div class="card-media-object-container">
+                                                <div class="card-media-object" style="background-image: url('../../Images/Employer/@item.Employer.employer_logo');"></div>
+                                                @if (item.Employer.employer_version == 3)
+                                                {
+                                                    <a class="card-media-object-tag subtle btn btn-danger">Cần gấp</a>
+                                                }
+                                                else if (item.Employer.employer_version == 2)
+                                                {
+                                                    <span class="card-media-object-tag subtle">Mới</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="card-media-object-tag subtle"></span>
+                                                }
+                                                @*<ul class="card-media-object-social-list">
+                                                        <li>
+                                                            <img src="https://s10.postimg.cc/3rjjbzcvd/profile_f.jpg" class="">
+                                                        </li>
+                                                        <li>
+                                                            <img src="https://s16.postimg.cc/b0j0djh79/profile_0_f.jpg" class="">
+                                                        </li>
+                                                        <li class="card-media-object-social-list-item-additional">
+                                                            <span>+2</span>
+                                                        </li>
+                                                    </ul>*@
+                                            </div>
+                                            <!-- body container -->
+                                            <div class="card-media-body">
+                                                <div class="card-media-body-top">
+                                                    <span class="subtle">12 phút trước <br /> <a href="@Url.Action("DetailsEmployer","View", new { id = item.employer_id })">@(item.Employer.employer_company.Length < 25 ? item.Employer.employer_company : item.Employer.employer_company.Substring(0, 25) + "...")</a></span>
+                                                    <div class="card-media-body-top-icons u-float-right">
+                                                        <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M0 0h24v24H0z" fill="none" />
+                                                            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
+                                                        </svg>
+                                                        <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z" />
+                                                            <path d="M0 0h24v24H0z" fill="none" />
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <span class="card-media-body-heading"><b>@(item.work_name.Length < 30 ? item.work_name : item.work_name.Substring(0, 30) + "...")</b></span>
+                                                <div class="card-media-body-supporting-bottom">
+                                                    <span class="card-media-body-supporting-bottom-text subtle"><i class="fa fa-map-marker-alt text-primary">&nbsp;</i>@item.Province.province_name</span>
+                                                    @if (user != null)
+                                                    {
+                                                        <span class="card-media-body-supporting-bottom-text subtle u-float-right" style="color: black"><i class="fas fa-donate text-primary">&nbsp;</i>@item.work_pricemin &ndash; @item.work_pricemax @item.work_symbol </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="card-media-body-supporting-bottom-text subtle u-float-right" style="color: black"><i class="fas fa-donate text-primary">&nbsp;</i>Đăng nhập</span>
+                                                    }
+                                                </div>
+                                                <div class="card-media-body-supporting-bottom card-media-body-supporting-bottom-reveal">
+                                                    <span class="card-media-body-supporting-bottom-text subtle">Cần @item.Form.form_name</span>
+                                                    <a href="@Url.Action("DetailsView","View", new {id = item.work_id })" class="card-media-body-supporting-bottom-text card-media-link u-float-right text-danger">Xem việc</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 

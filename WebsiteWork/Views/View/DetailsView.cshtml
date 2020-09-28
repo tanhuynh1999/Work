@@ -844,10 +844,10 @@ else
                     </div>
                     <div class="modal-body">
                         <div class="text-danger">Bạn đã nộp hồ sơ thành công cho công ty @Model.Employer.employer_company!</div>
-                        @{ 
+                        @{
                             List<Submit> submits = db.Submits.Where(n => n.user_id == user.user_id && n.work_id == Model.work_id).ToList();
                         }
-                        @foreach(var item in submits)
+                        @foreach (var item in submits)
                         {
                             <ul>
                                 <li><b>Mẫu hồ sơ đã nộp:</b> #@id_num@item.cv_id <a href="#">Xem hồ sơ</a></li>

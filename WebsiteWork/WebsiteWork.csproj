@@ -2356,8 +2356,10 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\Advertise\fpt-telecom-tuyen-nhan-vien-kinh-doanh.jpg" />
-    <Content Include="Images\Advertise\topcv-google-for-startups.jpg" />
+    <Content Include="Images\AdEmployer\qc1.jpg" />
+    <Content Include="Images\AdEmployer\shinhan-bank-viet-nam-tuyen-chuyen-vien-tu-van-tin-dung.jpg" />
+    <Content Include="Images\Advertise\qc1.jpg" />
+    <Content Include="Images\Advertise\qc2.jpg" />
     <Content Include="Images\Cv\32644928_2062295167425734_7686714948314988544_o.jpg" />
     <Content Include="Images\Employer\20170701_7-câu-hỏi-nhà-tuyển-dụng-muốn-nghe-sau-phỏng-vấn.png" />
     <Content Include="Images\Employer\cong-ty-co-phan-vien-thong-fpt-5d5f5980e317c.jpg" />
