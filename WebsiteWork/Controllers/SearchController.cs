@@ -22,6 +22,16 @@ namespace WebsiteWork.Controllers
         {
             return PartialView();
         }
+        public PartialViewResult SearchCareer(int ? id)
+        {
+            System.Threading.Thread.Sleep(2000);
+            List<Work> works = db.Works.Where(n => n.work_activate == true && n.work_option == true && n.Employer.employer_activate == true && n.career_id == id).ToList();
+            return PartialView("_WorkAll",works);
+        }
+
+
+
+
         public PartialViewResult AllWork()
         {
             List<Work> works = db.Works.Where(n => n.work_activate == true && n.work_option == true).OrderByDescending(n => n.work_datecreated).ToList();

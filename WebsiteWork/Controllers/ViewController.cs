@@ -59,5 +59,11 @@ namespace WebsiteWork.Controllers
             List<Work> works = db.Works.Where(n => n.work_activate == true && n.work_option == true).OrderByDescending(n => n.work_datecreated).ToList();
             return View(works);
         }
+        
+        //tEST UI
+        public PartialViewResult UI()
+        {
+            return PartialView();
+        }
     }
 }
