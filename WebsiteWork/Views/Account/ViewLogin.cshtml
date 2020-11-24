@@ -4,6 +4,10 @@
     ViewBag.Title = "ViewLogin";
     Layout = "~/Views/Shared/_Layout.cshtml";
     User user = (User)Session["user"];
+    DataWorkEntities db = new DataWorkEntities();
+}
+@{ 
+    List<Career> careers = db.Careers.OrderBy(n => n.career_name).ToList();
 }
 @Html.Action("Menu", "Home")
 <div class="w3l-index-block1">

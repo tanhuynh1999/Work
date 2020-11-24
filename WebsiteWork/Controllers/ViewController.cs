@@ -14,12 +14,20 @@ namespace WebsiteWork.Controllers
         //Xem chi tiết bài tuyển
         public ActionResult DetailsView(int ? id)
         {
+            User user = (User)Session["user"];
             Work work = db.Works.SingleOrDefault(n => n.work_id == id);
             if(work == null)
             {
                 Response.StatusCode = 404;
                 return null;
             }
+            //dem
+            if(user != null)
+            {
+                List<Favourite> favourite = db.Favourites.Where(n => n.work_id == id && n.user_id == user.user_id).ToList();
+                ViewBag.Dem = favourite.Count;
+            }
+
             return View(work);
         }
         //Xem chi tiết trang nhà tuyển dụng
@@ -61,9 +69,21 @@ namespace WebsiteWork.Controllers
         }
         
         //tEST UI
-        public PartialViewResult UI()
+        public ActionResult UI()
         {
-            return PartialView();
+            return View(db.Works.ToList());
+        }
+
+        public PartialViewResult SearchCar(int ? id)
+        {
+            System.Threading.Thread.Sleep(2000);
+            List<Work> works = db.Works.Where(n => n.career_id == id).ToList();
+            return PartialView("_WorkTest",works);
+        }
+
+        public ActionResult Huy()
+        {
+            return View();
         }
     }
 }

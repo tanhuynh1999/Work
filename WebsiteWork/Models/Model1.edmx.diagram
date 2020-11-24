@@ -27,6 +27,13 @@
         <AssociationConnector Association="DataWorkModel.FK_Submit_Work" ManuallyRouted="false" />
         <AssociationConnector Association="DataWorkModel.FK_Cv_Career" />
         <AssociationConnector Association="DataWorkModel.FK_User_Career" />
+        <EntityTypeShape EntityType="DataWorkModel.Body" Width="1.5" PointX="10.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DataWorkModel.Favourite" Width="1.5" PointX="7.5" PointY="11.5" />
+        <EntityTypeShape EntityType="DataWorkModel.Like" Width="1.5" PointX="10.5" PointY="10.5" />
+        <AssociationConnector Association="DataWorkModel.FK_Favourite_User" />
+        <AssociationConnector Association="DataWorkModel.FK_Favourite_Work" />
+        <AssociationConnector Association="DataWorkModel.FK_Like_User" />
+        <AssociationConnector Association="DataWorkModel.FK_Like_Work" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

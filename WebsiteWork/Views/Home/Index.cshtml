@@ -3,6 +3,10 @@
 @{
     ViewBag.Title = "Home Page";
     User user = (User)Session["user"];
+    DataWorkEntities db = new DataWorkEntities();
+}
+@{ 
+
 }
 @Html.Action("Menu", "Home")
 <style>
@@ -57,7 +61,9 @@
             </div>
             <div class="row align-items-center">
                 <div class="col-md-6 content-left">
-                    <b class="text-black" style="font-size: 45px; font-weight: 500; color: #363636">Tìm kiếm việc làm nhanh nhất với AllWork1s</b>
+                    <b class="text-black" style="font-size: 45px; font-weight: 500; color: #363636">
+                        <input type="text" value="Tìm kiếm việc làm nhanh nhất với AllWork1s" style="border: none" class="w-100" name="body_title"/>
+                    </b>
                     <p class="mt-3 mb-md-5 mb-4 text-black" style="vertical-align: inherit; font-size: 20px; color: #363636">
                         Hệ thống tìm kiếm việc làm nhanh chóng, dễ sử dụng với bất kỳ nghành nghề nào
                         <ul style="margin-top: -30px">

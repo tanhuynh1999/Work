@@ -18,6 +18,8 @@ namespace WebsiteWork.Models
         public Work()
         {
             this.Submits = new HashSet<Submit>();
+            this.Favourites = new HashSet<Favourite>();
+            this.Likes = new HashSet<Like>();
         }
     
         public int work_id { get; set; }
@@ -56,6 +58,7 @@ namespace WebsiteWork.Models
         public Nullable<int> province_id { get; set; }
         public Nullable<int> form_id { get; set; }
         public Nullable<int> career_id { get; set; }
+        public Nullable<bool> work_del { get; set; }
     
         public virtual Career Career { get; set; }
         public virtual Employer Employer { get; set; }
@@ -63,5 +66,9 @@ namespace WebsiteWork.Models
         public virtual Province Province { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Submit> Submits { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Favourite> Favourites { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Like> Likes { get; set; }
     }
 }

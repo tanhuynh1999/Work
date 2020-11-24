@@ -60,6 +60,11 @@ namespace WebsiteWork.Models
         public Nullable<bool> cv_option { get; set; }
         public Nullable<System.DateTime> cv_datecreated { get; set; }
         public Nullable<int> career_id { get; set; }
+        public string cv_schoolname { get; set; }
+        public string cv_companyname { get; set; }
+        public string cv_companynametwo { get; set; }
+        public string cv_images { get; set; }
+        public Nullable<int> cv_theme { get; set; }
     
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

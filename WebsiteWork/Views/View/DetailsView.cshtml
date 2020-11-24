@@ -4,12 +4,14 @@
     ViewBag.Title = "DetailsView";
     Layout = "~/Views/Shared/_Layout.cshtml";
     User user = (User)Session["user"];
+    DataWorkEntities db = new DataWorkEntities();
 }
 
 @{
-    DataWorkEntities db = new DataWorkEntities();
     List<Work> works = db.Works.Where(n => n.employer_id == Model.employer_id && n.work_id != Model.work_id && n.work_activate == true).OrderByDescending(n => n.work_datecreated).Take(20).ToList();
     List<Work> worksinvolve = db.Works.Where(n => n.career_id == Model.career_id && n.work_activate == true && n.employer_id != Model.employer_id).OrderByDescending(n => n.work_datecreated).Take(7).ToList();
+
+
 }
 @Html.Action("Menu", "Home")
 <section class="section">
@@ -94,7 +96,14 @@
                                                 {
                                                     <button type="button" class="btn btn-primary w-100 mt-1" data-toggle="modal" data-target="#login"><i class="far fa-address-card">&nbsp;</i>Nộp hồ sơ</button>
                                                 }
-                                                <button type="button" class="btn btn-danger w-100 mt-1"><i class="fa fa-heart">&nbsp;</i>Yêu thích</button>
+                                                @if (ViewBag.Dem == 0)
+                                                {
+                                                    <button onclick="window.location.href=''" type="button" class="btn btn-danger w-100 mt-1"><i class="fa fa-heart">&nbsp;</i>Yêu thích</button>
+                                                }
+                                                else
+                                                {
+                                                    <button onclick="window.location.href=''" type="button" class="btn btn-danger w-100 mt-1"><i class="fa fa-heart">&nbsp;</i>Hủy thích</button>
+                                                }
                                                 <hr />
                                                 <button type="button" class="btn btn-dark w-100 mt-1"><i class="fa fa-mail-forward">&nbsp;</i>Liên hệ</button>
                                             </div>

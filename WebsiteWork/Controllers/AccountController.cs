@@ -200,5 +200,9 @@ namespace WebsiteWork.Controllers
                 return Redirect(homeemployer);
             }
         }
+        public PartialViewResult Test()
+        {
+            return PartialView();
+        }
     }
 }

@@ -36,5 +36,22 @@ namespace WebsiteWork.Controllers
             Session["user"] = us;
             return Redirect(Request.UrlReferrer.ToString());
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult yeuthich([Bind(Include = "favourite_id,favourite_datecreate,work_id,user_id,favourite_delete")] Favourite favourite)
+        {
+            db.Favourites.Add(favourite);
+            db.SaveChanges();
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        public ActionResult Huy(int ?id)
+        {
+            Favourite favourite = db.Favourites.Find(id);
+            favourite.favourite_delete = true;
+            db.SaveChanges();
+            return RedirectToAction("Index","Users");
+        }
     }
 }

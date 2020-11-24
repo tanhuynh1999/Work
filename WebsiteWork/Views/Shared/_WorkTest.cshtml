@@ -1,0 +1,52 @@
+﻿@using WebsiteWork.Models;
+@model List<Work>
+
+<div id="divLoading" style="display: none">
+    @for (var i = 0; i < 10; i++)
+    {
+        <div class="card mb-3">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <div class="ui three">
+                        <div class="ui">
+                            <div class="content">
+                                <div class="ui placeholder" style="height: 100px; width: 100%">
+                                    <div class="square image"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <div class="ui placeholder">
+                            <div class="full line"></div>
+                            <div class="very long line"></div>
+                            <div class="long line"></div>
+                            <div class="medium line"></div>
+                            <div class="short line"></div>
+                            <div class="very short line"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@foreach (var item in Model)
+{
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="~/Images/Employer/20170701_7-câu-hỏi-nhà-tuyển-dụng-muốn-nghe-sau-phỏng-vấn.png" class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Career.career_name</h5>
+                    <p class="card-text">@item.work_name</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
